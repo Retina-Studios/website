@@ -1,0 +1,3 @@
+https://static.parastorage.com/services/wix-thunderbolt/dist/
+https://static.wixstatic.com/media
+https://static.wixstatic.com/media/

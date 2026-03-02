@@ -5,7 +5,12 @@
       <nav class="nav">
         <NuxtLink to="/">Home</NuxtLink>
         <NuxtLink to="/aboutus">About</NuxtLink>
+        <NuxtLink to="/work">Work</NuxtLink>
+        <NuxtLink to="/projects">Projects</NuxtLink>
+        <NuxtLink to="/παραγωγές-ταινιών">Productions</NuxtLink>
         <NuxtLink to="/services">Services</NuxtLink>
+        <NuxtLink to="/blog">Blog</NuxtLink>
+        <NuxtLink to="/contact">Contact</NuxtLink>
         <NuxtLink to="/post/white-night-2025">Blog Post</NuxtLink>
       </nav>
     </div>
