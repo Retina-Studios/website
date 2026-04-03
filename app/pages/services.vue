@@ -25,14 +25,14 @@ type SocialLink = {
 
 const navLinks: NavLink[] = [
   { label: 'Αρχική', to: '/' },
-  { label: 'Νέα', to: '/blog' },
+  { label: 'Νέα', to: '/news' },
   { label: 'Υπηρεσίες', to: '/services' },
   { label: 'Η δουλειά μας', to: '/work' },
   {
     label: 'Δημιουργικά project',
     to: '/projects',
     children: [
-      { label: 'Παραγωγές ταινιών', to: '/παραγωγές-ταινιών' },
+      { label: 'Παραγωγές ταινιών', to: '/film-productions' },
       { label: 'Φωτογραφίσεις "Vignettes"', to: '/projects/vignettes' },
       { label: 'Μουσικά Retina Sessions', to: '/retina-sessions' },
     ],
@@ -405,7 +405,7 @@ const isActive = (to: string) => route.path === to
   margin: 0;
   padding: 4px 0;
   position: absolute;
-  top: calc(100% + 4px);
+  top: 100%;
   left: 0;
   min-width: 200px;
   background: #fff;
@@ -437,7 +437,7 @@ const isActive = (to: string) => route.path === to
 
 .hero-section {
   background: #000;
-  padding: 40px 0 51px;
+  padding: 0;
 }
 
 .hero-inner {
@@ -446,13 +446,20 @@ const isActive = (to: string) => route.path === to
 
 .hero-stage {
   position: relative;
-  min-height: 389px;
+  width: min(980px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
 }
 
 .hero-media {
-  margin: 0;
+  grid-area: 1 / 1;
+  margin: 40px 0 10px;
   width: 618px;
   height: 342px;
+  justify-self: start;
+  align-self: start;
 }
 
 .hero-media img {
@@ -463,9 +470,9 @@ const isActive = (to: string) => route.path === to
 }
 
 .hero-copy {
-  position: absolute;
-  top: 120px;
-  left: 362px;
+  grid-area: 1 / 1;
+  position: relative;
+  margin: 120px 0 51px 362px;
   width: 618px;
   min-height: 389px;
   background: #fff;
@@ -691,11 +698,13 @@ const isActive = (to: string) => route.path === to
 
   .hero-stage {
     min-height: 0;
+    display: block;
   }
 
   .hero-media,
   .hero-copy {
     width: 100%;
+    margin: 0;
   }
 
   .hero-media {

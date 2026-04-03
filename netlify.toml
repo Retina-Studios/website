@@ -6,6 +6,16 @@
   NODE_VERSION = "22"
 
 [[redirects]]
+  from = "/blog"
+  to = "/news"
+  status = 301
+
+[[redirects]]
+  from = "/παραγωγές-ταινιών"
+  to = "/film-productions"
+  status = 301
+
+[[redirects]]
   from = "/*"
   to = "/200.html"
   status = 200
