@@ -2,12 +2,9 @@
 
 ## Run locally
 
-This repository uses a project-local Node runtime in `.tools/node-v24.14.0-darwin-arm64`.
-
 From repo root:
 
 ```bash
-export PATH="/Users/macbook/workspace/retinastudios/wix-website/.tools/node-v24.14.0-darwin-arm64/bin:$PATH"
 npm run dev
 ```
 
