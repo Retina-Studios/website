@@ -1254,6 +1254,11 @@ onBeforeUnmount(stopTestimonialAutoplay)
     margin: 120px auto 60px;
   }
 
+  .hero-section,
+  .hero-content {
+    min-height: 394px;
+  }
+
   .company-copy,
   .company-image {
     position: static;
@@ -1272,8 +1277,20 @@ onBeforeUnmount(stopTestimonialAutoplay)
   }
 
   .showreel-inner h2 {
-    margin: 60px 0 24px;
+    margin: 30px 0 24px;
+    font-size: 32px;
     text-align: left;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .showreel-inner {
+    min-height: 242px;
+    padding-top: 0;
+    padding-bottom: calc(24px + 5%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .showreel-video {
@@ -1282,17 +1299,30 @@ onBeforeUnmount(stopTestimonialAutoplay)
   }
 
   .studio-strip {
+    display: block;
     grid-template-columns: 1fr;
     margin: 40px auto 0;
     width: auto;
     padding: 0 1.5rem;
   }
 
+  .studio-image {
+    width: 100%;
+    max-width: 100%;
+    transform: none;
+  }
+
+  .studio-image img {
+    width: 100%;
+    height: auto;
+  }
+
   .studio-copy {
     position: static;
     width: 100%;
     margin: 24px 0 0;
-    padding: 40px 24px;
+    padding: 48px 32px;
+    box-sizing: border-box;
     box-shadow: none;
     transform: none;
   }
