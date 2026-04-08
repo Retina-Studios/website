@@ -55,9 +55,15 @@ useHead({
 
       <section class="contact-section">
         <div class="contact-stage">
-          <figure class="contact-media">
-            <img src="/images/contact/hero.jpg" alt="Retina Studios" />
-          </figure>
+          <div class="contact-media">
+            <iframe
+              title="Retina Studios map"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=%CE%93%CE%B5%CF%81%CE%BF%CE%BB%CF%8D%CE%BC%CF%80%CE%BF%CF%85%201%CE%94,%2066132,%20%CE%94%CF%81%CE%AC%CE%BC%CE%B1&output=embed"
+            ></iframe>
+          </div>
           <div class="contact-column">
             <p class="contact-address">Γερολύμπου 1Δ, 66132, Δράμα</p>
             <div class="contact-inline-meta">
@@ -82,16 +88,6 @@ useHead({
             </div>
           </div>
         </div>
-      </section>
-
-      <section class="map-section">
-        <iframe
-          title="Retina Studios map"
-          loading="lazy"
-          allowfullscreen
-          referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=%CE%93%CE%B5%CF%81%CE%BF%CE%BB%CF%8D%CE%BC%CF%80%CE%BF%CF%85%201%CE%94,%2066132,%20%CE%94%CF%81%CE%AC%CE%BC%CE%B1&output=embed"
-        ></iframe>
       </section>
     </main>
   </div>
@@ -295,10 +291,10 @@ useHead({
   height: 725px;
 }
 
-.contact-media img {
+.contact-media iframe {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  border: 0;
   display: block;
 }
 
@@ -371,18 +367,6 @@ useHead({
   text-align: right;
 }
 
-.map-section {
-  margin: 40px 0;
-  width: 100%;
-  height: 350px;
-}
-
-.map-section iframe {
-  display: block;
-  width: 100%;
-  height: 350px;
-  border: 0;
-}
 
 .site-footer-clone {
   background: #000;
