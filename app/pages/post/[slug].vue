@@ -158,57 +158,7 @@ const isActive = (to: string) => route.path === to
       </section>
     </main>
 
-    <footer class="site-footer-clone">
-      <div class="footer-inner">
-        <NuxtLink to="/" class="footer-logo" aria-label="Retina Studios">
-          <img
-            src="/images/branding/retina-logo-invert.png"
-            alt="Retina Brand logo invert"
-            width="134"
-            height="103"
-          />
-        </NuxtLink>
-
-        <div class="footer-columns">
-          <section>
-            <h3>Διεύθυνση</h3>
-            <p>Γερολυμπου 1Δ</p>
-            <p>66132, Δράμα</p>
-          </section>
-
-          <section>
-            <h3>Επικοινωνία</h3>
-            <p>2521032666</p>
-            <p>693 466 9832</p>
-            <p><a href="mailto:info@retinastudios.gr">info@retinastudios.gr</a></p>
-          </section>
-
-          <section>
-            <h3>Ώρες Λειτουργίας</h3>
-            <div class="hours-grid">
-              <span>Δευτέρα - Παρασκευή</span>
-              <span>9:00 π.μ. - 5:00 μ.μ.</span>
-              <span>Σάββατο</span>
-              <span>10:00 π.μ. - 2:00 μ.μ.</span>
-              <span>Κυριακή</span>
-              <span>Κλειστά</span>
-            </div>
-          </section>
-        </div>
-
-        <div class="footer-bottom">
-          <ul class="social-list" aria-label="Γραμμή κοινωνικών μέσων">
-            <li v-for="social in socialLinks" :key="social.label">
-              <a :href="social.href" target="_blank" rel="noreferrer noopener" :aria-label="social.label">
-                <img :src="social.icon" :alt="social.label" width="30" height="30" />
-              </a>
-            </li>
-          </ul>
-
-          <p>© 2025 Retina Studios</p>
-        </div>
-      </div>
-    </footer>
+    
   </div>
 </template>
 

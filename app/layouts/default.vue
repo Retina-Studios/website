@@ -2,6 +2,7 @@
   <div class="site-shell">
     <SiteHeaderClone />
     <NuxtPage />
+    <SiteFooterClone />
   </div>
 </template>
 
@@ -10,5 +11,6 @@
   min-height: 100vh;
   background: #fff;
   color: #000;
+  overflow-x: hidden;
 }
 </style>
