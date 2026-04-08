@@ -19,6 +19,5 @@ export const siteNavLinks: NavLink[] = [
     ],
   },
   { label: 'Το στούντιο', to: '/studior1' },
-  { label: 'Ποιοι είμαστε', to: '/aboutus' },
   { label: 'Επικοινωνία', to: '/contact' },
 ]
