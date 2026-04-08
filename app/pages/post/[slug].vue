@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { getBlogPostBySlug } from '~/data/blogPosts'
 
-definePageMeta({
-  layout: false,
-})
-
 type SocialLink = {
   label: string
   href: string
@@ -78,7 +74,6 @@ const isActive = (to: string) => route.path === to
 
 <template>
   <div class="wix-blog-post-page">
-    <SiteHeaderClone />
 
     <main class="post-main">
       <article v-if="post" class="post-shell">

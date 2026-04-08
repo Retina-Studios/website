@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: false,
-})
-
 type SocialLink = {
   label: string
   href: string
@@ -250,7 +246,6 @@ const isActive = (to: string) => route.path === to
 
 <template>
   <div class="wix-studior1-page">
-    <SiteHeaderClone />
 
     <main class="studio-main">
       <section class="hero-band" aria-label="Studio R1 Hero">

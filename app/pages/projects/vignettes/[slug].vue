@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { getSnapshot } from '~/utils/snapshotManifest'
 
-definePageMeta({
-  layout: false,
-})
-
 type SocialLink = {
   label: string
   href: string
@@ -383,7 +379,6 @@ useHead(() => ({
     class="wix-peaky-page"
     :class="{ 'is-sweet': isSweet }"
   >
-    <SiteHeaderClone />
 
     <main v-if="isPeaky" class="peaky-main">
       <section class="hero-section" aria-label="Peaky Blinders hero">

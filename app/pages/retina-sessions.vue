@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: false,
-})
-
 type SocialLink = {
   label: string
   href: string
@@ -54,7 +50,6 @@ useHead({
 
 <template>
   <div class="wix-retina-sessions-page">
-    <SiteHeaderClone />
 
     <main class="sessions-main">
       <section class="intro-section">

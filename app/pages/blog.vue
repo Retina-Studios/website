@@ -2,7 +2,6 @@
 import { blogPostCards } from '~/data/blogPosts'
 
 definePageMeta({
-  layout: false,
   path: '/news',
 })
 
@@ -45,7 +44,6 @@ const isActive = (to: string) => route.path === to
 
 <template>
   <div class="wix-blog-page">
-    <SiteHeaderClone />
 
     <main class="blog-main">
       <section class="blog-feed-section">

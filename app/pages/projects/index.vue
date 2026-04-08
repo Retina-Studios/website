@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: false,
-})
-
 type SocialLink = {
   label: string
   href: string
@@ -42,7 +38,6 @@ const isActive = (to: string) => route.path === to
 
 <template>
   <div class="wix-projects-page">
-    <SiteHeaderClone />
 
     <main class="projects-main">
       <section class="projects-strip-section">

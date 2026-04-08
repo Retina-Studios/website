@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: false,
-})
-
 type ServiceCard = {
   title: string
   description: string
@@ -110,7 +106,6 @@ const isActive = (to: string) => route.path === to
 
 <template>
   <div class="wix-services-page">
-    <SiteHeaderClone />
 
     <main class="services-main">
       <section class="hero-section">

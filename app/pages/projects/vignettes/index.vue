@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: false,
-})
-
 type SocialLink = {
   label: string
   href: string
@@ -94,7 +90,6 @@ const isActive = (to: string) => route.path === to
 
 <template>
   <div class="wix-vignettes-page">
-    <SiteHeaderClone />
 
     <main class="vignettes-main">
       <section class="intro-section">

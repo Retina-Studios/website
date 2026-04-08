@@ -1,6 +1,5 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: false,
   path: '/film-productions',
 })
 
@@ -111,7 +110,6 @@ const isActive = (to: string) => {
 
 <template>
   <div class="wix-productions-page">
-    <SiteHeaderClone />
 
     <main class="productions-main">
       <section class="hero-section" aria-labelledby="productions-hero-title">

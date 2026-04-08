@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { blogPostCards } from '~/data/blogPosts'
 
-definePageMeta({
-  layout: false,
-})
-
 type SocialLink = {
   label: string
   href: string
@@ -153,7 +149,6 @@ onBeforeUnmount(stopTestimonialAutoplay)
 
 <template>
   <div class="wix-home-page">
-    <SiteHeaderClone />
 
     <main class="home-main">
       <section class="hero-section">

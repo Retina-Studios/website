@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
-definePageMeta({
-  layout: false,
-})
-
 type SocialLink = {
   label: string
   href: string
@@ -136,7 +132,6 @@ const isActive = (to: string) => route.path === to
 
 <template>
   <div class="wix-work-page">
-    <SiteHeaderClone />
 
     <main class="work-main">
       <section class="showreel-section">
