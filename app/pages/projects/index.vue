@@ -33,67 +33,6 @@ useHead({
 })
 
 
-const isActive = (to: string) => route.path === to
-</script>
-
-<template>
-  <div class="wix-projects-page">
-
-    <main class="projects-main">
-      <section class="projects-strip-section">
-        <div class="projects-shell">
-          <div class="projects-grid">
-            <article class="project-column films-column">
-              <NuxtLink to="/film-productions" class="films-card" aria-label="Παραγωγές Ταινιών">
-                <h1>
-                  <span>ΠΑΡΑΓΩΓΕΣ</span>
-                  <span>ΤΑΙΝΙΩΝ</span>
-                </h1>
-              </NuxtLink>
-            </article>
-
-            <article class="project-column vignettes-column">
-              <NuxtLink to="/projects/vignettes" class="vignettes-card" aria-label="Φωτογραφίσεις Vignettes">
-                <img
-                  src="/images/projects/tile-vignettes-logo.png"
-                  alt="Aesthetic Vignettes"
-                  width="326"
-                  height="83"
-                  loading="eager"
-                  decoding="async"
-                />
-              </NuxtLink>
-            </article>
-
-            <article class="project-column sessions-column">
-              <NuxtLink to="/retina-sessions" class="sessions-card" aria-label="Μουσικά Retina Sessions">
-                <img
-                  src="/images/projects/tile-sessions-logo.png"
-                  alt="Retina Sessions"
-                  width="326"
-                  height="184"
-                  loading="eager"
-                  decoding="async"
-                />
-              </NuxtLink>
-            </article>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    
-  </div>
-</template>
-
-<style scoped>
-@font-face {
-  font-family: 'RetinaGeo';
-  src: url('/fonts/geologica-thin.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
 
 @font-face {
   font-family: 'RetinaProxima';

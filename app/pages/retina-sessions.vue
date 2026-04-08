@@ -29,19 +29,6 @@ const socialLinks: SocialLink[] = [
 ]
 
 
-const isProjectBranch = (path: string) =>
-  path === '/projects' ||
-  path === '/retina-sessions' ||
-  path === '/film-productions' ||
-  path.startsWith('/projects/vignettes')
-
-const isActive = (to: string) => {
-  if (to === '/projects') {
-    return isProjectBranch(route.path)
-  }
-
-  return route.path === to
-}
 
 useHead({
   title: 'Μουσικά Retina Sessions | Retina Studios',

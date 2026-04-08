@@ -39,64 +39,6 @@ useHead({
 })
 
 
-const isActive = (to: string) => route.path === to
-</script>
-
-<template>
-  <div class="wix-blog-page">
-
-    <main class="blog-main">
-      <section class="blog-feed-section">
-        <div class="blog-shell">
-          <div class="blog-heading-wrap">
-            <h1>Όλα τα νέα</h1>
-          </div>
-
-          <div class="blog-feed" role="region" aria-label="Ροή ιστολογίου">
-            <article v-for="post in blogPostCards" :key="post.to" class="blog-post-card">
-              <NuxtLink :to="post.to" class="post-image-link" :aria-label="post.title">
-                <img
-                  :src="post.image"
-                  :alt="post.alt"
-                  width="454"
-                  height="341"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </NuxtLink>
-
-              <div class="post-content">
-                <div class="post-copy">
-                  <NuxtLink :to="post.to" class="post-title-link">
-                    <h2>{{ post.title }}</h2>
-                  </NuxtLink>
-                  <p>{{ post.excerpt }}</p>
-                </div>
-
-                <div class="post-meta">
-                  <span>{{ post.dateLabel }}</span>
-                  <span class="post-meta-dot" aria-hidden="true" />
-                  <span>{{ post.readTimeLabel }}</span>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    
-  </div>
-</template>
-
-<style scoped>
-@font-face {
-  font-family: 'RetinaGeo';
-  src: url('/fonts/geologica-thin.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
 
 @font-face {
   font-family: 'RetinaProxima';

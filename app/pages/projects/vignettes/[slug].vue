@@ -7,6 +7,8 @@ type SocialLink = {
   icon: string
 }
 
+const route = useRoute()
+
 type TeamMember = {
   role: string
   name: string

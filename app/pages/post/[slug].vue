@@ -7,6 +7,8 @@ type SocialLink = {
   icon: string
 }
 
+const route = useRoute()
+
 const socialLinks: SocialLink[] = [
   {
     label: 'Instagram',
@@ -69,107 +71,6 @@ useHead(() => ({
     : [],
 }))
 
-const isActive = (to: string) => route.path === to
-</script>
-
-<template>
-  <div class="wix-blog-post-page">
-
-    <main class="post-main">
-      <article v-if="post" class="post-shell">
-        <div class="post-title-block">
-          <NuxtLink to="/news" class="back-link">← Πίσω στα νέα</NuxtLink>
-
-          <h1>{{ post.title }}</h1>
-
-          <div class="post-meta">
-            <span>{{ post.dateLabel }}</span>
-            <span class="post-meta-dot" aria-hidden="true" />
-            <span>{{ post.readTimeLabel }}</span>
-          </div>
-        </div>
-
-        <figure class="hero-image">
-          <img
-            :src="post.heroImage"
-            :alt="post.title"
-            width="940"
-            height="529"
-            loading="eager"
-            decoding="async"
-          />
-        </figure>
-
-        <section class="post-content">
-          <template v-for="(block, blockIndex) in post.blocks" :key="`${block.type}-${blockIndex}`">
-            <p v-if="block.type === 'paragraph'" class="body-paragraph">
-              {{ block.text }}
-            </p>
-
-            <h2
-              v-else-if="block.type === 'heading'"
-              class="content-heading"
-              :class="{ small: block.level >= 4 }"
-            >
-              {{ block.text }}
-            </h2>
-
-            <ul v-else-if="block.type === 'list'" class="content-list">
-              <li v-for="(item, itemIndex) in block.items" :key="`${blockIndex}-${itemIndex}`">
-                {{ item }}
-              </li>
-            </ul>
-
-            <figure v-else-if="block.type === 'image'" class="inline-image">
-              <img
-                :src="block.src"
-                :alt="`${post.title} εικόνα ${blockIndex + 1}`"
-                width="940"
-                height="529"
-                loading="lazy"
-                decoding="async"
-              />
-            </figure>
-
-            <div v-else-if="block.type === 'gallery'" class="post-gallery">
-              <figure
-                v-for="(source, imageIndex) in block.sources"
-                :key="`${blockIndex}-gallery-${imageIndex}`"
-                class="gallery-item"
-              >
-                <img
-                  :src="source"
-                  :alt="`${post.title} γκαλερί ${imageIndex + 1}`"
-                  width="305"
-                  height="229"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-            </div>
-          </template>
-        </section>
-      </article>
-
-      <section v-else class="missing-post">
-        <h1>Το άρθρο δεν βρέθηκε.</h1>
-        <p>Δεν βρέθηκε το άρθρο για το URL: <code>/post/{{ slug }}</code></p>
-        <NuxtLink to="/news">Επιστροφή στη σελίδα Νέα</NuxtLink>
-      </section>
-    </main>
-
-    
-  </div>
-</template>
-
-<style scoped>
-@font-face {
-  font-family: 'RetinaGeo';
-  src: url('/fonts/geologica-thin.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
 
 @font-face {
   font-family: 'RetinaProxima';

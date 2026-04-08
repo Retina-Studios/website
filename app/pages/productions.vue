@@ -95,17 +95,6 @@ useHead({
 })
 
 
-const isActive = (to: string) => {
-  if (route.path === to) {
-    return true
-  }
-
-  try {
-    return decodeURIComponent(route.path) === to
-  } catch {
-    return false
-  }
-}
 </script>
 
 <template>
