@@ -1,12 +1,4 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-
-type SocialLink = {
-  label: string
-  href: string
-  icon: string
-}
-
 type WorkVideo = {
   title: string
   duration: string
@@ -14,29 +6,6 @@ type WorkVideo = {
   alt: string
   href?: string
 }
-
-const socialLinks: SocialLink[] = [
-  {
-    label: 'Instagram',
-    href: 'https://www.instagram.com/retinastudios.gr/',
-    icon: '/images/social/instagram.png',
-  },
-  {
-    label: 'Facebook',
-    href: 'https://www.facebook.com/retinastudios.gr',
-    icon: '/images/social/facebook.png',
-  },
-  {
-    label: 'Youtube',
-    href: 'https://www.youtube.com/@retinastudiosgr',
-    icon: '/images/social/youtube.png',
-  },
-  {
-    label: 'TikTok',
-    href: 'https://www.tiktok.com/@retinastudiosgr',
-    icon: '/images/social/tiktok.png',
-  },
-]
 
 const featuredVideo = {
   title: 'Showreel Υπηρεσιών 2025',
@@ -125,9 +94,70 @@ useHead({
     },
   ],
 })
+</script>
 
+<template>
+  <div class="wix-work-page">
+    <main class="work-main">
+      <section class="hero-section">
+        <div class="hero-inner">
+          <div class="hero-media">
+            <img
+              :src="featuredVideo.poster"
+              :alt="featuredVideo.title"
+              width="980"
+              height="551"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
 
+          <div class="hero-copy">
+            <h1>Η δουλειά μας</h1>
+            <p>
+              Επιλεγμένα projects που αναδεικνύουν την κινηματογραφική μας αισθητική και την
+              αφήγηση που αγαπάμε.
+            </p>
 
+            <button class="hero-cta" type="button" @click="startFeaturedPlayback">
+              Προβολή Showreel
+            </button>
+          </div>
+
+          <div v-if="isFeaturedPlaying" class="hero-video">
+            <div class="video-shell">
+              <iframe
+                :src="featuredEmbedSrc"
+                frameborder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen
+                title="Showreel Υπηρεσιών 2025"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="work-grid-section">
+        <div class="work-grid">
+          <article v-for="video in workVideos" :key="video.title" class="work-card">
+            <a v-if="video.href" :href="video.href" target="_blank" rel="noreferrer" class="card-media">
+              <img :src="video.thumbnail" :alt="video.alt" width="300" height="180" loading="lazy" />
+              <span class="card-duration">{{ video.duration }}</span>
+            </a>
+            <div v-else class="card-media">
+              <img :src="video.thumbnail" :alt="video.alt" width="300" height="180" loading="lazy" />
+              <span class="card-duration">{{ video.duration }}</span>
+            </div>
+            <h3>{{ video.title }}</h3>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+</template>
+
+<style scoped>
 @font-face {
   font-family: 'RetinaProxima';
   src: url('/fonts/proxima-reg.woff2') format('woff2');
@@ -166,581 +196,125 @@ useHead({
   -moz-osx-font-smoothing: grayscale;
 }
 
-.site-header-clone {
-  background: #fff;
-}
-
-.header-container {
-  width: 980px;
-  max-width: calc(100% - 2rem);
-  margin: 0 auto;
-  min-height: 116px;
-  position: relative;
-  display: block;
-}
-
-.brand-link {
-  display: block;
-  width: 282px;
-  height: 31px;
-  position: absolute;
-  left: -141px;
-  top: 42px;
-}
-
-.brand-link img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.main-nav {
-  width: 882px;
-  height: 50px;
-  position: absolute;
-  left: 308px;
-  top: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.1rem;
-}
-
-.nav-group {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.nav-item {
-  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #000;
-  text-decoration: none;
-  padding: 5px 11px;
-  transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-.nav-item:hover,
-.nav-item.active {
-  background: rgb(249 211 66);
-  color: #fff;
-}
-
-.nav-caret {
-  font-size: 10px;
-  line-height: 1;
-  margin-left: -7px;
-  margin-right: 8px;
-  color: #000;
-}
-
-.sub-menu {
-  list-style: none;
-  margin: 0;
-  padding: 4px 0;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 200px;
-  background: #fff;
-  border: 1px solid #dbdbd1;
-  display: none;
-  z-index: 30;
-}
-
-.sub-menu li a {
-  display: block;
-  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
-  font-size: 13px;
-  line-height: 1.35;
-  color: #000;
-  text-decoration: none;
-  padding: 8px 12px;
-  white-space: nowrap;
-}
-
-.sub-menu li a:hover {
-  background: rgb(249 211 66);
-  color: #fff;
-}
-
-.has-children:hover .sub-menu,
-.has-children:focus-within .sub-menu {
-  display: block;
-}
-
 .work-main {
-  background: #fff;
-}
-
-.showreel-section {
-  background: #000;
-}
-
-.showreel-shell {
   width: 980px;
   max-width: calc(100% - 2rem);
-  min-height: 860px;
   margin: 0 auto;
-  padding: 91px 0 10px;
-  box-sizing: border-box;
+  padding-bottom: 60px;
 }
 
-.showreel-shell h1 {
-  width: 979px;
-  max-width: 100%;
-  margin: 0 0 41px;
-  text-align: center;
-  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
-  font-size: 46px;
-  font-weight: 400;
-  line-height: 1.1;
-  color: #fff;
+.hero-section {
+  padding: 60px 0 40px;
 }
 
-.featured-video {
-  width: 979px;
-  max-width: 100%;
-  height: 551px;
-  margin: 0 0 17px;
-  background: rgb(0 0 0 / 25%);
+.hero-inner {
+  display: grid;
+  gap: 24px;
 }
 
-.featured-poster {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
+.hero-media {
   position: relative;
+}
+
+.hero-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero-copy h1 {
+  margin: 0 0 12px;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
+  font-size: 42px;
+  font-weight: 400;
+}
+
+.hero-copy p {
+  margin: 0 0 18px;
+  font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.hero-cta {
+  border: 1px solid #000;
+  background: #000;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   cursor: pointer;
 }
 
-.featured-poster img,
-.featured-video iframe {
+.hero-video .video-shell {
+  position: relative;
+  padding-top: 56.25%;
+  background: #000;
+}
+
+.hero-video iframe {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  display: block;
-  border: 0;
-  object-fit: cover;
 }
 
-.featured-play-icon {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: rgb(0 0 0 / 55%);
-  color: #fff;
-  font-size: 35px;
-  line-height: 72px;
-  text-align: center;
+.work-grid-section {
+  margin-top: 32px;
 }
 
-.showreel-caption {
-  width: 310px;
-  margin: 0 0 10px auto;
-  text-align: right;
-  font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.45;
-  color: #fff;
-}
-
-.gallery-section {
-  background: #fff;
-}
-
-.gallery-shell {
-  width: 980px;
-  max-width: calc(100% - 40px);
-  margin: 0 auto;
-  padding: 40px 0 10px;
-  box-sizing: border-box;
-}
-
-.video-grid {
+.work-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
 }
 
 .work-card {
-  background: #474747;
+  display: grid;
+  gap: 10px;
 }
 
 .card-media {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1 / 1;
   position: relative;
-  overflow: hidden;
-  text-decoration: none;
-  background: #111;
+  display: block;
 }
 
 .card-media img {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
-  object-fit: cover;
 }
 
-.card-play {
+.card-duration {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: rgb(0 0 0 / 58%);
+  right: 10px;
+  bottom: 10px;
+  background: rgba(0, 0, 0, 0.7);
   color: #fff;
-  font-size: 24px;
-  line-height: 50px;
-  text-align: center;
+  padding: 2px 8px;
+  font-size: 12px;
+  border-radius: 999px;
 }
 
-.card-meta {
-  min-height: 118px;
-  padding: 16px 14px 20px;
-  box-sizing: border-box;
-  color: #fff;
-}
-
-.card-meta h2 {
-  margin: 0 0 8px;
+.work-card h3 {
+  margin: 0;
   font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 18px;
   font-weight: 400;
-  line-height: 1.35;
-}
-
-.card-meta p {
-  margin: 0;
-  font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.4;
-  color: rgb(255 255 255 / 80%);
-}
-
-.site-footer-clone {
-  background: #000;
-  color: #fff;
-}
-
-.footer-inner {
-  width: 980px;
-  max-width: calc(100% - 2rem);
-  margin: 0 auto;
-  padding: 62px 0 45px;
-}
-
-.footer-logo {
-  display: block;
-  width: 134px;
-  height: 103px;
-  margin: 0 auto 44px;
-}
-
-.footer-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.footer-columns {
-  display: grid;
-  grid-template-columns: 247px 257px 321px;
-  justify-content: space-between;
-  gap: 1.2rem;
-}
-
-.footer-columns h3 {
-  margin: 0 0 21px;
-  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
-  font-size: 26px;
-  line-height: 1;
-  font-weight: 400;
-}
-
-.footer-columns p,
-.footer-columns a,
-.hours-grid span {
-  font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.85;
-  color: #fff;
-  text-decoration: none;
-}
-
-.footer-columns p {
-  margin: 0;
-}
-
-.hours-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  column-gap: 12px;
-}
-
-.hours-grid span:nth-child(even) {
-  text-align: right;
-}
-
-.footer-bottom {
-  margin-top: 34px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-}
-
-.social-list {
-  grid-column: 2;
-  justify-self: center;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  margin: 0;
-  padding: 0;
-}
-
-.social-list a,
-.social-list img {
-  display: block;
-  width: 30px;
-  height: 30px;
-}
-
-.footer-bottom p {
-  grid-column: 3;
-  justify-self: end;
-  margin: 0;
-  font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 15px;
-  line-height: 1;
-  color: #fff;
 }
 
 @media (max-width: 1020px) {
-  .header-container {
+  .work-main {
     width: auto;
-    min-height: auto;
-    padding: 1.2rem 0 1rem;
-    position: static;
   }
 
-  .brand-link {
-    position: static;
-    margin-bottom: 0.8rem;
+  .hero-section {
+    padding: 40px 0 24px;
   }
 
-  .main-nav {
-    width: auto;
-    height: auto;
-    position: static;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .showreel-shell,
-  .gallery-shell,
-  .footer-inner {
-    width: auto;
-    max-width: calc(100% - 2rem);
-    margin: 0 auto;
-  }
-
-  .showreel-shell {
-    min-height: 0;
-    padding: 2rem 0 1.1rem;
-  }
-
-  .showreel-shell h1 {
-    width: 100%;
-    margin-bottom: 1.1rem;
-    font-size: clamp(2rem, 8vw, 46px);
-  }
-
-  .featured-video {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 979 / 551;
-    margin-bottom: 0.75rem;
-  }
-
-  .showreel-caption {
-    width: 100%;
-  }
-
-  .gallery-shell {
-    max-width: calc(100% - 2rem);
-    padding-top: 1.2rem;
-  }
-
-  .video-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .footer-columns {
-    grid-template-columns: 1fr;
-    gap: 1.4rem;
-  }
-
-  .footer-bottom {
-    grid-template-columns: 1fr;
-    justify-items: start;
-    gap: 1rem;
-  }
-
-  .social-list,
-  .footer-bottom p {
-    grid-column: 1;
-    justify-self: start;
-  }
-
-  .sub-menu {
-    position: static;
-    display: block;
-    border: 0;
-    padding: 0;
-    min-width: 0;
-    margin-top: 0.2rem;
-  }
-
-  .sub-menu li a {
-    padding: 5px 0 5px 10px;
-  }
-}
-.nav-toggle {
-  display: none;
-  width: 40px;
-  height: 36px;
-  border: 1px solid #000;
-  background: #fff;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 4px;
-  padding: 0;
-  cursor: pointer;
-}
-
-.nav-toggle-bar {
-  width: 20px;
-  height: 2px;
-  background: #000;
-  display: block;
-}
-
-.nav-close {
-  display: none;
-}
-@media (max-width: 1020px) {
-  .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    position: relative;
-  }
-
-  .brand-link {
-    margin-bottom: 0;
-  }
-
-  .nav-toggle {
-    display: inline-flex;
-    z-index: 60;
-  }
-
-  .main-nav {
-    display: none;
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    background: rgb(249 211 66);
-    padding: 6rem 2rem 2.5rem;
-    overflow-y: auto;
-    z-index: 80;
-  }
-
-  .main-nav.is-open {
-    display: flex;
-  }
-
-  .nav-close {
-    display: block;
-    position: absolute;
-    top: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: transparent;
-    border: 0;
+  .hero-copy h1 {
     font-size: 32px;
-    line-height: 1;
-    color: #000;
-    cursor: pointer;
-  }
-
-  .nav-group {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .nav-item {
-    width: auto;
-    padding: 6px 0;
-    font-size: 18px;
-    text-align: center;
-  }
-
-  .nav-item:hover,
-  .nav-item.active {
-    background: transparent;
-    color: #000;
-  }
-
-  .nav-caret {
-    margin-left: 8px;
-  }
-
-  .sub-menu {
-    position: static;
-    display: flex;
-    flex: 0 0 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    border: 0;
-    background: transparent;
-    padding: 0;
-  }
-
-  .sub-menu li a {
-    white-space: normal;
-    padding: 2px 0;
-    color: #000;
   }
 }
-
 </style>

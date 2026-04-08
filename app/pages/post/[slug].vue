@@ -70,8 +70,16 @@ useHead(() => ({
       ]
     : [],
 }))
+</script>
 
+<template>
+  <div class="wix-blog-post-page">
+    <main class="post-main">
+    </main>
+  </div>
+</template>
 
+<style scoped>
 @font-face {
   font-family: 'RetinaProxima';
   src: url('/fonts/proxima-reg.woff2') format('woff2');

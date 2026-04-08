@@ -31,9 +31,16 @@ const socialLinks: SocialLink[] = [
 useHead({
   title: 'Δημιουργικά project | Retina Studios',
 })
+</script>
 
+<template>
+  <div class="wix-projects-page">
+    <main class="projects-main">
+    </main>
+  </div>
+</template>
 
-
+<style scoped>
 @font-face {
   font-family: 'RetinaProxima';
   src: url('/fonts/proxima-reg.woff2') format('woff2');

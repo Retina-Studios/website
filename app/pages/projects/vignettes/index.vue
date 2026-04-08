@@ -83,9 +83,16 @@ const projects: VignetteProject[] = [
 useHead({
   title: 'Φωτογραφίσεις "Vignettes" | Retina Studios',
 })
+</script>
 
+<template>
+  <div class="wix-vignettes-page">
+    <main class="vignettes-main">
+    </main>
+  </div>
+</template>
 
-
+<style scoped>
 @font-face {
   font-family: 'RetinaProxima';
   src: url('/fonts/proxima-reg.woff2') format('woff2');

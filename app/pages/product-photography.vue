@@ -61,9 +61,16 @@ const portraitsWide: GalleryImage[] = [
 useHead({
   title: 'Φωτογράφιση Καταλόγου | Retina Studios',
 })
+</script>
 
+<template>
+  <div class="wix-product-photography-page">
+    <main class="product-main">
+    </main>
+  </div>
+</template>
 
-
+<style scoped>
 @font-face {
   font-family: 'RetinaProxima';
   src: url('/fonts/proxima-reg.woff2') format('woff2');
