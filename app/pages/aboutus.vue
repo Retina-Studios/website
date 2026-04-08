@@ -3,12 +3,6 @@ definePageMeta({
   layout: false,
 })
 
-type NavLink = {
-  label: string
-  to: string
-  children?: Array<{ label: string; to: string }>
-}
-
 type SocialLink = {
   label: string
   href: string
@@ -22,25 +16,6 @@ type TeamMember = {
   image: string
   alt: string
 }
-
-const navLinks: NavLink[] = [
-  { label: 'Αρχική', to: '/' },
-  { label: 'Νέα', to: '/news' },
-  { label: 'Υπηρεσίες', to: '/services' },
-  { label: 'Η δουλειά μας', to: '/work' },
-  {
-    label: 'Δημιουργικά project',
-    to: '/projects',
-    children: [
-      { label: 'Παραγωγές ταινιών', to: '/film-productions' },
-      { label: 'Φωτογραφίσεις "Vignettes"', to: '/projects/vignettes' },
-      { label: 'Μουσικά Retina Sessions', to: '/retina-sessions' },
-    ],
-  },
-  { label: 'Το στούντιο', to: '/studior1' },
-  { label: 'Ποιοι είμαστε', to: '/aboutus' },
-  { label: 'Επικοινωνία', to: '/contact' },
-]
 
 const introParagraphs = [
   'Κατευθείαν από τους πολυσύχναστους δρόμους της Νέας Υόρκης, η Retina Studios φέρνει τη δημιουργικότητα και την τεχνογνωσία της στην καρδιά της Δράμας. Με πολυετή εμπειρία στον χώρο της βιντεογραφίας και βαθιά κατανόηση των διεθνών τάσεων, προσφέρουμε υπηρεσίες που ξεχωρίζουν τόσο για την ποιότητα όσο και για την αισθητική τους. Είτε πρόκειται για επαγγελματικές ανάγκες είτε για προσωπικά πρότζεκτ, η ομάδα μας είναι αφοσιωμένη στην παράδοση εξατομικευμένων λύσεων, προσαρμοσμένων στις απαιτήσεις του κάθε πελάτη.',
@@ -105,45 +80,13 @@ useHead({
   ],
 })
 
-const route = useRoute()
 
 const isActive = (to: string) => route.path === to
 </script>
 
 <template>
   <div class="wix-about-page">
-    <header class="site-header-clone">
-      <div class="header-container">
-        <NuxtLink to="/" class="brand-link" aria-label="Retina Studios">
-          <img
-            src="/images/branding/retina-banner.png"
-            alt="RETINA STUDIOS banner"
-            width="282"
-            height="31"
-          />
-        </NuxtLink>
-
-        <nav class="main-nav" aria-label="Ιστότοπος">
-          <div
-            v-for="link in navLinks"
-            :key="link.to"
-            class="nav-group"
-            :class="{ 'has-children': !!link.children }"
-          >
-            <NuxtLink :to="link.to" :class="['nav-item', { active: isActive(link.to) }]">
-              {{ link.label }}
-            </NuxtLink>
-            <span v-if="link.children" class="nav-caret" aria-hidden="true">▾</span>
-
-            <ul v-if="link.children" class="sub-menu">
-              <li v-for="child in link.children" :key="child.to">
-                <NuxtLink :to="child.to">{{ child.label }}</NuxtLink>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </header>
+    <SiteHeaderClone />
 
     <main class="about-main">
       <section class="hero-section">
@@ -809,4 +752,127 @@ const isActive = (to: string) => route.path === to
     padding: 5px 0 5px 10px;
   }
 }
+.nav-toggle {
+  display: none;
+  width: 40px;
+  height: 36px;
+  border: 1px solid #000;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.nav-toggle-bar {
+  width: 20px;
+  height: 2px;
+  background: #000;
+  display: block;
+}
+
+.nav-close {
+  display: none;
+}
+@media (max-width: 1020px) {
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    position: relative;
+  }
+
+  .brand-link {
+    margin-bottom: 0;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    z-index: 60;
+  }
+
+  .main-nav {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    background: rgb(249 211 66);
+    padding: 6rem 2rem 2.5rem;
+    overflow-y: auto;
+    z-index: 80;
+  }
+
+  .main-nav.is-open {
+    display: flex;
+  }
+
+  .nav-close {
+    display: block;
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: transparent;
+    border: 0;
+    font-size: 32px;
+    line-height: 1;
+    color: #000;
+    cursor: pointer;
+  }
+
+  .nav-group {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .nav-item {
+    width: auto;
+    padding: 6px 0;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .nav-item:hover,
+  .nav-item.active {
+    background: transparent;
+    color: #000;
+  }
+
+  .nav-caret {
+    margin-left: 8px;
+  }
+
+  .sub-menu {
+    position: static;
+    display: flex;
+    flex: 0 0 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    border: 0;
+    background: transparent;
+    padding: 0;
+  }
+
+  .sub-menu li a {
+    white-space: normal;
+    padding: 2px 0;
+    color: #000;
+  }
+}
+
 </style>
