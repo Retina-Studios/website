@@ -43,6 +43,56 @@ useHead({
 <template>
   <div class="wix-contact-page">
     <main class="contact-main">
+      <section class="contact-intro">
+        <div class="intro-stage">
+          <h1>Επικοινωνήστε μαζί μας</h1>
+          <p>
+            Για οποιαδήποτε ερώτηση, σχόλιο ή πρόταση συνεργασίας, μην διστάσετε να επικοινωνήσετε μαζί
+            μας, και θα σας απαντήσουμε άμεσα!
+          </p>
+        </div>
+      </section>
+
+      <section class="contact-section">
+        <div class="contact-stage">
+          <figure class="contact-media">
+            <img src="/images/contact/hero.jpg" alt="Retina Studios" />
+          </figure>
+          <div class="contact-column">
+            <p class="contact-address">Γερολύμπου 1Δ, 66132, Δράμα</p>
+            <div class="contact-inline-meta">
+              <a href="mailto:info@retinastudios.gr">info@retinastudios.gr</a>
+              <span class="meta-divider"></span>
+              <a href="tel:+302521032666">25210 32666</a>
+            </div>
+            <div class="contact-hours">
+              <h2>Ωράριο</h2>
+              <div class="hours-grid">
+                <div class="hours-days">
+                  <p>Δευτέρα - Παρασκευή</p>
+                  <p>Σάββατο</p>
+                  <p>Κυριακή</p>
+                </div>
+                <div class="hours-times">
+                  <p>10:00 π.μ. – 2:00 μ.μ.</p>
+                  <p>10:00 π.μ. – 2:00 μ.μ.</p>
+                  <p>Κλειστά</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="map-section">
+        <iframe
+          title="Retina Studios map"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=%CE%93%CE%B5%CF%81%CE%BF%CE%BB%CF%8D%CE%BC%CF%80%CE%BF%CF%85%201%CE%94,%2066132,%20%CE%94%CF%81%CE%AC%CE%BC%CE%B1&output=embed"
+        ></iframe>
+      </section>
     </main>
   </div>
 </template>

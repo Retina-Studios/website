@@ -88,6 +88,42 @@ useHead({
 <template>
   <div class="wix-vignettes-page">
     <main class="vignettes-main">
+      <section class="intro-section">
+        <div class="intro-shell">
+          <img src="/images/projects/vignettes/logo.png" alt="Vignettes" />
+          <p>{{ introText }}</p>
+        </div>
+      </section>
+
+      <section class="projects-section">
+        <div class="projects-shell">
+          <article
+            v-for="project in projects"
+            :key="project.title"
+            :class="['vignette-row', project.imageSide === 'right' ? 'image-right' : 'image-left']"
+          >
+            <div class="image-column">
+              <img
+                :src="project.image"
+                :alt="project.imageAlt"
+                :style="{ objectPosition: project.imagePosition }"
+                loading="lazy"
+              />
+            </div>
+            <div class="content-column">
+              <div class="content-inner">
+                <h2 :style="{ marginTop: `${project.headingTop}px` }">{{ project.title }}</h2>
+                <NuxtLink class="project-button" :to="project.to">
+                  Δείτε το project
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M14 5l7 7-7 7-1.4-1.4L17.2 13H3v-2h14.2l-4.6-4.6L14 5z" />
+                  </svg>
+                </NuxtLink>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
     </main>
   </div>
 </template>

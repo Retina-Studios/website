@@ -104,6 +104,43 @@ useHead({
 <template>
   <div class="wix-services-page">
     <main class="services-main">
+      <section class="hero-section">
+        <div class="hero-inner services-body-shell">
+          <div class="hero-stage">
+            <div class="hero-media">
+              <img src="/images/services/hero.jpg" alt="Υπηρεσίες Retina Studios" />
+            </div>
+            <div class="hero-copy">
+              <h1>Υπηρεσίες</h1>
+              <p>
+                Στη Retina Studios δημιουργούμε οπτικοακουστικό περιεχόμενο με κινηματογραφική ποιότητα,
+                προσαρμοσμένο στις ανάγκες κάθε πελάτη. Από την ιδέα μέχρι το τελικό αποτέλεσμα,
+                προσφέρουμε ολοκληρωμένες παραγωγές που επικοινωνούν το μήνυμα με δημιουργικότητα και
+                ακρίβεια.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cards-section">
+        <div class="cards-inner services-body-shell">
+          <div class="cards-grid">
+            <article v-for="card in serviceCards" :key="card.title" class="service-card">
+              <h2>{{ card.title }}</h2>
+              <div class="card-divider"></div>
+              <component
+                :is="card.to ? NuxtLink : 'div'"
+                v-bind="card.to ? { to: card.to } : {}"
+                class="card-image-wrap"
+              >
+                <img :src="card.image" :alt="card.alt" loading="lazy" />
+              </component>
+              <p>{{ card.description }}</p>
+            </article>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 </template>

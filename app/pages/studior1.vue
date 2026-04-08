@@ -244,6 +244,95 @@ useHead({
 <template>
   <div class="wix-studior1-page">
     <main class="page-main">
+      <section class="hero-band">
+        <img src="/images/studior1/hero-bg.jpg" alt="Studio R1" />
+      </section>
+
+      <section class="intro-section">
+        <div class="intro-shell">
+          <img class="intro-logo" src="/images/studior1/intro-logo.png" alt="Studio R1" />
+          <h1>Φωτογράφησε το όραμά σου με επαγγελματισμό και ευκολία</h1>
+          <p v-for="paragraph in introParagraphs" :key="paragraph">
+            {{ paragraph }}
+          </p>
+        </div>
+      </section>
+
+      <section
+        v-for="section in studioSections"
+        :key="section.id"
+        :id="section.id"
+        :class="[
+          'studio-section',
+          `section-${section.id}`,
+          `theme-${section.theme}`,
+          section.imageSide === 'right' ? 'media-right' : 'media-left',
+        ]"
+      >
+        <div class="section-shell">
+          <div class="section-media">
+            <img :src="section.image" :alt="section.imageAlt" loading="lazy" />
+          </div>
+          <div class="section-copy">
+            <h2>{{ section.title }}</h2>
+            <p v-for="paragraph in section.paragraphs" :key="paragraph">
+              {{ paragraph }}
+            </p>
+            <ul v-if="section.bullets?.length" class="section-bullets">
+              <li v-for="bullet in section.bullets" :key="bullet">{{ bullet }}</li>
+            </ul>
+            <a
+              v-if="section.actionLabel && section.actionHref"
+              class="catalog-button"
+              :href="section.actionHref"
+            >
+              {{ section.actionLabel }}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="support-section">
+        <div class="support-shell">
+          <div class="support-image">
+            <img src="/images/studior1/support-photo.jpg" alt="Υποστήριξη Studio R1" loading="lazy" />
+          </div>
+          <div class="support-grid">
+            <article v-for="card in supportCards" :key="card.title" class="support-card">
+              <h3>{{ card.title }}</h3>
+              <p v-for="paragraph in card.paragraphs" :key="paragraph">
+                {{ paragraph }}
+              </p>
+              <ul v-if="card.bullets.length">
+                <li v-for="bullet in card.bullets" :key="bullet">{{ bullet }}</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="includes-section">
+        <div class="includes-shell">
+          <h2>Τι περιλαμβάνει;</h2>
+          <div class="includes-grid">
+            <article v-for="card in includeCards" :key="card.title" class="include-card">
+              <img :src="card.icon" :alt="card.iconAlt" loading="lazy" />
+              <h3>{{ card.title }}</h3>
+              <p>{{ card.description }}</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery-section">
+        <div class="gallery-shell">
+          <div class="gallery-grid">
+            <figure v-for="image in galleryImages" :key="image.src" class="gallery-item">
+              <img :src="image.src" :alt="image.alt" loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 </template>

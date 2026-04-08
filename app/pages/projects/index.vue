@@ -36,6 +36,30 @@ useHead({
 <template>
   <div class="wix-projects-page">
     <main class="projects-main">
+      <section class="projects-strip-section">
+        <div class="projects-shell">
+          <div class="projects-grid">
+            <div class="project-column films-column">
+              <NuxtLink class="films-card" to="/film-productions">
+                <h1>
+                  <span>ΠΑΡΑΓΩΓΕΣ</span>
+                  <span>ΤΑΙΝΙΩΝ</span>
+                </h1>
+              </NuxtLink>
+            </div>
+            <div class="project-column vignettes-column">
+              <NuxtLink class="vignettes-card" to="/projects/vignettes">
+                <img src="/images/projects/tile-vignettes-logo.png" alt="Vignettes" />
+              </NuxtLink>
+            </div>
+            <div class="project-column sessions-column">
+              <NuxtLink class="sessions-card" to="/retina-sessions">
+                <img src="/images/projects/tile-sessions-logo.png" alt="Retina Sessions" />
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 </template>
