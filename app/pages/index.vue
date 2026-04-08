@@ -308,11 +308,7 @@ onBeforeUnmount(stopTestimonialAutoplay)
               decoding="async"
             />
           </div>
-          <div class="studio-empty"></div>
-        </div>
 
-        <div class="studio-strip">
-          <div class="studio-empty"></div>
           <div class="studio-copy">
             <h2 id="studio-title">Το στούντιό μας</h2>
             <p>
@@ -782,12 +778,13 @@ onBeforeUnmount(stopTestimonialAutoplay)
   max-width: calc(100% - 2rem);
   margin: 0 auto;
   min-height: 806px;
+  padding-top: 86px;
 }
 
 .showreel-inner h2 {
   width: 907px;
   max-width: 100%;
-  margin: 86px 0 9px 73px;
+  margin: 0 0 9px 73px;
   font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', serif;
   font-size: 45px;
   font-style: italic;
@@ -820,23 +817,23 @@ onBeforeUnmount(stopTestimonialAutoplay)
 
 .studio-section {
   background: #fff;
+  padding-bottom: 4%;
 }
 
 .studio-strip {
-  width: 980px;
-  max-width: calc(100% - 2rem);
-  margin: 0 auto;
+  width: min(980px, calc(100% - 6vw));
+  margin: 70px auto 87px;
+  padding: 0;
   display: grid;
-  grid-template-columns: 619px 361px;
+  grid-template-columns: 1fr;
+  position: relative;
 }
 
-.studio-strip:first-of-type {
-  margin-top: 70px;
-}
-
-.studio-strip:last-of-type {
-  margin-top: 140px;
-  margin-bottom: 47px;
+.studio-image {
+  grid-area: 1 / 1;
+  width: min(819px, 100%);
+  aspect-ratio: 619 / 362;
+  transform: translateX(-10%);
 }
 
 .studio-image img {
@@ -847,13 +844,20 @@ onBeforeUnmount(stopTestimonialAutoplay)
 }
 
 .studio-copy {
-  padding-left: 20px;
+  grid-area: 1 / 1;
+  justify-self: end;
+  align-self: end;
+  width: min(520px, 46vw);
+  background: #fff;
+  padding: 60px 44px 42px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(calc(40px + 10%));
 }
 
 .studio-copy h2 {
-  margin: 80px 0 22px;
+  margin: 0 0 22px;
   font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', serif;
   font-size: 56px;
   font-style: italic;
@@ -898,17 +902,17 @@ onBeforeUnmount(stopTestimonialAutoplay)
   width: 980px;
   max-width: calc(100% - 2rem);
   margin: 0 auto;
-  padding-bottom: 70px;
+  padding: 72px 0 70px;
 }
 
 .clients-inner h2 {
-  margin: 72px 0 43px 299px;
+  margin: 0 auto 43px;
   font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', serif;
   font-size: 55px;
   line-height: 0.8;
   font-style: italic;
   font-weight: 400;
-  text-align: right;
+  text-align: center;
 }
 
 .clients-white {
@@ -1344,18 +1348,17 @@ onBeforeUnmount(stopTestimonialAutoplay)
   .studio-strip {
     grid-template-columns: 1fr;
     margin: 40px auto 0;
-  }
-
-  .studio-strip:last-of-type {
-    margin-bottom: 40px;
-  }
-
-  .studio-empty {
-    display: none;
+    width: auto;
+    padding: 0 1.5rem;
   }
 
   .studio-copy {
-    padding: 0;
+    position: static;
+    width: 100%;
+    margin: 24px 0 0;
+    padding: 40px 24px;
+    box-shadow: none;
+    transform: none;
   }
 
   .clients-inner h2 {
