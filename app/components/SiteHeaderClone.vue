@@ -59,9 +59,9 @@ watch(
           </NuxtLink>
           <span v-if="link.children" class="nav-caret" aria-hidden="true">▾</span>
 
-          <ul v-if="link.children" class="sub-menu">
+          <ul v-if="link.children" class="sub-menu desktop-only">
             <li v-for="child in link.children" :key="child.to">
-              <NuxtLink :to="child.to">{{ child.label }}</NuxtLink>
+              <NuxtLink :to="child.to" @click="isMenuOpen = false">{{ child.label }}</NuxtLink>
             </li>
           </ul>
         </div>
@@ -176,6 +176,16 @@ watch(
   display: block;
 }
 
+.desktop-only {
+  display: none;
+}
+
+@media (min-width: 1021px) {
+  .desktop-only {
+    display: block;
+  }
+}
+
 .nav-toggle {
   display: none;
   width: 40px;
@@ -233,11 +243,12 @@ watch(
     flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
-    gap: 18px;
+    gap: 0;
     background: rgb(249 211 66);
-    padding: 6rem 2rem 2.5rem;
+    padding: 0;
     overflow-y: auto;
     z-index: 80;
+    text-align: center;
   }
 
   .main-nav.is-open {
@@ -259,18 +270,19 @@ watch(
   }
 
   .nav-group {
-    width: 100%;
+    width: auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 0;
+    text-align: center;
   }
 
   .nav-item {
     width: auto;
-    padding: 6px 0;
+    padding: 0;
     font-size: 18px;
     text-align: center;
   }
@@ -291,16 +303,29 @@ watch(
     flex: 0 0 100%;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 0;
     border: 0;
     background: transparent;
     padding: 0;
+    width: 100%;
+  }
+
+  .sub-menu li {
+    width: 100%;
   }
 
   .sub-menu li a {
     white-space: normal;
-    padding: 2px 0;
+    padding: 0;
     color: #000;
+    text-align: center;
+  }
+}
+
+@media (max-width: 1020px) {
+  .nav-caret,
+  .sub-menu {
+    display: none !important;
   }
 }
 </style>
