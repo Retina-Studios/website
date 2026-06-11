@@ -278,12 +278,16 @@ useHead({
 .card-media {
   position: relative;
   display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
 }
 
 .card-media img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  object-fit: cover;
 }
 
 .card-duration {
