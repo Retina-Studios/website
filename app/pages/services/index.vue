@@ -115,6 +115,7 @@ useHead({
                   <img :src="card.image" :alt="card.alt" loading="lazy" decoding="async" />
                 </div>
                 <p>{{ card.description }}</p>
+                <span class="learn-more-link">Μάθετε περισσότερα</span>
               </NuxtLink>
 
               <article v-else class="service-card">
@@ -307,6 +308,16 @@ useHead({
   line-height: 1.8;
 }
 
+.learn-more-link {
+  display: inline-flex;
+  margin: -26px 0 28px 21px;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
+  font-size: 15px;
+  line-height: 1.3;
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
+
 @media (max-width: 1020px) {
   .hero-section {
     width: auto;
@@ -362,9 +373,15 @@ useHead({
   .service-card h2,
   .card-image-wrap,
   .service-card p,
-  .card-divider {
+  .card-divider,
+  .learn-more-link {
     width: 100%;
     margin-left: 0;
+  }
+
+  .learn-more-link {
+    margin-top: -26px;
+    margin-bottom: 1.2rem;
   }
 
   .card-image-wrap {
