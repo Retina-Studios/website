@@ -83,7 +83,7 @@ useHead({
             :src="galleryImages[0].src"
             :alt="galleryImages[0].alt"
             width="980"
-            height="301"
+            height="624"
             loading="eager"
             decoding="async"
           />
@@ -292,7 +292,7 @@ useHead({
 
 .hero-strip {
   width: 100%;
-  height: 301px;
+  height: 624px;
   display: block;
   margin: 30px 0 20px;
   object-fit: cover;
