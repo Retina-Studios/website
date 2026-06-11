@@ -1,0 +1,272 @@
+import equipmentCatalogCsv from './Retina Studios - Equipment.csv?raw'
+
+export type EquipmentCategoryKey =
+  | 'cameras'
+  | 'lenses'
+  | 'lighting'
+  | 'audio'
+  | 'video'
+  | 'filters'
+  | 'mediaPower'
+  | 'gripSupport'
+  | 'stylingSet'
+
+export type EquipmentCategoryMeta = {
+  label: string
+  description: string
+  accent: string
+  surface: string
+}
+
+export type EquipmentItem = {
+  name: string
+  slug: string
+  categoryKey: EquipmentCategoryKey
+  price1Day: number
+  price3Days: number
+  price7Days: number
+}
+
+const priceFormatter = new Intl.NumberFormat('el-GR', {
+  style: 'currency',
+  currency: 'EUR',
+  maximumFractionDigits: 0,
+})
+
+export const equipmentCategories: Record<EquipmentCategoryKey, EquipmentCategoryMeta> = {
+  cameras: {
+    label: 'Κάμερες',
+    description: 'Bodies για studio shoots, interviews, podcasts και παραγωγές πεδίου.',
+    accent: '#0f3d3e',
+    surface: '#d9f2f0',
+  },
+  lenses: {
+    label: 'Φακοί',
+    description: 'Zoom, prime και macro επιλογές για φωτογραφία, video και κινηματογραφική χρήση.',
+    accent: '#4d3522',
+    surface: '#f1dfd0',
+  },
+  lighting: {
+    label: 'Φωτισμός',
+    description: 'Continuous lights, flashes και modifiers για ελεγχόμενο φως σε κάθε setup.',
+    accent: '#7a4710',
+    surface: '#fbe3c5',
+  },
+  audio: {
+    label: 'Ήχος',
+    description: 'Μικρόφωνα και recorders για καθαρές συνεντεύξεις, podcasts και location sound.',
+    accent: '#1b2a5b',
+    surface: '#dbe2ff',
+  },
+  video: {
+    label: 'Video Assist',
+    description: 'Monitoring, wireless video, teleprompter και motion tools για πιο άνετο γύρισμα.',
+    accent: '#61214d',
+    surface: '#f4d7ea',
+  },
+  filters: {
+    label: 'Φίλτρα & Adapters',
+    description: 'ND, diffusion, polarizers και adapters για μεγαλύτερο έλεγχο στην εικόνα.',
+    accent: '#35512f',
+    surface: '#dcede0',
+  },
+  mediaPower: {
+    label: 'Media & Power',
+    description: 'Μπαταρίες, κάρτες και αποθηκευτικά μέσα για να μείνει το γύρισμα online.',
+    accent: '#303030',
+    surface: '#e6e6e6',
+  },
+  gripSupport: {
+    label: 'Grip & Support',
+    description: 'Stands, rigs, clamps και support gear για ασφαλές και λειτουργικό setup.',
+    accent: '#5a2d1b',
+    surface: '#f3d5c8',
+  },
+  stylingSet: {
+    label: 'Styling & Set',
+    description: 'Set support, styling εργαλεία και βοηθητικά αξεσουάρ για οργανωμένη παραγωγή.',
+    accent: '#5f5a18',
+    surface: '#f5efbf',
+  },
+}
+
+export const equipmentItemsPerPage = 12
+
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+function detectEquipmentCategory(name: string): EquipmentCategoryKey {
+  const normalized = name.toLowerCase().trim()
+
+  if (
+    normalized.includes('mic') ||
+    normalized.includes('shotgun') ||
+    normalized.includes('condenser') ||
+    normalized.includes('recorder') ||
+    normalized.includes('tascam') ||
+    normalized.includes('saramonic') ||
+    normalized.includes('rode') ||
+    normalized.includes('audio technica') ||
+    normalized.includes('boom pole') ||
+    normalized.includes('xlr wireless')
+  ) {
+    return 'audio'
+  }
+
+  if (
+    normalized.includes('godox') ||
+    normalized.includes('arrilight') ||
+    normalized.includes('lantern') ||
+    normalized.includes('strip light') ||
+    normalized.includes('octabox') ||
+    normalized.includes('rectangular box') ||
+    normalized.includes('black flag') ||
+    normalized.includes('reflector')
+  ) {
+    return 'lighting'
+  }
+
+  if (
+    normalized.includes('slider') ||
+    normalized.includes('teleprompter') ||
+    normalized.includes('mars 300') ||
+    normalized.includes('atomos') ||
+    normalized.includes('atem mini') ||
+    normalized.includes('hdmi to usb-c') ||
+    normalized.includes('ronin')
+  ) {
+    return 'video'
+  }
+
+  if (
+    normalized.includes('filter') ||
+    normalized.includes('polarizer') ||
+    normalized.includes('pro-mist') ||
+    normalized.includes('adapter') ||
+    normalized.includes('rings') ||
+    normalized.includes('tube apapter')
+  ) {
+    return 'filters'
+  }
+
+  if (
+    normalized.includes('battery') ||
+    normalized.includes('cfast') ||
+    normalized.includes('ssd') ||
+    normalized.includes('np-f') ||
+    normalized.includes('vmount')
+  ) {
+    return 'mediaPower'
+  }
+
+  if (
+    normalized.includes('stand') ||
+    normalized.includes('c stand') ||
+    normalized.includes('mattebox') ||
+    normalized.includes('follow focus') ||
+    normalized.includes('shoulder mount') ||
+    normalized.includes('base plate') ||
+    normalized.includes('cart') ||
+    normalized.includes('clamp')
+  ) {
+    return 'gripSupport'
+  }
+
+  if (
+    normalized.includes('garment rails') ||
+    normalized.includes('steamer') ||
+    normalized.includes('clapperboard') ||
+    normalized.includes('colorchecker') ||
+    normalized.includes('power cord reel') ||
+    normalized.includes('fog machine')
+  ) {
+    return 'stylingSet'
+  }
+
+  if (
+    normalized.includes('canon c300') ||
+    normalized.includes('canon r6') ||
+    normalized.includes('gopro') ||
+    normalized.includes('dji mini') ||
+    normalized.includes('hasselblad h3dii') ||
+    normalized.includes('mamiya rb67')
+  ) {
+    return 'cameras'
+  }
+
+  return 'lenses'
+}
+
+function parseEquipmentCatalog() {
+  return equipmentCatalogCsv
+    .trim()
+    .split(/\r?\n/)
+    .slice(1)
+    .map((line) => line.split(';').map((value) => value.trim()))
+    .filter((parts) => parts.length === 4 && parts[0])
+    .map(([name, oneDay, threeDays, sevenDays]) => ({
+      name,
+      slug: slugify(name),
+      categoryKey: detectEquipmentCategory(name),
+      price1Day: Number(oneDay),
+      price3Days: Number(threeDays),
+      price7Days: Number(sevenDays),
+    }))
+}
+
+export const equipmentItems: EquipmentItem[] = parseEquipmentCatalog()
+
+export const equipmentPageCount = Math.ceil(equipmentItems.length / equipmentItemsPerPage)
+
+export const equipmentCategoryCounts = Object.entries(
+  equipmentItems.reduce(
+    (counts, item) => {
+      counts[item.categoryKey] += 1
+      return counts
+    },
+    {
+      cameras: 0,
+      lenses: 0,
+      lighting: 0,
+      audio: 0,
+      video: 0,
+      filters: 0,
+      mediaPower: 0,
+      gripSupport: 0,
+      stylingSet: 0,
+    } as Record<EquipmentCategoryKey, number>,
+  ),
+).map(([categoryKey, count]) => ({
+  categoryKey: categoryKey as EquipmentCategoryKey,
+  count,
+  ...equipmentCategories[categoryKey as EquipmentCategoryKey],
+}))
+
+export function formatEquipmentPrice(price: number) {
+  return priceFormatter.format(price)
+}
+
+export function getEquipmentPagePath(page: number) {
+  return page <= 1 ? '/rentals' : `/rentals/page/${page}`
+}
+
+export function getEquipmentItemsForPage(page: number) {
+  const start = (page - 1) * equipmentItemsPerPage
+  return equipmentItems.slice(start, start + equipmentItemsPerPage)
+}
+
+export function getEquipmentItemBySlug(slug: string) {
+  return equipmentItems.find((item) => item.slug === slug) ?? null
+}
+
+export function getRelatedEquipmentItems(item: EquipmentItem, limit = 3) {
+  return equipmentItems
+    .filter((entry) => entry.categoryKey === item.categoryKey && entry.slug !== item.slug)
+    .slice(0, limit)
+}

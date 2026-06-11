@@ -109,7 +109,7 @@ const studioSections: StudioSection[] = [
       'Μπορείτε να βρείτε τον πλήρη κατάλογο του εξοπλισμού μας εδώ:',
     ],
     actionLabel: 'Κατάλογος',
-    actionHref: '/retina-studios-equipment-rental.pdf',
+    actionHref: '/rentals',
   },
   {
     id: 'decor',
