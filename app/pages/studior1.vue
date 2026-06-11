@@ -99,13 +99,13 @@ const studioSections: StudioSection[] = [
   },
   {
     id: 'equipment',
-    title: 'Εξοπλισμός',
+    title: 'Ενοικίαση Εξοπλισμού',
     image: '/images/studior1/equipment-photo.jpg',
     imageAlt: 'Εξοπλισμός Studio R1',
     imageSide: 'right',
     theme: 'dark',
     paragraphs: [
-      'Στο Studio R1 προσφέρουμε μια πλήρη γκάμα εξοπλισμού για κάθε είδους φωτογράφιση: κάμερες, φακούς, φώτα, φόντα, τρίποδες, υφάσματα και πολλά άλλα.',
+      'Στο Studio R1 προσφέρουμε μια πλήρη γκάμα εξοπλισμού για κάθε είδους παραγωγής: κάμερες, φακούς, φώτα, φόντα, τρίποδες, υφάσματα και πολλά άλλα.',
       'Μπορείτε να βρείτε τον πλήρη κατάλογο του εξοπλισμού μας εδώ:',
     ],
     actionLabel: 'Κατάλογος',
@@ -244,11 +244,11 @@ useHead({
 <template>
   <div class="wix-studior1-page">
     <main class="page-main">
-      <section class="hero-band">
+      <section id="hero" class="hero-band">
         <img src="/images/studior1/hero-bg.jpg" alt="Studio R1" />
       </section>
 
-      <section class="intro-section">
+      <section id="intro" class="intro-section">
         <div class="intro-shell">
           <img class="intro-logo" src="/images/studior1/intro-logo.png" alt="Studio R1" />
           <h1>Φωτογράφησε το όραμά σου με επαγγελματισμό και ευκολία</h1>
@@ -292,7 +292,7 @@ useHead({
         </div>
       </section>
 
-      <section class="support-section">
+      <section id="support" class="support-section">
         <div class="support-shell">
           <div class="support-image">
             <img src="/images/studior1/support-photo.jpg" alt="Υποστήριξη Studio R1" loading="lazy" />
@@ -311,7 +311,7 @@ useHead({
         </div>
       </section>
 
-      <section class="includes-section">
+      <section id="includes" class="includes-section">
         <div class="includes-shell">
           <h2>Τι περιλαμβάνει;</h2>
           <div class="includes-grid">
@@ -324,7 +324,7 @@ useHead({
         </div>
       </section>
 
-      <section class="gallery-section">
+      <section id="gallery" class="gallery-section">
         <div class="gallery-shell">
           <div class="gallery-grid">
             <figure v-for="image in galleryImages" :key="image.src" class="gallery-item">
@@ -537,6 +537,14 @@ useHead({
 
 .studio-section.theme-light {
   background: rgb(249 211 66);
+}
+
+.intro-section,
+.studio-section,
+.support-section,
+.includes-section,
+.gallery-section {
+  scroll-margin-top: 1.5rem;
 }
 
 .section-shell {
