@@ -54,6 +54,14 @@ const serviceCards: ServiceCard[] = [
     to: '/services/e-commerce',
   },
   {
+    title: 'Real Estate',
+    description:
+      'Φωτογραφίζουμε κατοικίες, βίλες και επαγγελματικούς χώρους με καθαρό φωτισμό, σωστή προοπτική και εικόνες έτοιμες για αγγελίες και καταχωρίσεις.',
+    image: '/images/real-estate/web/real-estate-4-card.jpg',
+    alt: 'Νυχτερινή real estate φωτογράφιση βίλας με πισίνα',
+    to: '/services/real-estate',
+  },
+  {
     title: 'Παραγωγή Ταινιών',
     description:
       'Δημιουργούμε καλλιτεχνικές και αφηγηματικές ταινίες μικρού μήκους που αιχμαλωτίζουν συναισθήματα και διηγούνται ιστορίες.',
@@ -104,7 +112,7 @@ useHead({
                 <h2>{{ card.title }}</h2>
                 <div class="card-divider"></div>
                 <div class="card-image-wrap">
-                  <img :src="card.image" :alt="card.alt" loading="lazy" />
+                  <img :src="card.image" :alt="card.alt" loading="lazy" decoding="async" />
                 </div>
                 <p>{{ card.description }}</p>
               </NuxtLink>
@@ -113,7 +121,7 @@ useHead({
                 <h2>{{ card.title }}</h2>
                 <div class="card-divider"></div>
                 <div class="card-image-wrap">
-                  <img :src="card.image" :alt="card.alt" loading="lazy" />
+                  <img :src="card.image" :alt="card.alt" loading="lazy" decoding="async" />
                 </div>
                 <p>{{ card.description }}</p>
               </article>
