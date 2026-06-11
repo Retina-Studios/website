@@ -3,8 +3,12 @@ import { siteNavLinks } from '~/data/siteNavLinks'
 
 const route = useRoute()
 const isMenuOpen = ref(false)
+const openSubmenu = ref<string | null>(null)
 
 const isActive = (to: string) => route.path === to
+const closeSubmenu = () => {
+  openSubmenu.value = null
+}
 
 watch(
   () => route.path,
@@ -52,16 +56,24 @@ watch(
           v-for="link in siteNavLinks"
           :key="link.to"
           class="nav-group"
-          :class="{ 'has-children': !!link.children }"
+          :class="{ 'has-children': !!link.children, 'is-open': openSubmenu === link.to }"
+          @mouseenter="link.children ? (openSubmenu = link.to) : null"
+          @mouseleave="link.children ? closeSubmenu() : null"
         >
           <NuxtLink :to="link.to" :class="['nav-item', { active: isActive(link.to) }]">
             {{ link.label }}
           </NuxtLink>
           <span v-if="link.children" class="nav-caret" aria-hidden="true">▾</span>
 
-          <ul v-if="link.children" class="sub-menu desktop-only">
+          <ul
+            v-if="link.children"
+            v-show="openSubmenu === link.to"
+            class="sub-menu"
+          >
             <li v-for="child in link.children" :key="child.to">
-              <NuxtLink :to="child.to" @click="isMenuOpen = false">{{ child.label }}</NuxtLink>
+              <NuxtLink :to="child.to" @click="isMenuOpen = false; closeSubmenu()">
+                {{ child.label }}
+              </NuxtLink>
             </li>
           </ul>
         </div>
@@ -171,20 +183,10 @@ watch(
   color: #fff;
 }
 
-.has-children:hover .sub-menu,
-.has-children:focus-within .sub-menu {
+.nav-group.is-open .sub-menu {
   display: block;
 }
 
-.desktop-only {
-  display: none;
-}
-
-@media (min-width: 1021px) {
-  .desktop-only {
-    display: block;
-  }
-}
 
 .nav-toggle {
   display: none;
