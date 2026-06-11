@@ -261,7 +261,6 @@ useHead({
       <section
         v-for="section in studioSections"
         :key="section.id"
-        :id="section.id"
         :class="[
           'studio-section',
           `section-${section.id}`,
@@ -273,7 +272,7 @@ useHead({
           <div class="section-media">
             <img :src="section.image" :alt="section.imageAlt" loading="lazy" />
           </div>
-          <div class="section-copy">
+          <div :id="section.id" class="section-copy">
             <h2>{{ section.title }}</h2>
             <p v-for="paragraph in section.paragraphs" :key="paragraph">
               {{ paragraph }}
@@ -578,6 +577,10 @@ useHead({
   font-size: clamp(2rem, 4vw, 40px);
   line-height: 1.2;
   font-weight: 700;
+}
+
+.section-copy {
+  scroll-margin-top: 1.5rem;
 }
 
 .section-copy p {
