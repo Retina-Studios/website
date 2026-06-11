@@ -50,6 +50,17 @@ useHead({
             Για οποιαδήποτε ερώτηση, σχόλιο ή πρόταση συνεργασίας, μην διστάσετε να επικοινωνήσετε μαζί
             μας, και θα σας απαντήσουμε άμεσα!
           </p>
+          <div class="contact-details">
+            <p class="contact-address">
+              Γερολύμπου 1Δ, 66132, Δράμα
+              <br />
+              <span class="contact-inline-meta">
+              <a href="mailto:info@retinastudios.gr">info@retinastudios.gr</a>
+              <span class="meta-divider"></span>
+              <a href="tel:+302521032666">25210 32666</a>
+              </span>
+            </p>
+          </div>
         </div>
       </section>
 
@@ -63,29 +74,6 @@ useHead({
               referrerpolicy="no-referrer-when-downgrade"
               src="https://www.google.com/maps?q=%CE%93%CE%B5%CF%81%CE%BF%CE%BB%CF%8D%CE%BC%CF%80%CE%BF%CF%85%201%CE%94,%2066132,%20%CE%94%CF%81%CE%AC%CE%BC%CE%B1&output=embed"
             ></iframe>
-          </div>
-          <div class="contact-column">
-            <p class="contact-address">Γερολύμπου 1Δ, 66132, Δράμα</p>
-            <div class="contact-inline-meta">
-              <a href="mailto:info@retinastudios.gr">info@retinastudios.gr</a>
-              <span class="meta-divider"></span>
-              <a href="tel:+302521032666">25210 32666</a>
-            </div>
-            <div class="contact-hours">
-              <h2>Ωράριο</h2>
-              <div class="hours-grid">
-                <div class="hours-days">
-                  <p>Δευτέρα - Παρασκευή</p>
-                  <p>Σάββατο</p>
-                  <p>Κυριακή</p>
-                </div>
-                <div class="hours-times">
-                  <p>10:00 π.μ. – 2:00 μ.μ.</p>
-                  <p>10:00 π.μ. – 2:00 μ.μ.</p>
-                  <p>Κλειστά</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -239,6 +227,7 @@ useHead({
 
 .contact-main {
   background: rgb(249 211 66);
+  padding-top: 2rem;
 }
 
 .contact-intro {
@@ -265,29 +254,37 @@ useHead({
 .intro-stage p {
   width: 644px;
   max-width: 100%;
-  margin: 0 auto 70px;
+  margin: 0 auto 2rem;
   text-align: center;
   font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
   font-size: 18px;
   line-height: 1.8;
 }
 
+.contact-details {
+  width: 644px;
+  max-width: 100%;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
 .contact-section {
   background: rgb(249 211 66);
+  padding-bottom: 2rem;
 }
 
 .contact-stage {
-  width: 980px;
-  max-width: calc(100% - 2rem);
-  margin: 0 auto 40px;
-  min-height: 725px;
-  display: grid;
-  grid-template-columns: 490px 490px;
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  min-height: 0;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .contact-media {
-  margin: 0;
-  width: 490px;
+  margin: 0 auto;
+  width: min(90vw, 1400px);
   height: 725px;
 }
 
@@ -298,25 +295,22 @@ useHead({
   display: block;
 }
 
-.contact-column {
-  width: 490px;
-  padding: 105px 0 10px 17px;
-  box-sizing: border-box;
-}
-
 .contact-address {
-  width: 468px;
-  margin: 0 0 10px;
+  width: auto;
+  max-width: 100%;
+  margin: 0;
   font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
-  line-height: 1.4;
+  line-height: 1.8;
+  text-align: center;
 }
 
 .contact-inline-meta {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 10px;
   margin: 0;
+  justify-content: center;
 }
 
 .contact-inline-meta a,
@@ -334,39 +328,6 @@ useHead({
   height: 15px;
   background: rgb(71 71 71);
 }
-
-.contact-hours {
-  width: 321px;
-  margin-top: 64px;
-}
-
-.contact-hours h2 {
-  margin: 0 0 10px;
-  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
-  font-size: 38px;
-  font-weight: 400;
-  line-height: 1.2;
-}
-
-.hours-grid {
-  width: 321px;
-  margin: 0;
-  display: grid;
-  grid-template-columns: 165px 147px;
-  column-gap: 9px;
-}
-
-.hours-grid p {
-  margin: 0;
-  font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.8;
-}
-
-.hours-times p {
-  text-align: right;
-}
-
 
 .site-footer-clone {
   background: #000;
@@ -489,51 +450,33 @@ useHead({
   }
 
   .intro-stage,
-  .contact-stage,
   .footer-inner {
     width: auto;
     max-width: calc(100% - 2rem);
   }
 
+  .contact-stage {
+    padding: 0;
+  }
+
   .intro-stage h1,
   .intro-stage p,
+  .contact-details,
   .contact-media,
-  .contact-column,
-  .contact-hours,
-  .contact-hours h2,
-  .hours-grid {
+  .contact-address {
     width: 100%;
     max-width: 100%;
     margin-left: 0;
   }
 
   .contact-stage {
-    grid-template-columns: 1fr;
-    min-height: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
   }
 
   .contact-media {
     height: auto;
+    width: 100%;
     aspect-ratio: 490 / 725;
-  }
-
-  .contact-column {
-    padding: 1.6rem 0 0;
-  }
-
-  .contact-hours {
-    margin-top: 2rem;
-  }
-
-  .hours-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
-  }
-
-  .hours-times p {
-    text-align: left;
   }
 
   .footer-columns {
