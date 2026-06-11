@@ -66,9 +66,9 @@ export const snapshotManifest: Record<string, SnapshotEntry> = {
     snapshotPath: '/wix-snapshots/blog.html',
     template: 'standard',
   },
-  '/product-photography': {
-    path: '/product-photography',
-    title: 'Φωτογράφιση Καταλόγου | Retina Studios',
+  '/services/e-commerce': {
+    path: '/services/e-commerce',
+    title: 'E-commerce | Retina Studios',
     snapshotPath: '/wix-snapshots/product-photography.html',
     template: 'standard',
   },

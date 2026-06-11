@@ -16,6 +16,11 @@
   status = 301
 
 [[redirects]]
+  from = "/product-photography"
+  to = "/services/e-commerce"
+  status = 301
+
+[[redirects]]
   from = "/*"
   to = "/200.html"
   status = 200
