@@ -111,7 +111,7 @@ useHead({
                 <span class="related-category">{{ category.label }}</span>
                 <h3>{{ relatedItem.name }}</h3>
                 <div class="related-price">
-                  <span>Από</span>
+                  <span>{{ relatedItem.price1Day === null ? 'Τιμή' : 'Από' }}</span>
                   <strong>{{ formatEquipmentPrice(relatedItem.price1Day) }}</strong>
                 </div>
               </NuxtLink>

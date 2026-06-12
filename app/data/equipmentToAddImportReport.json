@@ -1,0 +1,27 @@
+{
+  "source_count": 8,
+  "added_count": 6,
+  "merged_count": 0,
+  "failed_count": 2,
+  "added_items": [
+    "Apple Thunderbolt 3 (USB-C) to Thunderbolt 2 Adapter",
+    "MOUNTDOG Update 78inch/6.5 Ft/200CM Photography Tripod Light Stand for Photo Studio Ring Light Reflector Softbox LED Light Umbrella Background Video Lighting Studio Heavy Duty Aluminum Alloy",
+    "Neewer Medium Aluminium Alloy Conical Snoot Kit with Honeycomb Grid and 5 Pieces Color Gel Filters for Bowens Mount Studio Strobe Monolight Photography Flash Light",
+    "Neewer Standard Reflector 7 inches/18 Centimeters Soft Diffuser with 20/40/60 Degree Honeycomb Grid for Bowens Mount Studio Flash Strobe Light Monolight",
+    "Microphone Shock Mount with Pop Filter, Mic Anti-Vibration Suspension Shock Mount Holder Clip for Diameter 46mm-51mm Microphone",
+    "EMART 6 Pack Heavy Duty Spring Clamps, 4.5 inch Plastic Photo Booth Backdrop Clips Clamps for Backdrop Stand, Photography Studio, Photoshoot, Woodworking, Balloon Arch, Crafts, Pool Cover: Amazon.com"
+  ],
+  "merged_items": [],
+  "failed_items": [
+    {
+      "asin": "B0006H92QK",
+      "url": "https://www.amazon.com/dp/B0006H92QK",
+      "error": "Could not extract product data for B0006H92QK"
+    },
+    {
+      "asin": "B00004ZCI3",
+      "url": "https://www.amazon.com/dp/B00004ZCI3",
+      "error": "Could not extract product data for B00004ZCI3"
+    }
+  ]
+}
