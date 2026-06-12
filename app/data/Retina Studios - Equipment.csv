@@ -1,87 +1,62 @@
 Item;Category;Description;Image;1 Day;3 Days;7 Days
-Canon C300 MkII;cameras;Cinema camera body for interviews, branded content and multi-camera studio productions.;/images/rentals/canon-c300-mkii.webp;60;120;210
-Canon R6;cameras;Hybrid full-frame camera body for stills, video and fast-paced commercial shoots.;/images/rentals/canon-r6.webp;40;80;140
+Canon EOS C300 Mark II;cameras;Cinema camera body for interviews, branded content and multi-camera studio productions.;/images/rentals/canon-c300-mkii.jpg;60;120;210
+Canon R6;cameras;Hybrid full-frame camera body for stills, video and fast-paced commercial shoots.;/images/rentals/canon-r6.jpg;40;80;140
 Canon EF 16-35mm f/2.8L;lenses;Wide zoom lens for interiors, architecture and dynamic handheld coverage.;/images/rentals/canon-ef-16-35mm-f-2-8l.webp;20;40;70
 Canon EF 24-105mm f/4L;lenses;Versatile zoom lens for run-and-gun video, travel and mixed production days.;/images/rentals/canon-ef-24-105mm-f-4l.webp;20;40;70
-Canon EF 24-70mm f/2.8L;lenses;Standard professional zoom lens for interviews, events and all-around commercial use.;/images/rentals/canon-ef-24-70mm-f-2-8l.webp;20;40;70
-Canon EF 70-200mm f/2.8L;lenses;Telephoto zoom lens for portraits, compression and flexible event coverage.;/images/rentals/canon-ef-70-200mm-f-2-8l.webp;20;40;70
-Canon EF 80mm f/1.8;lenses;Portrait-friendly lens for flattering perspective and subject separation.;/images/rentals/canon-ef-80mm-f-1-8.webp;15;30;53
-Canon EF 60mm MACRO;lenses;Macro lens for tight product details, textures and close-focus commercial work.;/images/rentals/canon-ef-60mm-macro.webp;15;30;53
-Canon EF 50mm f/1.4;lenses;Standard prime lens for portraits, product shoots and natural perspective coverage.;/images/rentals/canon-ef-50mm-f-1-4.webp;15;30;53
+Canon EF 24-70mm f/2.8L;lenses;Standard professional zoom lens for interviews, events and all-around commercial use.;/images/rentals/canon-ef-24-70mm-f-2-8l.jpeg;20;40;70
+Canon EF 70-200mm f/2.8L;lenses;Telephoto zoom lens for portraits, compression and flexible event coverage.;/images/rentals/canon-ef-70-200mm-f-2-8l.jpg;20;40;70
+Canon EF 85mm f/1.8;lenses;Portrait-friendly lens for flattering perspective and subject separation.;/images/rentals/canon-ef-80mm-f-1-8.webp;15;30;53
+Canon EF-S 60mm MACRO;lenses;Macro lens for tight product details, textures and close-focus commercial work.;/images/rentals/canon-ef-60mm-macro.jpg;15;30;53
+Canon EF 50mm f/1.4;lenses;Standard prime lens for portraits, product shoots and natural perspective coverage.;/images/rentals/canon-ef-50mm-f-1-4.png;15;30;53
 Canon EF 35mm f/2.0;lenses;Classic storytelling focal length for documentary, interviews and everyday coverage.;/images/rentals/canon-ef-35mm-f-2-0.webp;15;30;53
-Canon RF 24mm f/2.0;lenses;Wide-angle lens for interiors, environmental portraits and cinematic framing.;/images/rentals/canon-rf-24mm-f-2-0.webp;15;30;53
-Rokinon FF 24mm;lenses;Wide-angle lens for interiors, environmental portraits and cinematic framing.;/images/rentals/rokinon-ff-24mm.webp;20;40;70
-Meike S35 35mm;lenses;Classic storytelling focal length for documentary, interviews and everyday coverage.;/images/rentals/meike-s35-35mm.webp;20;40;70
-Meike S35 50mm;lenses;Standard prime lens for portraits, product shoots and natural perspective coverage.;/images/rentals/meike-s35-50mm.webp;20;40;70
-Meike S35 75mm;lenses;Short telephoto cine lens for portraits, interviews and selective focus shots.;/images/rentals/meike-s35-75mm.webp;20;40;70
-GoPro Hero 8 + Accessories;cameras;Compact action camera kit for POV shots, behind-the-scenes coverage and tight mounting points.;/images/rentals/gopro-hero-8-plus-accessories.webp;20;40;70
-DJI Mini SE;cameras;Lightweight drone kit for aerial establishing shots and real estate overview footage.;/images/rentals/dji-mini-se.webp;20;40;70
-Hasselblad H3DII 45MP;cameras;Medium format digital camera body for premium commercial photography and detail-rich captures.;/images/rentals/hasselblad-h3dii-45mp.webp;45;90;158
-Hasselblad HC 35mm f/3.5;lenses;Wide medium format lens for interiors, landscapes and premium commercial compositions.;/images/rentals/hasselblad-hc-35mm-f-3-5.webp;25;50;88
-Hasselblad HC 80mm f/2.8;lenses;Standard medium format lens for portraits, editorial work and balanced everyday framing.;/images/rentals/hasselblad-hc-80mm-f-2-8.webp;25;50;88
-Hasselblad HC 150mm f/3.2;lenses;Telephoto medium format lens for portraits, compression and clean subject separation.;/images/rentals/hasselblad-hc-150mm-f-3-2.webp;25;50;88
+Canon RF 24mm f/1.8 Macro IS STM;lenses;Wide-angle lens for interiors, environmental portraits and cinematic framing.;/images/rentals/canon-rf-24mm-f-2-0.jpg;15;30;53
+Rokinon 24mm T1.5 Full Frame Cine DS;lenses;Wide-angle lens for interiors, environmental portraits and cinematic framing.;/images/rentals/rokinon-ff-24mm.webp;20;40;70
+MEIKE S35 Prime 35mm T2.1 Cinema Film Lens;lenses;Classic storytelling focal length for documentary, interviews and everyday coverage.;/images/rentals/meike-s35-35mm.webp;20;40;70
+MEIKE S35 Prime 50mm T2.1 Cinema Film Lens;lenses;Standard prime lens for portraits, product shoots and natural perspective coverage.;/images/rentals/meike-s35-50mm.webp;20;40;70
+MEIKE S35 Prime 75mm T2.1 Cinema Film Lens;lenses;Short telephoto cine lens for portraits, interviews and selective focus shots.;/images/rentals/meike-s35-75mm.webp;20;40;70
+GoPro Hero 9 Black;cameras;Compact action camera kit for POV shots, behind-the-scenes coverage and tight mounting points.;/images/rentals/gopro-hero-8-plus-accessories.jpeg;20;40;70
+DJI Mini SE;cameras;Lightweight drone kit for aerial establishing shots and real estate overview footage.;/images/rentals/dji-mini-se.avif;20;40;70
+Hasselblad H3DII-39;cameras;Medium format digital camera body for premium commercial photography and detail-rich captures.;/images/rentals/hasselblad-h3dii-45mp.jpg;45;90;158
+Hasselblad HC 3,5/35;lenses;Wide medium format lens for interiors, landscapes and premium commercial compositions.;/images/rentals/hasselblad-hc-35mm-f-3-5.jpg;25;50;88
+Hasselblad HC 2,8/80;lenses;Standard medium format lens for portraits, editorial work and balanced everyday framing.;/images/rentals/hasselblad-hc-80mm-f-2-8.jpg;25;50;88
+Hasselblad HC 3,2/150 N;lenses;Telephoto medium format lens for portraits, compression and clean subject separation.;/images/rentals/hasselblad-hc-150mm-f-3-2.jpg;25;50;88
 Mamiya RB67;cameras;Medium format film camera body for editorial, portrait and analogue-focused productions.;/images/rentals/mamiya-rb67.webp;30;60;105
 Mamiya 180mm f/4.5;lenses;Long medium format lens for portraits, compression and isolated compositions.;/images/rentals/mamiya-180mm-f-4-5.webp;25;50;88
 Mamiya 65mm;lenses;Medium format wide lens for interiors, portraits and environmental compositions.;/images/rentals/mamiya-65mm.webp;25;50;88
-DJI Ronin RS4 Mini ;video;Compact gimbal for stabilized movement in walkthroughs, reels and lightweight video rigs.;/images/rentals/dji-ronin-rs4-mini.webp;20;40;70
+DJI RS 3 Mini;video;Compact gimbal for stabilized movement in walkthroughs, reels and lightweight video rigs.;/images/rentals/dji-ronin-rs4-mini.jpg;20;40;70
 Atomos Ninja V Pro;video;External monitor-recorder for better monitoring and production-ready recording workflows.;/images/rentals/atomos-ninja-v-pro.webp;30;60;105
-SSD 256GB;mediaPower;External SSD media for recording, transfers and backup during production.;/images/rentals/ssd-256gb.webp;10;20;35
+SSD 256GB;mediaPower;External SSD media for recording, transfers and backup during production.;/images/rentals/ssd-256gb.jpg;10;20;35
 Hollyland MARS 300 Pro;video;Wireless video transmission system for director monitoring and untethered on-set viewing.;/images/rentals/hollyland-mars-300-pro.webp;20;40;70
-Vmount 150Wh battery;mediaPower;High-capacity V-mount power solution for cameras, lights and longer production days.;/images/rentals/vmount-150wh-battery.webp;40;80;140
-100x100 ND Filter Set;filters;Neutral density filter for exposure control in bright conditions and cinematic shutter settings.;/images/rentals/100x100-nd-filter-set.webp;20;40;70
+Hersmay Square ND Filter Set;filters;Neutral density filter for exposure control in bright conditions and cinematic shutter settings.;/images/rentals/100x100-nd-filter-set.jpg;20;40;70
 Glide Gear TMP 500 Teleprompter;video;Teleprompter for scripted talking-head videos, interviews and presenter-led content.;/images/rentals/glide-gear-tmp-500-teleprompter.webp;20;40;70
-77mm ND filter;filters;Neutral density filter for exposure control in bright conditions and cinematic shutter settings.;/images/rentals/77mm-nd-filter.webp;4;8;14
-77mm Circular Polarizer;filters;Polarizing filter for reducing glare and improving reflections, skies and glass surfaces.;/images/rentals/77mm-circular-polarizer.webp;4;8;14
-Step up/down rings;filters;Step ring set for matching filter sizes across multiple lenses.;/images/rentals/step-up-down-rings.webp;4;8;14
-Black Pro-Mist 1/8 (x2);filters;Diffusion filter for blooming highlights and a softer cinematic contrast.;/images/rentals/black-pro-mist-1-8-x2.webp;4;8;14
-EF-to-RF Adapter;filters;Mount adapter for using lenses or accessories across different camera systems.;/images/rentals/ef-to-rf-adapter.webp;4;8;14
-EF Tube apapter set;filters;Filter or adapter for greater optical and mounting flexibility on set.;/images/rentals/ef-tube-apapter-set.webp;4;8;14
-SmallRig Follow Focus;gripSupport;Manual follow focus for smoother and more precise focus pulls.;/images/rentals/smallrig-follow-focus.webp;5;10;18
-Mattebox;gripSupport;Matte box for lens shading and filter control in video production.;/images/rentals/mattebox.webp;5;10;18
-Shoulder mount rig;gripSupport;Shoulder rig for handheld comfort and improved camera stability.;/images/rentals/shoulder-mount-rig.webp;4;8;14
-Tilta base plate;gripSupport;Rig base plate for building camera support systems with rods and accessories.;/images/rentals/tilta-base-plate.webp;4;8;14
-Vmount power box;mediaPower;Power distribution accessory for feeding compatible gear from a V-mount battery setup.;/images/rentals/vmount-power-box.webp;4;8;14
-Cart;gripSupport;Production cart for moving gear efficiently across studio or location setups.;/images/rentals/cart.webp;5;10;18
-SanDisk 256GB Extreme PRO CFast 2.0;mediaPower;CFast recording media for compatible cinema cameras and high-bitrate capture.;/images/rentals/sandisk-256gb-extreme-pro-cfast-2-0.webp;10;20;35
-SanDisk 124GB Extreme PRO CFast 2.0;mediaPower;CFast recording media for compatible cinema cameras and high-bitrate capture.;/images/rentals/sandisk-124gb-extreme-pro-cfast-2-0.webp;10;20;35
+Breakthrough X4 6-Stop ND filter (77mm);filters;Neutral density filter for exposure control in bright conditions and cinematic shutter settings.;/images/rentals/77mm-nd-filter.webp;4;8;14
+Zacuto Studio Baseplate with 12" Rods;gripSupport;Rig base plate for building camera support systems with rods and accessories.;/images/rentals/tilta-base-plate.jpg;4;8;14
+SanDisk 256GB Extreme PRO CFast 2.0;mediaPower;CFast recording media for compatible cinema cameras and high-bitrate capture.;/images/rentals/sandisk-256gb-extreme-pro-cfast-2-0.jpg;10;20;35
+SanDisk 128GB Extreme PRO CFast 2.0;mediaPower;CFast recording media for compatible cinema cameras and high-bitrate capture.;/images/rentals/sandisk-124gb-extreme-pro-cfast-2-0.jpg;10;20;35
 NP-F750;mediaPower;Rechargeable NP-F battery for monitors, lights and compact production accessories.;/images/rentals/np-f750.webp;3;6;11
-NP-F970;mediaPower;Rechargeable NP-F battery for monitors, lights and compact production accessories.;/images/rentals/np-f970.webp;3;6;11
-Edelkrone Slider;video;Motorized or manual slider for smooth product moves and controlled cinematic motion.;/images/rentals/edelkrone-slider.webp;10;20;35
-Godox ML60;lighting;Continuous LED light for interviews, studio video and flexible stills lighting.;/images/rentals/godox-ml60.webp;10;20;35
-Godox SL60Bi;lighting;Continuous LED light for interviews, studio video and flexible stills lighting.;/images/rentals/godox-sl60bi.webp;10;20;35
-Godox Litemons 150;lighting;Continuous LED light for interviews, studio video and flexible stills lighting.;/images/rentals/godox-litemons-150.webp;10;20;35
-Godox VL150;lighting;Continuous LED light for interviews, studio video and flexible stills lighting.;/images/rentals/godox-vl150.webp;15;30;53
-Godox VL300;lighting;Continuous LED light for interviews, studio video and flexible stills lighting.;/images/rentals/godox-vl300.webp;20;40;70
-Arrilight 1000;lighting;Tungsten Fresnel fixture for harder directional light and classic cinematic shaping.;/images/rentals/arrilight-1000.webp;10;20;35
-Godox AD200 Pro;lighting;Portable flash head for location portraits, product lighting and compact setups.;/images/rentals/godox-ad200-pro.webp;10;20;35
-Godox TT600;lighting;Speedlight flash for lightweight stills setups and on-location work.;/images/rentals/godox-tt600.webp;3;6;11
-Godox TT350C;lighting;Speedlight flash for lightweight stills setups and on-location work.;/images/rentals/godox-tt350c.webp;4;8;14
-Godox X2T;lighting;Wireless trigger for controlling compatible Godox flashes on set.;/images/rentals/godox-x2t.webp;1;2;4
-Godox Lantern 65cm with Skirt set;lighting;Lantern softbox for soft omnidirectional light in interviews and room ambience.;/images/rentals/godox-lantern-65cm-with-skirt-set.webp;3;6;11
-Godox Strip light;lighting;Strip softbox for edge light, rim light and shaped highlights.;/images/rentals/godox-strip-light.webp;3;6;11
+NP-F970;mediaPower;Rechargeable NP-F battery for monitors, lights and compact production accessories.;/images/rentals/np-f970.jpg;3;6;11
+Cinevate Duzi 24” Camera Slider;video;Motorized or manual slider for smooth product moves and controlled cinematic motion.;/images/rentals/edelkrone-slider.jpg;10;20;35
+Godox ML60;lighting;Continuous LED light for interviews, studio video and flexible stills lighting.;/images/rentals/godox-ml60.jpg;10;20;35
+Godox SL60Bi;lighting;Continuous LED light for interviews, studio video and flexible stills lighting.;/images/rentals/godox-sl60bi.jpg;10;20;35
+Godox Litemons LA150D 5600K LED Light;lighting;Continuous LED light for interviews, studio video and flexible stills lighting.;/images/rentals/godox-litemons-150.webp;10;20;35
+Godox VL150  5600K LED Bowens Mount;lighting;Continuous LED light for interviews, studio video and flexible stills lighting.;/images/rentals/godox-vl150.jpeg;15;30;53
+Godox VL300  5600K LED Bowens Mount;lighting;Continuous LED light for interviews, studio video and flexible stills lighting.;/images/rentals/godox-vl300.webp;20;40;70
+ARRI Arrilite 1000 Watt Focus Flood Light;lighting;Tungsten Fresnel fixture for harder directional light and classic cinematic shaping.;/images/rentals/arrilight-1000.jpg;10;20;35
+Godox AD200 Pro;lighting;Portable flash head for location portraits, product lighting and compact setups.;/images/rentals/godox-ad200-pro.jpg;10;20;35
+Godox TT600 Manual Flash;lighting;Speedlight flash for lightweight stills setups and on-location work.;/images/rentals/godox-tt600.webp;3;6;11
+Godox TT350C TTL Flash for Canon;lighting;Speedlight flash for lightweight stills setups and on-location work.;/images/rentals/godox-tt350c.jpeg;4;8;14
+Godox X2T for Canon;lighting;Wireless trigger for controlling compatible Godox flashes on set.;/images/rentals/godox-x2t.webp;1;2;4
+Godox Lantern 65cm with Skirt set;lighting;Lantern softbox for soft omnidirectional light in interviews and room ambience.;/images/rentals/godox-lantern-65cm-with-skirt-set.jpg;3;6;11
 Godox Octabox;lighting;Octabox modifier for soft portrait light and even wrap on subjects.;/images/rentals/godox-octabox.webp;3;6;11
-Godox Rectangular Box;lighting;Rectangular softbox for broad key light across portrait and product setups.;/images/rentals/godox-rectangular-box.webp;3;6;11
-Black flag;lighting;Light-control flag for cutting spill and shaping contrast on set.;/images/rentals/black-flag.webp;3;6;11
-Reflector w/ grid set;lighting;Reflector kit for bounce, diffusion and negative fill control.;/images/rentals/reflector-w-grid-set.webp;3;6;11
-Simple light stand;gripSupport;Support stand for lights, modifiers or accessories in studio and location setups.;/images/rentals/simple-light-stand.webp;3;6;11
-Heavy duty light stand;gripSupport;Support stand for lights, modifiers or accessories in studio and location setups.;/images/rentals/heavy-duty-light-stand.webp;4;8;14
+Heavy duty air cushioned light stand;gripSupport;Support stand for lights, modifiers or accessories in studio and location setups.;/images/rentals/heavy-duty-light-stand.webp;4;8;14
 C Stand;gripSupport;Support stand for lights, modifiers or accessories in studio and location setups.;/images/rentals/c-stand.webp;6;12;21
-Fog machine;stylingSet;Atmospheric fog machine for texture, light beams and stylized scenes.;/images/rentals/fog-machine.webp;5;10;18
-Power cord reel;stylingSet;Extension reel for distributing power safely across larger set footprints.;/images/rentals/power-cord-reel.webp;3;6;11
-Blackmagic ATEM Mini;video;Live switching interface for streaming, multicam podcasts and live event workflows.;/images/rentals/blackmagic-atem-mini.webp;10;20;35
-HDMI to USB-C;video;Capture interface for turning HDMI output into a conferencing or streaming feed.;/images/rentals/hdmi-to-usb-c.webp;3;6;11
-Rolling Garment Rails;stylingSet;Rolling rail for wardrobe organization during fashion and e-commerce shoots.;/images/rentals/rolling-garment-rails.webp;3;6;11
-Dry Steamer;stylingSet;Garment steamer for preparing wardrobe quickly before camera-ready takes.;/images/rentals/dry-steamer.webp;4;8;14
-Clapperboard SLATE;stylingSet;Slate for scene marking and syncing multi-camera or sound workflows.;/images/rentals/clapperboard-slate.webp;1;2;4
-ColorChecker Card;stylingSet;Color reference card for accurate grading and white balance consistency.;/images/rentals/colorchecker-card.webp;1;2;4
+Power cord reel 15m;stylingSet;Extension reel for distributing power safely across larger set footprints.;/images/rentals/power-cord-reel.jpeg;3;6;11
+Blackmagic ATEM Mini;video;Live switching interface for streaming, multicam podcasts and live event workflows.;/images/rentals/blackmagic-atem-mini.jpg;10;20;35
+Dry Steamer;stylingSet;Garment steamer for preparing wardrobe quickly before camera-ready takes.;/images/rentals/dry-steamer.jpeg;4;8;14
 Spring Clamp 150mm;gripSupport;Grip clamp for fast mounting and securing accessories on set.;/images/rentals/spring-clamp-150mm.webp;1;2;4
-Boom pole holder;audio;Boom support accessory for positioning microphones overhead during dialogue capture.;/images/rentals/boom-pole-holder.webp;1;2;4
+Boom pole holder;audio;Boom support accessory for positioning microphones overhead during dialogue capture.;/images/rentals/boom-pole-holder.jpg;1;2;4
 Saramonic UWMIC9 UHF Lav Mic;audio;Lavalier microphone solution for interviews, podcasts and discreet dialogue capture.;/images/rentals/saramonic-uwmic9-uhf-lav-mic.webp;15;30;53
-Tascam DR-10L Lav Mic;audio;Lavalier microphone solution for interviews, podcasts and discreet dialogue capture.;/images/rentals/tascam-dr-10l-lav-mic.webp;10;20;35
-Hollyland Lark M2S Mini Lav;audio;Lavalier microphone solution for interviews, podcasts and discreet dialogue capture.;/images/rentals/hollyland-lark-m2s-mini-lav.webp;10;20;35
-Neewer Condenser Pencil Mics;audio;Condenser microphone pair for instruments, ambience and controlled studio recording.;/images/rentals/neewer-condenser-pencil-mics.webp;7;14;25
-Rode NTG4 shotgun mic;audio;Shotgun microphone for focused dialogue pickup in studio or on location.;/images/rentals/rode-ntg4-shotgun-mic.webp;10;20;35
-Audio Technica AT2020 mics;audio;Large-diaphragm microphone set for podcasts, voiceover and studio dialogue.;/images/rentals/audio-technica-at2020-mics.webp;5;10;18
-XLR Wireless adapter;audio;Wireless XLR adapter for cable-free audio workflows with compatible microphones.;/images/rentals/xlr-wireless-adapter.webp;3;6;11
-Sony ICD-PX370 voice recorder;audio;Portable audio recorder for backup capture, field sound and mobile interviews.;/images/rentals/sony-icd-px370-voice-recorder.webp;5;10;18
-Tascam DR-60DMKII recorder;audio;Portable audio recorder for backup capture, field sound and mobile interviews.;/images/rentals/tascam-dr-60dmkii-recorder.webp;15;30;53
+Tascam DR-10L Lav Mic;audio;Lavalier microphone solution for interviews, podcasts and discreet dialogue capture.;/images/rentals/tascam-dr-10l-lav-mic.jpg;10;20;35
+Hollyland Lark M2S Mini Lav;audio;Lavalier microphone solution for interviews, podcasts and discreet dialogue capture.;/images/rentals/hollyland-lark-m2s-mini-lav.jpeg;10;20;35
+Alto Stealth 1 XLR Wireless adapter;audio;Wireless XLR adapter for cable-free audio workflows with compatible microphones.;/images/rentals/xlr-wireless-adapter.jpg;3;6;11
+Tascam DR-60DMKII recorder;audio;Portable audio recorder for backup capture, field sound and mobile interviews.;/images/rentals/tascam-dr-60dmkii-recorder.jpg;15;30;53
