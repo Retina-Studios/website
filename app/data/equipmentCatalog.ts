@@ -24,9 +24,9 @@ export type EquipmentItem = {
   categoryKey: EquipmentCategoryKey
   description: string
   image: string
-  price1Day: number
-  price3Days: number
-  price7Days: number
+  price1Day: number | null
+  price3Days: number | null
+  price7Days: number | null
 }
 
 const priceFormatter = new Intl.NumberFormat('el-GR', {
@@ -103,6 +103,11 @@ function slugify(value: string) {
     .replace(/^-+|-+$/g, '')
 }
 
+function parsePrice(value: string) {
+  const trimmedValue = value.trim()
+  return trimmedValue ? Number(trimmedValue) : null
+}
+
 function parseEquipmentCatalog() {
   return equipmentCatalogCsv
     .trim()
@@ -121,9 +126,9 @@ function parseEquipmentCatalog() {
         categoryKey: category as EquipmentCategoryKey,
         description,
         image,
-        price1Day: Number(oneDay),
-        price3Days: Number(threeDays),
-        price7Days: Number(sevenDays),
+        price1Day: parsePrice(oneDay),
+        price3Days: parsePrice(threeDays),
+        price7Days: parsePrice(sevenDays),
       }
     })
 }
@@ -156,8 +161,8 @@ export const equipmentCategoryCounts = Object.entries(
   ...equipmentCategories[categoryKey as EquipmentCategoryKey],
 }))
 
-export function formatEquipmentPrice(price: number) {
-  return priceFormatter.format(price)
+export function formatEquipmentPrice(price: number | null) {
+  return price === null ? 'Κατόπιν συνεννόησης' : priceFormatter.format(price)
 }
 
 export function getEquipmentPagePath(page: number) {
