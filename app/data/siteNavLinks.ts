@@ -8,6 +8,7 @@ export const siteNavLinks: NavLink[] = [
   { label: 'Αρχική', to: '/' },
   { label: 'Νέα', to: '/news' },
   { label: 'Υπηρεσίες', to: '/services' },
+  { label: 'Ενοικίαση Εξοπλισμού', to: '/rentals' },
   { label: 'Η δουλειά μας', to: '/work' },
   {
     label: 'Δημιουργικά project',
