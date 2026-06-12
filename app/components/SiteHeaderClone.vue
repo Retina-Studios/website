@@ -88,7 +88,7 @@ watch(
 }
 
 .header-container {
-  width: 980px;
+  width: 1120px;
   max-width: calc(100% - 2rem);
   margin: 0 auto;
   min-height: 116px;
@@ -112,10 +112,10 @@ watch(
 }
 
 .main-nav {
-  width: 882px;
+  width: 1010px;
   height: 50px;
   position: absolute;
-  left: 308px;
+  left: 250px;
   top: 32px;
   display: flex;
   align-items: center;
@@ -136,6 +136,7 @@ watch(
   color: #000;
   text-decoration: none;
   padding: 5px 11px;
+  white-space: nowrap;
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
