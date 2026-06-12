@@ -201,7 +201,7 @@ useHead({
 
 .product-panel {
   padding: 36px;
-  background: #f4efe6;
+  background: #fff;
 }
 
 .product-image-frame {

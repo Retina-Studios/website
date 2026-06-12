@@ -14,6 +14,7 @@ const props = defineProps<{
 }>()
 
 const route = useRoute()
+const catalogSection = ref<HTMLElement | null>(null)
 
 const selectedCategory = computed<EquipmentCategoryKey | null>(() => {
   const category = route.query.category
@@ -50,10 +51,20 @@ const pageLabel = computed(() => {
 
 function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
   return {
-    path: getEquipmentPagePath(page),
+    path: `/rentals/page/${page}`,
     query: categoryKey ? { category: categoryKey } : {},
+    hash: '#catalog',
   }
 }
+
+onMounted(() => {
+  if (route.hash === '#catalog' || selectedCategory.value || props.currentPage > 1) {
+    nextTick(() => {
+      catalogSection.value?.focus({ preventScroll: true })
+      catalogSection.value?.scrollIntoView({ block: 'start' })
+    })
+  }
+})
 </script>
 
 <template>
@@ -90,7 +101,7 @@ function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
         </div>
       </section>
 
-      <section class="catalog-listing">
+      <section id="catalog" ref="catalogSection" tabindex="-1" class="catalog-listing">
         <div class="catalog-shell listing-shell">
           <div class="listing-layout">
             <aside class="filter-sidebar">
@@ -113,10 +124,6 @@ function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
                     :to="getCategoryLink(category.categoryKey)"
                     class="filter-tag"
                     :class="{ 'is-active': selectedCategory === category.categoryKey }"
-                    :style="{
-                      '--tag-accent': category.accent,
-                      '--tag-surface': category.surface,
-                    }"
                   >
                     <span>{{ category.label }}</span>
                     <span>{{ category.count }}</span>
@@ -187,15 +194,23 @@ function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
                 class="pagination-nav"
                 aria-label="Σελίδες καταλόγου"
               >
-                <NuxtLink
-                  v-if="currentPage > 1"
-                  :to="getCategoryLink(selectedCategory, currentPage - 1)"
-                  class="pagination-arrow"
-                >
-                  Προηγούμενη
-                </NuxtLink>
-
                 <div class="pagination-links">
+                  <NuxtLink
+                    v-if="currentPage > 1"
+                    :to="getCategoryLink(selectedCategory, currentPage - 1)"
+                    class="pagination-link pagination-arrow"
+                    aria-label="Προηγούμενη σελίδα"
+                  >
+                    &lt;
+                  </NuxtLink>
+                  <span
+                    v-else
+                    class="pagination-link pagination-arrow is-disabled"
+                    aria-disabled="true"
+                  >
+                    &lt;
+                  </span>
+
                   <NuxtLink
                     v-for="page in filteredPageCount"
                     :key="page"
@@ -205,15 +220,23 @@ function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
                   >
                     {{ page }}
                   </NuxtLink>
-                </div>
 
-                <NuxtLink
-                  v-if="currentPage < filteredPageCount"
-                  :to="getCategoryLink(selectedCategory, currentPage + 1)"
-                  class="pagination-arrow"
-                >
-                  Επόμενη
-                </NuxtLink>
+                  <NuxtLink
+                    v-if="currentPage < filteredPageCount"
+                    :to="getCategoryLink(selectedCategory, currentPage + 1)"
+                    class="pagination-link pagination-arrow"
+                    aria-label="Επόμενη σελίδα"
+                  >
+                    &gt;
+                  </NuxtLink>
+                  <span
+                    v-else
+                    class="pagination-link pagination-arrow is-disabled"
+                    aria-disabled="true"
+                  >
+                    &gt;
+                  </span>
+                </div>
               </nav>
             </div>
           </div>
@@ -359,8 +382,10 @@ function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
 }
 
 .catalog-listing {
-  background: #f4efe6;
+  background: #fff;
   padding: 30px 0 72px;
+  scroll-margin-top: 20px;
+  outline: none;
 }
 
 .listing-layout {
@@ -410,9 +435,9 @@ function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
 }
 
 .filter-tag.is-active {
-  border-color: var(--tag-accent, #000);
-  background: var(--tag-surface, #f3f3f3);
-  color: var(--tag-accent, #000);
+  border-color: #000;
+  background: #000;
+  color: #fff;
 }
 
 .listing-content {
@@ -440,7 +465,7 @@ function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
 
 .catalog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
 }
 
@@ -557,10 +582,6 @@ function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
 
 .pagination-nav {
   margin-top: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
 }
 
 .pagination-links {
@@ -573,11 +594,10 @@ function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
 
 .pagination-link,
 .pagination-arrow {
-  color: inherit;
-  text-decoration: none;
   font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
   font-size: 15px;
   line-height: 1.4;
+  text-decoration: none;
 }
 
 .pagination-link {
@@ -588,12 +608,30 @@ function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
   justify-content: center;
   border: 1px solid #b5ada1;
   background: #fff;
+  color: #000;
 }
 
 .pagination-link.is-active {
   background: #000;
   border-color: #000;
   color: #fff;
+}
+
+.pagination-arrow {
+  font-size: 18px;
+}
+
+.pagination-link.is-disabled {
+  border-color: #d5d0c8;
+  color: #b1aaa0;
+  background: #f5f3ef;
+  pointer-events: none;
+}
+
+@media (max-width: 1180px) {
+  .catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 1020px) {
@@ -665,7 +703,8 @@ function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
   }
 
   .pagination-nav {
-    flex-direction: column;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

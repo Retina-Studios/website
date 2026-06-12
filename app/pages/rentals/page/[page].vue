@@ -5,7 +5,7 @@ import { equipmentPageCount } from '~/data/equipmentCatalog'
 const route = useRoute()
 const currentPage = computed(() => Number(route.params.page))
 
-if (!Number.isInteger(currentPage.value) || currentPage.value <= 1 || currentPage.value > equipmentPageCount) {
+if (!Number.isInteger(currentPage.value) || currentPage.value < 1 || currentPage.value > equipmentPageCount) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Catalog page not found',
