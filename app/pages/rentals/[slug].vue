@@ -51,7 +51,7 @@ useHead({
               </span>
 
               <h1>{{ item.name }}</h1>
-              <p class="product-description">{{ category.description }}</p>
+              <p class="product-description">{{ item.description }}</p>
 
               <div class="contact-callout">
                 <p>Για διαθεσιμότητα, επιβεβαίωση κράτησης και συνδυαστικές ενοικιάσεις, καλέστε μας.</p>

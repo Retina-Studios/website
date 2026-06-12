@@ -94,7 +94,7 @@ const pageLabel = computed(() => `Σελίδα ${props.currentPage} από ${equ
 
                 <div class="card-body">
                   <h3>{{ item.name }}</h3>
-                  <p>{{ equipmentCategories[item.categoryKey].description }}</p>
+                  <p>{{ item.description }}</p>
 
                   <dl class="price-list">
                     <div>

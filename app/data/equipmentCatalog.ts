@@ -22,6 +22,7 @@ export type EquipmentItem = {
   name: string
   slug: string
   categoryKey: EquipmentCategoryKey
+  description: string
   price1Day: number
   price3Days: number
   price7Days: number
@@ -101,123 +102,28 @@ function slugify(value: string) {
     .replace(/^-+|-+$/g, '')
 }
 
-function detectEquipmentCategory(name: string): EquipmentCategoryKey {
-  const normalized = name.toLowerCase().trim()
-
-  if (
-    normalized.includes('mic') ||
-    normalized.includes('shotgun') ||
-    normalized.includes('condenser') ||
-    normalized.includes('recorder') ||
-    normalized.includes('tascam') ||
-    normalized.includes('saramonic') ||
-    normalized.includes('rode') ||
-    normalized.includes('audio technica') ||
-    normalized.includes('boom pole') ||
-    normalized.includes('xlr wireless')
-  ) {
-    return 'audio'
-  }
-
-  if (
-    normalized.includes('godox') ||
-    normalized.includes('arrilight') ||
-    normalized.includes('lantern') ||
-    normalized.includes('strip light') ||
-    normalized.includes('octabox') ||
-    normalized.includes('rectangular box') ||
-    normalized.includes('black flag') ||
-    normalized.includes('reflector')
-  ) {
-    return 'lighting'
-  }
-
-  if (
-    normalized.includes('slider') ||
-    normalized.includes('teleprompter') ||
-    normalized.includes('mars 300') ||
-    normalized.includes('atomos') ||
-    normalized.includes('atem mini') ||
-    normalized.includes('hdmi to usb-c') ||
-    normalized.includes('ronin')
-  ) {
-    return 'video'
-  }
-
-  if (
-    normalized.includes('filter') ||
-    normalized.includes('polarizer') ||
-    normalized.includes('pro-mist') ||
-    normalized.includes('adapter') ||
-    normalized.includes('rings') ||
-    normalized.includes('tube apapter')
-  ) {
-    return 'filters'
-  }
-
-  if (
-    normalized.includes('battery') ||
-    normalized.includes('cfast') ||
-    normalized.includes('ssd') ||
-    normalized.includes('np-f') ||
-    normalized.includes('vmount')
-  ) {
-    return 'mediaPower'
-  }
-
-  if (
-    normalized.includes('stand') ||
-    normalized.includes('c stand') ||
-    normalized.includes('mattebox') ||
-    normalized.includes('follow focus') ||
-    normalized.includes('shoulder mount') ||
-    normalized.includes('base plate') ||
-    normalized.includes('cart') ||
-    normalized.includes('clamp')
-  ) {
-    return 'gripSupport'
-  }
-
-  if (
-    normalized.includes('garment rails') ||
-    normalized.includes('steamer') ||
-    normalized.includes('clapperboard') ||
-    normalized.includes('colorchecker') ||
-    normalized.includes('power cord reel') ||
-    normalized.includes('fog machine')
-  ) {
-    return 'stylingSet'
-  }
-
-  if (
-    normalized.includes('canon c300') ||
-    normalized.includes('canon r6') ||
-    normalized.includes('gopro') ||
-    normalized.includes('dji mini') ||
-    normalized.includes('hasselblad h3dii') ||
-    normalized.includes('mamiya rb67')
-  ) {
-    return 'cameras'
-  }
-
-  return 'lenses'
-}
-
 function parseEquipmentCatalog() {
   return equipmentCatalogCsv
     .trim()
     .split(/\r?\n/)
     .slice(1)
     .map((line) => line.split(';').map((value) => value.trim()))
-    .filter((parts) => parts.length === 4 && parts[0])
-    .map(([name, oneDay, threeDays, sevenDays]) => ({
-      name,
-      slug: slugify(name),
-      categoryKey: detectEquipmentCategory(name),
-      price1Day: Number(oneDay),
-      price3Days: Number(threeDays),
-      price7Days: Number(sevenDays),
-    }))
+    .filter((parts) => parts.length === 6 && parts[0])
+    .map(([name, category, description, oneDay, threeDays, sevenDays]) => {
+      if (!(category in equipmentCategories)) {
+        throw new Error(`Unknown equipment category "${category}" for "${name}"`)
+      }
+
+      return {
+        name,
+        slug: slugify(name),
+        categoryKey: category as EquipmentCategoryKey,
+        description,
+        price1Day: Number(oneDay),
+        price3Days: Number(threeDays),
+        price7Days: Number(sevenDays),
+      }
+    })
 }
 
 export const equipmentItems: EquipmentItem[] = parseEquipmentCatalog()
