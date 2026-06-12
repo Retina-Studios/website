@@ -40,6 +40,10 @@ useHead({
 
           <div class="product-stage">
             <div class="product-panel">
+              <div v-if="item.image" class="product-image-frame">
+                <img :src="item.image" :alt="item.name" />
+              </div>
+
               <span
                 class="category-badge"
                 :style="{
@@ -198,6 +202,24 @@ useHead({
 .product-panel {
   padding: 36px;
   background: #f4efe6;
+}
+
+.product-image-frame {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 26px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.product-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .category-badge {

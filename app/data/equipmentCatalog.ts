@@ -23,6 +23,7 @@ export type EquipmentItem = {
   slug: string
   categoryKey: EquipmentCategoryKey
   description: string
+  image: string
   price1Day: number
   price3Days: number
   price7Days: number
@@ -108,8 +109,8 @@ function parseEquipmentCatalog() {
     .split(/\r?\n/)
     .slice(1)
     .map((line) => line.split(';').map((value) => value.trim()))
-    .filter((parts) => parts.length === 6 && parts[0])
-    .map(([name, category, description, oneDay, threeDays, sevenDays]) => {
+    .filter((parts) => parts.length === 7 && parts[0])
+    .map(([name, category, description, image, oneDay, threeDays, sevenDays]) => {
       if (!(category in equipmentCategories)) {
         throw new Error(`Unknown equipment category "${category}" for "${name}"`)
       }
@@ -119,6 +120,7 @@ function parseEquipmentCatalog() {
         slug: slugify(name),
         categoryKey: category as EquipmentCategoryKey,
         description,
+        image,
         price1Day: Number(oneDay),
         price3Days: Number(threeDays),
         price7Days: Number(sevenDays),

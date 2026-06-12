@@ -89,6 +89,13 @@ const pageLabel = computed(() => `Σελίδα ${props.currentPage} από ${equ
             >
               <NuxtLink :to="`/rentals/${item.slug}`" class="card-link">
                 <div class="card-media">
+                  <img
+                    v-if="item.image"
+                    :src="item.image"
+                    :alt="item.name"
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <span class="card-category">{{ equipmentCategories[item.categoryKey].label }}</span>
                 </div>
 
@@ -360,15 +367,27 @@ const pageLabel = computed(() => `Σελίδα ${props.currentPage} από ${equ
 }
 
 .card-media {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: flex-end;
-  min-height: 148px;
+  justify-content: center;
+  min-height: 240px;
   padding: 22px;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--card-accent) 88%, #fff 12%) 0%, var(--card-accent) 100%);
+  background: linear-gradient(180deg, #fff 0%, var(--card-surface) 100%);
+}
+
+.card-media img {
+  width: 100%;
+  height: 196px;
+  object-fit: contain;
+  display: block;
 }
 
 .card-category {
+  position: absolute;
+  top: 18px;
+  left: 18px;
   display: inline-flex;
   padding: 9px 12px;
   background: rgb(255 255 255 / 88%);
@@ -517,6 +536,14 @@ const pageLabel = computed(() => `Σελίδα ${props.currentPage} από ${equ
 
   .catalog-grid {
     grid-template-columns: 1fr;
+  }
+
+  .card-media {
+    min-height: 220px;
+  }
+
+  .card-media img {
+    height: 176px;
   }
 
   .pagination-nav {
