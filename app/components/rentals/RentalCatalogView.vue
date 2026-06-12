@@ -3,18 +3,57 @@ import {
   equipmentCategories,
   equipmentCategoryCounts,
   equipmentItems,
-  equipmentPageCount,
+  equipmentItemsPerPage,
   formatEquipmentPrice,
-  getEquipmentItemsForPage,
   getEquipmentPagePath,
 } from '~/data/equipmentCatalog'
+import type { EquipmentCategoryKey } from '~/data/equipmentCatalog'
 
 const props = defineProps<{
   currentPage: number
 }>()
 
-const catalogItems = computed(() => getEquipmentItemsForPage(props.currentPage))
-const pageLabel = computed(() => `Σελίδα ${props.currentPage} από ${equipmentPageCount}`)
+const route = useRoute()
+
+const selectedCategory = computed<EquipmentCategoryKey | null>(() => {
+  const category = route.query.category
+
+  if (typeof category !== 'string' || !(category in equipmentCategories)) {
+    return null
+  }
+
+  return category as EquipmentCategoryKey
+})
+
+const filteredItems = computed(() => {
+  if (!selectedCategory.value) {
+    return equipmentItems
+  }
+
+  return equipmentItems.filter((item) => item.categoryKey === selectedCategory.value)
+})
+
+const filteredPageCount = computed(() =>
+  Math.max(1, Math.ceil(filteredItems.value.length / equipmentItemsPerPage)),
+)
+
+const pagedItems = computed(() => {
+  const safePage = Math.min(props.currentPage, filteredPageCount.value)
+  const start = (safePage - 1) * equipmentItemsPerPage
+  return filteredItems.value.slice(start, start + equipmentItemsPerPage)
+})
+
+const pageLabel = computed(() => {
+  const safePage = Math.min(props.currentPage, filteredPageCount.value)
+  return `Σελίδα ${safePage} από ${filteredPageCount.value}`
+})
+
+function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
+  return {
+    path: getEquipmentPagePath(page),
+    query: categoryKey ? { category: categoryKey } : {},
+  }
+}
 </script>
 
 <template>
@@ -51,108 +90,133 @@ const pageLabel = computed(() => `Σελίδα ${props.currentPage} από ${equ
         </div>
       </section>
 
-      <section class="catalog-summary">
-        <div class="catalog-shell summary-shell">
-          <div class="category-overview">
-            <article
-              v-for="category in equipmentCategoryCounts"
-              :key="category.categoryKey"
-              class="category-chip"
-              :style="{
-                '--chip-accent': category.accent,
-                '--chip-surface': category.surface,
-              }"
-            >
-              <span class="chip-title">{{ category.label }}</span>
-              <span class="chip-count">{{ category.count }} items</span>
-            </article>
-          </div>
-        </div>
-      </section>
-
       <section class="catalog-listing">
         <div class="catalog-shell listing-shell">
-          <div class="listing-header">
-            <h2>Κατάλογος</h2>
-            <p>Όλες οι τιμές περιλαμβάνουν το αντίστοιχο διάστημα ενοικίασης ανά τεμάχιο.</p>
-          </div>
+          <div class="listing-layout">
+            <aside class="filter-sidebar">
+              <div class="filter-panel">
+                <p class="filter-label">Κατηγορίες</p>
 
-          <div class="catalog-grid">
-            <article
-              v-for="item in catalogItems"
-              :key="item.slug"
-              class="catalog-card"
-              :style="{
-                '--card-accent': equipmentCategories[item.categoryKey].accent,
-                '--card-surface': equipmentCategories[item.categoryKey].surface,
-              }"
-            >
-              <NuxtLink :to="`/rentals/${item.slug}`" class="card-link">
-                <div class="card-media">
-                  <img
-                    v-if="item.image"
-                    :src="item.image"
-                    :alt="item.name"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <span class="card-category">{{ equipmentCategories[item.categoryKey].label }}</span>
+                <div class="filter-tags">
+                  <NuxtLink
+                    :to="getCategoryLink(null)"
+                    class="filter-tag"
+                    :class="{ 'is-active': !selectedCategory }"
+                  >
+                    <span>Όλος ο εξοπλισμός</span>
+                    <span>{{ equipmentItems.length }}</span>
+                  </NuxtLink>
+
+                  <NuxtLink
+                    v-for="category in equipmentCategoryCounts"
+                    :key="category.categoryKey"
+                    :to="getCategoryLink(category.categoryKey)"
+                    class="filter-tag"
+                    :class="{ 'is-active': selectedCategory === category.categoryKey }"
+                    :style="{
+                      '--tag-accent': category.accent,
+                      '--tag-surface': category.surface,
+                    }"
+                  >
+                    <span>{{ category.label }}</span>
+                    <span>{{ category.count }}</span>
+                  </NuxtLink>
                 </div>
+              </div>
+            </aside>
 
-                <div class="card-body">
-                  <h3>{{ item.name }}</h3>
-                  <p>{{ item.description }}</p>
+            <div class="listing-content">
+              <div class="listing-header">
+                <h2>Κατάλογος</h2>
+                <p>Όλες οι τιμές περιλαμβάνουν το αντίστοιχο διάστημα ενοικίασης ανά τεμάχιο.</p>
+              </div>
 
-                  <dl class="price-list">
-                    <div>
-                      <dt>1 ημέρα</dt>
-                      <dd>{{ formatEquipmentPrice(item.price1Day) }}</dd>
+              <div class="catalog-grid">
+                <article
+                  v-for="item in pagedItems"
+                  :key="item.slug"
+                  class="catalog-card"
+                  :style="{
+                    '--card-accent': equipmentCategories[item.categoryKey].accent,
+                    '--card-surface': equipmentCategories[item.categoryKey].surface,
+                  }"
+                >
+                  <NuxtLink :to="`/rentals/${item.slug}`" class="card-link">
+                    <div class="card-media">
+                      <img
+                        v-if="item.image"
+                        :src="item.image"
+                        :alt="item.name"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <span class="card-category">{{ equipmentCategories[item.categoryKey].label }}</span>
                     </div>
-                    <div>
-                      <dt>3 ημέρες</dt>
-                      <dd>{{ formatEquipmentPrice(item.price3Days) }}</dd>
+
+                    <div class="card-body">
+                      <h3>{{ item.name }}</h3>
+                      <p>{{ item.description }}</p>
+
+                      <dl class="price-list">
+                        <div>
+                          <dt>1 ημέρα</dt>
+                          <dd>{{ formatEquipmentPrice(item.price1Day) }}</dd>
+                        </div>
+                        <div>
+                          <dt>3 ημέρες</dt>
+                          <dd>{{ formatEquipmentPrice(item.price3Days) }}</dd>
+                        </div>
+                        <div>
+                          <dt>7 ημέρες</dt>
+                          <dd>{{ formatEquipmentPrice(item.price7Days) }}</dd>
+                        </div>
+                      </dl>
+
+                      <span class="card-cta">Δείτε λεπτομέρειες</span>
                     </div>
-                    <div>
-                      <dt>7 ημέρες</dt>
-                      <dd>{{ formatEquipmentPrice(item.price7Days) }}</dd>
-                    </div>
-                  </dl>
+                  </NuxtLink>
+                </article>
+              </div>
 
-                  <span class="card-cta">Δείτε λεπτομέρειες</span>
-                </div>
-              </NuxtLink>
-            </article>
-          </div>
+              <p v-if="!pagedItems.length" class="empty-state">
+                Δεν βρέθηκαν items σε αυτή την κατηγορία για τη συγκεκριμένη σελίδα.
+              </p>
 
-          <nav v-if="equipmentPageCount > 1" class="pagination-nav" aria-label="Σελίδες καταλόγου">
-            <NuxtLink
-              v-if="currentPage > 1"
-              :to="getEquipmentPagePath(currentPage - 1)"
-              class="pagination-arrow"
-            >
-              Προηγούμενη
-            </NuxtLink>
-
-            <div class="pagination-links">
-              <NuxtLink
-                v-for="page in equipmentPageCount"
-                :key="page"
-                :to="getEquipmentPagePath(page)"
-                class="pagination-link"
-                :class="{ 'is-active': page === currentPage }"
+              <nav
+                v-if="filteredPageCount > 1"
+                class="pagination-nav"
+                aria-label="Σελίδες καταλόγου"
               >
-                {{ page }}
-              </NuxtLink>
-            </div>
+                <NuxtLink
+                  v-if="currentPage > 1"
+                  :to="getCategoryLink(selectedCategory, currentPage - 1)"
+                  class="pagination-arrow"
+                >
+                  Προηγούμενη
+                </NuxtLink>
 
-            <NuxtLink
-              v-if="currentPage < equipmentPageCount"
-              :to="getEquipmentPagePath(currentPage + 1)"
-              class="pagination-arrow"
-            >
-              Επόμενη
-            </NuxtLink>
-          </nav>
+                <div class="pagination-links">
+                  <NuxtLink
+                    v-for="page in filteredPageCount"
+                    :key="page"
+                    :to="getCategoryLink(selectedCategory, page)"
+                    class="pagination-link"
+                    :class="{ 'is-active': page === currentPage }"
+                  >
+                    {{ page }}
+                  </NuxtLink>
+                </div>
+
+                <NuxtLink
+                  v-if="currentPage < filteredPageCount"
+                  :to="getCategoryLink(selectedCategory, currentPage + 1)"
+                  class="pagination-arrow"
+                >
+                  Επόμενη
+                </NuxtLink>
+              </nav>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -294,44 +358,69 @@ const pageLabel = computed(() => `Σελίδα ${props.currentPage} από ${equ
   line-height: 1.4;
 }
 
-.catalog-summary {
-  background: #f4efe6;
-  padding: 30px 0 18px;
-}
-
-.category-overview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.category-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  background: var(--chip-surface);
-  color: var(--chip-accent);
-}
-
-.chip-title {
-  font-family: 'RetinaAvenirHeavy', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.3;
-}
-
-.chip-count {
-  font-size: 14px;
-  line-height: 1.3;
-}
-
 .catalog-listing {
   background: #f4efe6;
-  padding: 0 0 72px;
+  padding: 30px 0 72px;
+}
+
+.listing-layout {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.filter-sidebar {
+  position: sticky;
+  top: 24px;
+}
+
+.filter-panel {
+  padding: 20px 18px;
+  background: #fff;
+  border: 1px solid #d9d3cb;
+}
+
+.filter-label {
+  margin: 0 0 14px;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
+  font-size: 22px;
+  line-height: 1.1;
+}
+
+.filter-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid #d9d3cb;
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+  font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.filter-tag.is-active {
+  border-color: var(--tag-accent, #000);
+  background: var(--tag-surface, #f3f3f3);
+  color: var(--tag-accent, #000);
+}
+
+.listing-content {
+  min-width: 0;
 }
 
 .listing-header {
-  padding: 20px 0 30px;
+  padding: 0 0 30px;
 }
 
 .listing-header h2 {
@@ -355,8 +444,18 @@ const pageLabel = computed(() => `Σελίδα ${props.currentPage} από ${equ
   gap: 22px;
 }
 
+.empty-state {
+  margin: 0;
+  padding: 24px;
+  background: #fff;
+  font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
 .catalog-card {
   background: #fff;
+  border-top: 12px solid var(--card-accent);
 }
 
 .card-link {
@@ -374,7 +473,7 @@ const pageLabel = computed(() => `Σελίδα ${props.currentPage} από ${equ
   justify-content: center;
   min-height: 240px;
   padding: 22px;
-  background: linear-gradient(180deg, #fff 0%, var(--card-surface) 100%);
+  background: #fff;
 }
 
 .card-media img {
@@ -526,12 +625,31 @@ const pageLabel = computed(() => `Σελίδα ${props.currentPage} από ${equ
     font-size: clamp(2.3rem, 10vw, 52px);
   }
 
-  .catalog-summary {
-    padding-top: 22px;
+  .listing-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .filter-sidebar {
+    position: static;
+  }
+
+  .filter-panel {
+    padding: 18px 16px;
+  }
+
+  .filter-tags {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .filter-tag {
+    width: auto;
+    min-width: 0;
   }
 
   .listing-header {
-    padding-top: 18px;
+    padding-top: 0;
   }
 
   .catalog-grid {
