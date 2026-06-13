@@ -52,11 +52,6 @@ const pagedItems = computed(() => {
   return filteredItems.value.slice(start, start + equipmentItemsPerPage)
 })
 
-const pageLabel = computed(() => {
-  const safePage = Math.min(props.currentPage, filteredPageCount.value)
-  return `Σελίδα ${safePage} από ${filteredPageCount.value}`
-})
-
 function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
   return {
     path: `/rentals/page/${page}`,
@@ -167,11 +162,6 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                 μαζί μας.
               </p>
 
-              <div class="hero-stats">
-                <span>{{ equipmentItems.length }} διαθέσιμα items</span>
-                <span>{{ equipmentCategoryCounts.length }} κατηγορίες εξοπλισμού</span>
-                <span>{{ pageLabel }}</span>
-              </div>
             </div>
           </div>
         </div>
@@ -413,6 +403,7 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
   width: 100%;
   max-width: 100%;
   min-height: 100vh;
+  overflow-x: hidden;
   overflow-x: clip;
   background: #fff;
   font-family: 'RetinaAvenirLight', 'Helvetica Neue', Arial, sans-serif;
@@ -497,21 +488,6 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
   font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   line-height: 1.8;
-}
-
-.hero-stats {
-  margin-top: 26px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.hero-stats span {
-  display: inline-flex;
-  padding: 10px 14px;
-  border: 1px solid #d6d6d6;
-  font-size: 14px;
-  line-height: 1.4;
 }
 
 .catalog-listing {
@@ -870,6 +846,10 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
 }
 
 @media (max-width: 1020px) {
+  .catalog-hero {
+    padding: 16px 0 24px;
+  }
+
   .catalog-shell,
   .hero-shell {
     width: calc(100% - 32px);
