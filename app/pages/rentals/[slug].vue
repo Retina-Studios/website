@@ -7,6 +7,7 @@ import {
   getEquipmentPagePath,
   getRelatedEquipmentItems,
 } from '~/data/equipmentCatalog'
+import type { EquipmentCategoryKey } from '~/data/equipmentCatalog'
 
 const route = useRoute()
 const item = computed(() => getEquipmentItemBySlug(String(route.params.slug)))
@@ -20,6 +21,40 @@ if (!item.value) {
 
 const category = computed(() => equipmentCategories[item.value!.categoryKey])
 const relatedItems = computed(() => getRelatedEquipmentItems(item.value!))
+
+const catalogContext = computed(() => {
+  const requestedPage = Number(route.query.catalogPage)
+  const page = Number.isInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1
+  const requestedCategory = route.query.catalogCategory
+  const category =
+    typeof requestedCategory === 'string' && requestedCategory in equipmentCategories
+      ? requestedCategory as EquipmentCategoryKey
+      : null
+
+  return { page, category }
+})
+
+const catalogReturnLink = computed(() => {
+  const { page, category } = catalogContext.value
+
+  return {
+    path: getEquipmentPagePath(page),
+    query: category ? { category } : {},
+    hash: '#catalog',
+  }
+})
+
+function getRelatedEquipmentLink(slug: string) {
+  const { page, category } = catalogContext.value
+
+  return {
+    path: `/rentals/${slug}`,
+    query: {
+      catalogPage: String(page),
+      ...(category ? { catalogCategory: category } : {}),
+    },
+  }
+}
 
 useHead({
   title: `${item.value.name} | Ενοικίαση Εξοπλισμού | Retina Studios`,
@@ -37,7 +72,7 @@ useHead({
     <main class="product-main">
       <section class="product-hero">
         <div class="product-shell hero-shell">
-          <NuxtLink class="back-link" :to="getEquipmentPagePath(1)">Επιστροφή στον κατάλογο</NuxtLink>
+          <NuxtLink class="back-link" :to="catalogReturnLink">Επιστροφή στον κατάλογο</NuxtLink>
 
           <div class="product-stage">
             <div class="product-panel">
@@ -108,7 +143,7 @@ useHead({
                 '--related-surface': category.surface,
               }"
             >
-              <NuxtLink :to="`/rentals/${relatedItem.slug}`" class="related-link">
+              <NuxtLink :to="getRelatedEquipmentLink(relatedItem.slug)" class="related-link">
                 <span class="related-category">{{ formatGreekUppercase(category.label) }}</span>
                 <h3>{{ relatedItem.name }}</h3>
                 <div class="related-price">

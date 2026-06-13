@@ -6,7 +6,6 @@ import {
   equipmentItemsPerPage,
   formatGreekUppercase,
   formatEquipmentPrice,
-  getEquipmentPagePath,
 } from '~/data/equipmentCatalog'
 import type { EquipmentCategoryKey } from '~/data/equipmentCatalog'
 
@@ -82,6 +81,16 @@ function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
     path: `/rentals/page/${page}`,
     query: categoryKey ? { category: categoryKey } : {},
     hash: '#catalog',
+  }
+}
+
+function getEquipmentLink(slug: string) {
+  return {
+    path: `/rentals/${slug}`,
+    query: {
+      catalogPage: String(safeCurrentPage.value),
+      ...(selectedCategory.value ? { catalogCategory: selectedCategory.value } : {}),
+    },
   }
 }
 
@@ -265,7 +274,7 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                     '--card-surface': equipmentCategories[item.categoryKey].surface,
                   }"
                 >
-                  <NuxtLink :to="`/rentals/${item.slug}`" class="card-link">
+                  <NuxtLink :to="getEquipmentLink(item.slug)" class="card-link">
                     <div class="card-media">
                       <img
                         v-if="item.image"
