@@ -410,15 +410,24 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
 }
 
 .rental-catalog-page {
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
+  overflow-x: clip;
   background: #fff;
   font-family: 'RetinaAvenirLight', 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+.rental-catalog-page,
+.rental-catalog-page * {
+  box-sizing: border-box;
+}
+
 .catalog-shell {
   width: min(1660px, calc(100% - 40px));
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -513,6 +522,7 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
 }
 
 .listing-layout {
+  min-width: 0;
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
   gap: 32px;
@@ -520,11 +530,14 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
 }
 
 .filter-sidebar {
+  min-width: 0;
   position: sticky;
   top: 24px;
 }
 
 .filter-panel {
+  min-width: 0;
+  max-width: 100%;
   padding: 20px 18px;
   background: #fff;
   border: 1px solid #d9d3cb;
@@ -677,6 +690,7 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
 }
 
 .catalog-grid {
+  min-width: 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
@@ -692,11 +706,15 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
 }
 
 .catalog-card {
+  min-width: 0;
+  max-width: 100%;
   background: #fff;
   border-top: 12px solid var(--card-accent);
 }
 
 .card-link {
+  min-width: 0;
+  max-width: 100%;
   display: block;
   color: inherit;
   text-decoration: none;
@@ -704,6 +722,9 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
 }
 
 .card-media {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -715,6 +736,7 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
 }
 
 .card-media img {
+  max-width: 100%;
   width: 100%;
   height: 196px;
   object-fit: contain;
@@ -877,6 +899,8 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
   }
 
   .listing-layout {
+    width: 100%;
+    max-width: 100%;
     grid-template-columns: 1fr;
     gap: 20px;
   }
@@ -892,6 +916,8 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
   }
 
   .filter-tags {
+    width: 100%;
+    max-width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
     flex-direction: row;
