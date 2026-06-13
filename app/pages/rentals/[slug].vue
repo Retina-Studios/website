@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   equipmentCategories,
+  formatGreekUppercase,
   formatEquipmentPrice,
   getEquipmentItemBySlug,
   getEquipmentPagePath,
@@ -51,7 +52,7 @@ useHead({
                   '--badge-surface': category.surface,
                 }"
               >
-                {{ category.label }}
+                {{ formatGreekUppercase(category.label) }}
               </span>
 
               <h1>{{ item.name }}</h1>
@@ -108,7 +109,7 @@ useHead({
               }"
             >
               <NuxtLink :to="`/rentals/${relatedItem.slug}`" class="related-link">
-                <span class="related-category">{{ category.label }}</span>
+                <span class="related-category">{{ formatGreekUppercase(category.label) }}</span>
                 <h3>{{ relatedItem.name }}</h3>
                 <div class="related-price">
                   <span>{{ relatedItem.price1Day === null ? 'Τιμή' : 'Από' }}</span>

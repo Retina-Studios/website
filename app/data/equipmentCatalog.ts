@@ -135,6 +135,14 @@ function parseEquipmentCatalog() {
 
 export const equipmentItems: EquipmentItem[] = parseEquipmentCatalog()
 
+export function formatGreekUppercase(value: string) {
+  return value
+    .normalize('NFD')
+    .replace(/\u0301/g, '')
+    .toLocaleUpperCase('el-GR')
+    .normalize('NFC')
+}
+
 export const equipmentPageCount = Math.ceil(equipmentItems.length / equipmentItemsPerPage)
 
 export const equipmentCategoryCounts = Object.entries(

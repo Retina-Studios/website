@@ -4,6 +4,7 @@ import {
   equipmentCategoryCounts,
   equipmentItems,
   equipmentItemsPerPage,
+  formatGreekUppercase,
   formatEquipmentPrice,
   getEquipmentPagePath,
 } from '~/data/equipmentCatalog'
@@ -266,7 +267,9 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                         loading="eager"
                         decoding="async"
                       />
-                      <span class="card-category">{{ equipmentCategories[item.categoryKey].label }}</span>
+                      <span class="card-category">
+                        {{ formatGreekUppercase(equipmentCategories[item.categoryKey].label) }}
+                      </span>
                     </div>
 
                     <div class="card-body">
