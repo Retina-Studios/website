@@ -243,7 +243,9 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                         v-if="item.image"
                         :src="item.image"
                         :alt="item.name"
-                        loading="lazy"
+                        width="600"
+                        height="600"
+                        loading="eager"
                         decoding="async"
                       />
                       <span class="card-category">{{ equipmentCategories[item.categoryKey].label }}</span>
