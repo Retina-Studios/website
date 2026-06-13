@@ -15,6 +15,14 @@ const props = defineProps<{
 
 const route = useRoute()
 const catalogSection = ref<HTMLElement | null>(null)
+const filterTags = ref<HTMLElement | null>(null)
+const categoryDialog = ref<HTMLDialogElement | null>(null)
+const filterDragStart = {
+  pointerX: 0,
+  scrollLeft: 0,
+}
+let isDraggingFilters = false
+let didDragFilters = false
 
 const selectedCategory = computed<EquipmentCategoryKey | null>(() => {
   const category = route.query.category
@@ -57,7 +65,73 @@ function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
   }
 }
 
+function scrollActiveCategoryIntoView() {
+  const container = filterTags.value
+  const activeTag = container?.querySelector<HTMLElement>('.filter-tag.is-active')
+
+  if (!container || !activeTag) {
+    return
+  }
+
+  const left = activeTag.offsetLeft - (container.clientWidth - activeTag.offsetWidth) / 2
+  container.scrollTo({ left: Math.max(0, left), behavior: 'smooth' })
+}
+
+function openCategoryDialog() {
+  categoryDialog.value?.showModal()
+}
+
+function closeCategoryDialog() {
+  categoryDialog.value?.close()
+}
+
+function startFilterDrag(event: PointerEvent) {
+  if (event.pointerType === 'touch' || !filterTags.value) {
+    return
+  }
+
+  filterDragStart.pointerX = event.clientX
+  filterDragStart.scrollLeft = filterTags.value.scrollLeft
+  isDraggingFilters = true
+  didDragFilters = false
+  filterTags.value.setPointerCapture(event.pointerId)
+}
+
+function moveFilterDrag(event: PointerEvent) {
+  if (!isDraggingFilters || !filterTags.value) {
+    return
+  }
+
+  const distance = event.clientX - filterDragStart.pointerX
+  didDragFilters = didDragFilters || Math.abs(distance) > 4
+  filterTags.value.scrollLeft = filterDragStart.scrollLeft - distance
+}
+
+function stopFilterDrag(event: PointerEvent) {
+  if (!isDraggingFilters || !filterTags.value) {
+    return
+  }
+
+  isDraggingFilters = false
+  filterTags.value.releasePointerCapture(event.pointerId)
+  window.setTimeout(() => {
+    didDragFilters = false
+  })
+}
+
+function preventClickAfterFilterDrag(event: MouseEvent) {
+  if (!didDragFilters) {
+    return
+  }
+
+  event.preventDefault()
+  event.stopPropagation()
+  didDragFilters = false
+}
+
 onMounted(() => {
+  nextTick(scrollActiveCategoryIntoView)
+
   if (route.hash === '#catalog' || selectedCategory.value || props.currentPage > 1) {
     nextTick(() => {
       catalogSection.value?.focus({ preventScroll: true })
@@ -65,6 +139,8 @@ onMounted(() => {
     })
   }
 })
+
+watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
 </script>
 
 <template>
@@ -108,7 +184,15 @@ onMounted(() => {
               <div class="filter-panel">
                 <p class="filter-label">Κατηγορίες</p>
 
-                <div class="filter-tags">
+                <div
+                  ref="filterTags"
+                  class="filter-tags"
+                  @pointerdown="startFilterDrag"
+                  @pointermove="moveFilterDrag"
+                  @pointerup="stopFilterDrag"
+                  @pointercancel="stopFilterDrag"
+                  @click.capture="preventClickAfterFilterDrag"
+                >
                   <NuxtLink
                     :to="getCategoryLink(null)"
                     class="filter-tag"
@@ -128,6 +212,11 @@ onMounted(() => {
                     <span>{{ category.label }}</span>
                     <span>{{ category.count }}</span>
                   </NuxtLink>
+
+                  <button type="button" class="filter-tag filter-tag-more" @click="openCategoryDialog">
+                    <span>Προβολή όλων</span>
+                    <span aria-hidden="true">↓</span>
+                  </button>
                 </div>
               </div>
             </aside>
@@ -243,6 +332,39 @@ onMounted(() => {
         </div>
       </section>
     </main>
+
+    <dialog ref="categoryDialog" class="category-dialog" @click.self="closeCategoryDialog">
+      <div class="category-sheet">
+        <div class="category-sheet-header">
+          <p>Όλες οι κατηγορίες</p>
+          <button type="button" aria-label="Κλείσιμο κατηγοριών" @click="closeCategoryDialog">×</button>
+        </div>
+
+        <div class="category-sheet-links">
+          <NuxtLink
+            :to="getCategoryLink(null)"
+            class="category-sheet-link"
+            :class="{ 'is-active': !selectedCategory }"
+            @click="closeCategoryDialog"
+          >
+            <span>Όλος ο εξοπλισμός</span>
+            <span>{{ equipmentItems.length }}</span>
+          </NuxtLink>
+
+          <NuxtLink
+            v-for="category in equipmentCategoryCounts"
+            :key="category.categoryKey"
+            :to="getCategoryLink(category.categoryKey)"
+            class="category-sheet-link"
+            :class="{ 'is-active': selectedCategory === category.categoryKey }"
+            @click="closeCategoryDialog"
+          >
+            <span>{{ category.label }}</span>
+            <span>{{ category.count }}</span>
+          </NuxtLink>
+        </div>
+      </div>
+    </dialog>
   </div>
 </template>
 
@@ -434,7 +556,96 @@ onMounted(() => {
   line-height: 1.35;
 }
 
+.filter-tag-more {
+  display: none;
+  cursor: pointer;
+}
+
+.filter-tag span:last-child,
+.category-sheet-link span:last-child {
+  font-size: 12px;
+  opacity: 0.68;
+}
+
 .filter-tag.is-active {
+  border-color: #000;
+  background: #000;
+  color: #fff;
+}
+
+.category-dialog {
+  width: min(100%, 520px);
+  max-width: none;
+  max-height: min(78vh, 680px);
+  margin: auto 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #000;
+}
+
+.category-dialog::backdrop {
+  background: rgb(0 0 0 / 48%);
+}
+
+.category-sheet {
+  overflow: hidden;
+  padding: 18px 16px max(24px, env(safe-area-inset-bottom));
+  border-radius: 18px 18px 0 0;
+  background: #fff;
+}
+
+.category-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.category-sheet-header p {
+  margin: 0;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.category-sheet-header button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #d9d3cb;
+  background: #fff;
+  color: #000;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.category-sheet-links {
+  overflow-y: auto;
+  max-height: calc(78vh - 100px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  overscroll-behavior: contain;
+}
+
+.category-sheet-link {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #d9d3cb;
+  color: #000;
+  font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.category-sheet-link.is-active {
   border-color: #000;
   background: #000;
   color: #fff;
@@ -673,17 +884,57 @@ onMounted(() => {
   }
 
   .filter-panel {
-    padding: 18px 16px;
+    position: relative;
+    overflow: hidden;
+    padding: 18px 0 16px 16px;
   }
 
   .filter-tags {
+    overflow-x: auto;
+    overflow-y: hidden;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding-right: 32px;
+    scroll-padding-inline: 16px 32px;
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+    cursor: grab;
+    touch-action: pan-x;
+    user-select: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-tags:active {
+    cursor: grabbing;
+  }
+
+  .filter-tags::-webkit-scrollbar {
+    display: none;
   }
 
   .filter-tag {
+    min-height: 44px;
+    flex: 0 0 auto;
     width: auto;
     min-width: 0;
+    padding: 10px 13px;
+    white-space: nowrap;
+  }
+
+  .filter-tag-more {
+    display: flex;
+  }
+
+  .filter-panel::after {
+    position: absolute;
+    right: 0;
+    bottom: 16px;
+    width: 28px;
+    height: 44px;
+    background: linear-gradient(90deg, rgb(255 255 255 / 0%), #fff 78%);
+    content: '';
+    pointer-events: none;
   }
 
   .listing-header {
