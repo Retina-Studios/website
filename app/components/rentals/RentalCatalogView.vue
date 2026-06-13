@@ -46,10 +46,34 @@ const filteredPageCount = computed(() =>
   Math.max(1, Math.ceil(filteredItems.value.length / equipmentItemsPerPage)),
 )
 
+const safeCurrentPage = computed(() => Math.min(Math.max(props.currentPage, 1), filteredPageCount.value))
+
 const pagedItems = computed(() => {
-  const safePage = Math.min(props.currentPage, filteredPageCount.value)
-  const start = (safePage - 1) * equipmentItemsPerPage
+  const start = (safeCurrentPage.value - 1) * equipmentItemsPerPage
   return filteredItems.value.slice(start, start + equipmentItemsPerPage)
+})
+
+const paginationItems = computed(() => {
+  const pages = new Set([
+    1,
+    filteredPageCount.value,
+    safeCurrentPage.value - 1,
+    safeCurrentPage.value,
+    safeCurrentPage.value + 1,
+  ])
+  const visiblePages = [...pages]
+    .filter((page) => page >= 1 && page <= filteredPageCount.value)
+    .sort((a, b) => a - b)
+
+  return visiblePages.flatMap((page, index) => {
+    const previousPage = visiblePages[index - 1]
+
+    if (previousPage && page - previousPage > 1) {
+      return [{ type: 'ellipsis' as const, key: `ellipsis-${previousPage}-${page}` }, { type: 'page' as const, page }]
+    }
+
+    return [{ type: 'page' as const, page }]
+  })
 })
 
 function getCategoryLink(categoryKey: EquipmentCategoryKey | null, page = 1) {
@@ -277,8 +301,8 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
               >
                 <div class="pagination-links">
                   <NuxtLink
-                    v-if="currentPage > 1"
-                    :to="getCategoryLink(selectedCategory, currentPage - 1)"
+                    v-if="safeCurrentPage > 1"
+                    :to="getCategoryLink(selectedCategory, safeCurrentPage - 1)"
                     class="pagination-link pagination-arrow"
                     aria-label="Προηγούμενη σελίδα"
                   >
@@ -292,19 +316,22 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                     &lt;
                   </span>
 
-                  <NuxtLink
-                    v-for="page in filteredPageCount"
-                    :key="page"
-                    :to="getCategoryLink(selectedCategory, page)"
-                    class="pagination-link"
-                    :class="{ 'is-active': page === currentPage }"
-                  >
-                    {{ page }}
-                  </NuxtLink>
+                  <template v-for="item in paginationItems" :key="item.type === 'page' ? item.page : item.key">
+                    <NuxtLink
+                      v-if="item.type === 'page'"
+                      :to="getCategoryLink(selectedCategory, item.page)"
+                      class="pagination-link"
+                      :class="{ 'is-active': item.page === safeCurrentPage }"
+                      :aria-current="item.page === safeCurrentPage ? 'page' : undefined"
+                    >
+                      {{ item.page }}
+                    </NuxtLink>
+                    <span v-else class="pagination-ellipsis" aria-hidden="true">…</span>
+                  </template>
 
                   <NuxtLink
-                    v-if="currentPage < filteredPageCount"
-                    :to="getCategoryLink(selectedCategory, currentPage + 1)"
+                    v-if="safeCurrentPage < filteredPageCount"
+                    :to="getCategoryLink(selectedCategory, safeCurrentPage + 1)"
                     class="pagination-link pagination-arrow"
                     aria-label="Επόμενη σελίδα"
                   >
@@ -832,6 +859,15 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
   font-size: 18px;
 }
 
+.pagination-ellipsis {
+  min-width: 20px;
+  color: #777067;
+  font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  text-align: center;
+}
+
 .pagination-link.is-disabled {
   border-color: #d5d0c8;
   color: #b1aaa0;
@@ -962,8 +998,25 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
   }
 
   .pagination-nav {
+    width: calc(100% + 24px);
+    margin-left: -12px;
     display: flex;
     justify-content: center;
+  }
+
+  .pagination-links {
+    gap: 6px;
+  }
+
+  .pagination-link {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .pagination-arrow,
+  .pagination-ellipsis {
+    font-size: 16px;
   }
 }
 </style>
