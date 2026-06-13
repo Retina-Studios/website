@@ -1,6 +1,7 @@
 import equipmentCatalogCsv from './Retina Studios - Equipment.csv?raw'
 
 export type EquipmentCategoryKey =
+  | 'bundles'
   | 'cameras'
   | 'lenses'
   | 'lighting'
@@ -36,6 +37,12 @@ const priceFormatter = new Intl.NumberFormat('el-GR', {
 })
 
 export const equipmentCategories: Record<EquipmentCategoryKey, EquipmentCategoryMeta> = {
+  bundles: {
+    label: 'Πακέτα',
+    description: 'Έτοιμα πακέτα εξοπλισμού με συνδυαστική έκπτωση για ολοκληρωμένα production setups.',
+    accent: '#7c1f2b',
+    surface: '#f5d9dd',
+  },
   cameras: {
     label: 'Κάμερες',
     description: 'Bodies για studio shoots, interviews, podcasts και παραγωγές πεδίου.',
@@ -152,6 +159,7 @@ export const equipmentCategoryCounts = Object.entries(
       return counts
     },
     {
+      bundles: 0,
       cameras: 0,
       lenses: 0,
       lighting: 0,

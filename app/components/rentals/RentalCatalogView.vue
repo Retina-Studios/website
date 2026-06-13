@@ -37,7 +37,7 @@ const selectedCategory = computed<EquipmentCategoryKey | null>(() => {
 
 const filteredItems = computed(() => {
   if (!selectedCategory.value) {
-    return equipmentItems
+    return equipmentItems.filter((item) => item.categoryKey !== 'bundles')
   }
 
   return equipmentItems.filter((item) => item.categoryKey === selectedCategory.value)
@@ -213,16 +213,25 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                   @click.capture="preventClickAfterFilterDrag"
                 >
                   <NuxtLink
+                    :to="getCategoryLink('bundles')"
+                    class="filter-tag filter-tag-bundles"
+                    :class="{ 'is-active': selectedCategory === 'bundles' }"
+                  >
+                    <span>{{ equipmentCategories.bundles.label }}</span>
+                    <span>{{ equipmentCategoryCounts.find((category) => category.categoryKey === 'bundles')?.count }}</span>
+                  </NuxtLink>
+
+                  <NuxtLink
                     :to="getCategoryLink(null)"
                     class="filter-tag"
                     :class="{ 'is-active': !selectedCategory }"
                   >
                     <span>Όλος ο εξοπλισμός</span>
-                    <span>{{ equipmentItems.length }}</span>
+                    <span>{{ equipmentItems.filter((item) => item.categoryKey !== 'bundles').length }}</span>
                   </NuxtLink>
 
                   <NuxtLink
-                    v-for="category in equipmentCategoryCounts"
+                    v-for="category in equipmentCategoryCounts.filter((category) => category.categoryKey !== 'bundles')"
                     :key="category.categoryKey"
                     :to="getCategoryLink(category.categoryKey)"
                     class="filter-tag"
@@ -368,17 +377,27 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
 
         <div class="category-sheet-links">
           <NuxtLink
+            :to="getCategoryLink('bundles')"
+            class="category-sheet-link category-sheet-link-bundles"
+            :class="{ 'is-active': selectedCategory === 'bundles' }"
+            @click="closeCategoryDialog"
+          >
+            <span>{{ equipmentCategories.bundles.label }}</span>
+            <span>{{ equipmentCategoryCounts.find((category) => category.categoryKey === 'bundles')?.count }}</span>
+          </NuxtLink>
+
+          <NuxtLink
             :to="getCategoryLink(null)"
             class="category-sheet-link"
             :class="{ 'is-active': !selectedCategory }"
             @click="closeCategoryDialog"
           >
             <span>Όλος ο εξοπλισμός</span>
-            <span>{{ equipmentItems.length }}</span>
+            <span>{{ equipmentItems.filter((item) => item.categoryKey !== 'bundles').length }}</span>
           </NuxtLink>
 
           <NuxtLink
-            v-for="category in equipmentCategoryCounts"
+            v-for="category in equipmentCategoryCounts.filter((category) => category.categoryKey !== 'bundles')"
             :key="category.categoryKey"
             :to="getCategoryLink(category.categoryKey)"
             class="category-sheet-link"
@@ -584,6 +603,17 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
 .filter-tag-more {
   display: none;
   cursor: pointer;
+}
+
+.filter-tag-bundles,
+.category-sheet-link-bundles {
+  border-color: var(--bundles-accent, #7c1f2b);
+  background: #f5d9dd;
+  color: #7c1f2b;
+}
+
+.filter-tag-bundles {
+  margin-bottom: 6px;
 }
 
 .filter-tag span:last-child,
