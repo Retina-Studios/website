@@ -105,7 +105,11 @@ function closeCategoryDialog() {
 }
 
 function startFilterDrag(event: PointerEvent) {
-  if (event.pointerType === 'touch' || !filterTags.value) {
+  if (
+    event.pointerType === 'touch'
+    || !filterTags.value
+    || !window.matchMedia('(max-width: 1020px)').matches
+  ) {
     return
   }
 
