@@ -31,7 +31,8 @@ function trackPageView(measurementId: string, pagePath: string) {
     return
   }
 
-  window.gtag('config', measurementId, {
+  window.gtag('event', 'page_view', {
+    send_to: measurementId,
     page_path: pagePath,
     page_location: window.location.href,
     page_title: document.title,
@@ -44,6 +45,12 @@ export default defineNuxtPlugin((nuxtApp) => {
   const measurementId = publicConfig.googleAnalyticsMeasurementId
 
   if (!measurementId) {
+    console.warn('Google Analytics is disabled because no measurement ID is configured.')
+    return
+  }
+
+  if (!/^G-[A-Z0-9]+$/i.test(measurementId)) {
+    console.warn(`Google Analytics is disabled because "${measurementId}" is not a valid GA4 measurement ID.`)
     return
   }
 
