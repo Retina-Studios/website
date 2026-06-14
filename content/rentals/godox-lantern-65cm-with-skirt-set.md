@@ -3,7 +3,6 @@ title: "Godox Lantern 65cm with Skirt set"
 order: 38
 categories:
   - lighting
-summary: "Lantern softbox for soft ambient wrap with optional skirt control around the room."
 images:
   - "/images/rentals/godox-lantern-65cm-with-skirt-set.jpg"
 prices:

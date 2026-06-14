@@ -4,7 +4,6 @@ order: 47
 categories:
   - audio
   - video
-summary: "Shotgun microphone for focused dialogue capture, interviews and boom-mounted recording."
 images:
   - "/images/rentals/rode-ntg4-shotgun-mic.webp"
 prices:

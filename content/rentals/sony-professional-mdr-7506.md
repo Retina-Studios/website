@@ -3,7 +3,6 @@ title: "Sony Professional MDR-7506"
 order: 50
 categories:
   - audio
-summary: ""
 images:
   - "/images/rentals/sony-mdr-7506.jpg"
 prices:

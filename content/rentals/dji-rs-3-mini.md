@@ -4,7 +4,6 @@ order: 26
 categories:
   - video
   - gripSupport
-summary: "Compact gimbal for stabilized movement in reels, walkthroughs and lightweight mirrorless setups."
 images:
   - "/images/rentals/dji-ronin-rs4-mini.jpg"
 prices:

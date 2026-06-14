@@ -3,7 +3,6 @@ title: "MEIKE S35 Prime 75mm T2.1 Cinema Film Lens"
 order: 16
 categories:
   - lenses
-summary: "Short tele cine prime for portraits, interviews and tighter dramatic framing."
 images:
   - "/images/rentals/meike-s35-75mm.webp"
 prices:

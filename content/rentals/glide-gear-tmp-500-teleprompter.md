@@ -4,7 +4,6 @@ order: 60
 categories:
   - video
   - gripSupport
-summary: "Teleprompter for scripted presenter videos, interviews and talking-head productions."
 images:
   - "/images/rentals/glide-gear-tmp-500-teleprompter.webp"
 prices:

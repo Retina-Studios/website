@@ -3,7 +3,6 @@ title: "Godox X2T for Canon"
 order: 65
 categories:
   - lighting
-summary: "Wireless trigger for firing and controlling compatible Godox flashes from Canon cameras."
 images:
   - "/images/rentals/godox-x2t.webp"
 prices:

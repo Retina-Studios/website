@@ -3,7 +3,6 @@ title: "Rokinon 24mm T1.5 Full Frame Cine DS"
 order: 13
 categories:
   - lenses
-summary: "Wide cine prime with geared rings for narrative work, interiors and controlled focus pulls."
 images:
   - "/images/rentals/rokinon-ff-24mm.webp"
 prices:

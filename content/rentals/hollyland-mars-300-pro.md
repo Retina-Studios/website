@@ -4,7 +4,6 @@ order: 28
 categories:
   - video
   - audio
-summary: "Wireless video system for untethered director monitoring and client viewing on set."
 images:
   - "/images/rentals/hollyland-mars-300-pro.webp"
 prices:

@@ -3,7 +3,6 @@ title: "Canon EF 70-200mm f/2.8L"
 order: 7
 categories:
   - lenses
-summary: "Telephoto zoom for portraits, stage coverage, compression and clean subject separation."
 images:
   - "/images/rentals/canon-ef-70-200mm-f-2-8l.jpg"
 prices:

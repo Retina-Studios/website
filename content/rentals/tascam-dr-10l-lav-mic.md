@@ -3,7 +3,6 @@ title: "Tascam DR-10L Lav Mic"
 order: 43
 categories:
   - audio
-summary: "Clip-on recorder lav for simple dialogue capture without a separate mixer or camera feed."
 images:
   - "/images/rentals/tascam-dr-10l-lav-mic.jpg"
 prices:

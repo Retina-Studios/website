@@ -4,7 +4,6 @@ order: 61
 categories:
   - video
   - gripSupport
-summary: "Camera slider for smooth product moves, subtle reveals and controlled motion shots."
 images:
   - "/images/rentals/edelkrone-slider.jpg"
 prices:

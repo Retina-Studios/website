@@ -3,7 +3,6 @@ title: "Canon EF 35mm f/2.0"
 order: 11
 categories:
   - lenses
-summary: "Compact storytelling prime for documentary, interviews and everyday handheld work."
 images:
   - "/images/rentals/canon-ef-35mm-f-2-0.webp"
 prices:

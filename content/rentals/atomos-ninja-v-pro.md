@@ -4,7 +4,6 @@ order: 27
 categories:
   - video
   - mediaPower
-summary: "Monitor-recorder for brighter on-set viewing and higher-quality external recording workflows."
 images:
   - "/images/rentals/atomos-ninja-v-pro.webp"
 prices:

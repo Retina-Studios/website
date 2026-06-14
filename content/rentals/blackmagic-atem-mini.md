@@ -4,7 +4,6 @@ order: 40
 categories:
   - video
   - audio
-summary: "Compact live switcher for multicam streams, podcasts and simple live production workflows."
 images:
   - "/images/rentals/blackmagic-atem-mini.jpg"
 prices:

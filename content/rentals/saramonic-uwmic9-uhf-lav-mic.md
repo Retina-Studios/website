@@ -3,7 +3,6 @@ title: "Saramonic UWMIC9 UHF Lav Mic"
 order: 42
 categories:
   - audio
-summary: "Wireless lavalier system for interviews, presenter setups and discreet dialogue capture."
 images:
   - "/images/rentals/saramonic-uwmic9-uhf-lav-mic.webp"
 prices:

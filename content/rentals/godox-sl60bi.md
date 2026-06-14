@@ -3,7 +3,6 @@ title: "Godox SL60Bi"
 order: 30
 categories:
   - lighting
-summary: "Bi-color LED light for quick interview setups and small studio scenes that need color-temperature flexibility."
 images:
   - "/images/rentals/godox-sl60bi.jpg"
 prices:

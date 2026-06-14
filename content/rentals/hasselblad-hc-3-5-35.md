@@ -3,7 +3,6 @@ title: "Hasselblad HC 3,5/35"
 order: 20
 categories:
   - lenses
-summary: "Wide medium-format lens for interiors, landscapes and spacious commercial compositions."
 images:
   - "/images/rentals/hasselblad-hc-35mm-f-3-5.jpg"
 prices:

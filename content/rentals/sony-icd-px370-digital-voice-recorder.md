@@ -3,7 +3,6 @@ title: "Sony ICD-PX370 Digital Voice Recorder"
 order: 59
 categories:
   - audio
-summary: "Compact recorder for notes, simple interviews and lightweight backup audio."
 images:
   - "/images/rentals/sony-icd-px370-mono-digital-voice-recorder-with-built-in-usb-voice-recorder-black.jpg"
 prices:

@@ -3,7 +3,6 @@ title: "Alto Stealth 1 XLR Wireless adapter"
 order: 68
 categories:
   - audio
-summary: "Wireless XLR adapter for sending a microphone signal without running a long cable."
 images:
   - "/images/rentals/xlr-wireless-adapter.jpg"
 prices:
