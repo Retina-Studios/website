@@ -1,5 +1,5 @@
 ---
-title: "Πακέτο Boom"
+title: "Boom Bundle"
 order: 1
 categories:
   - bundles

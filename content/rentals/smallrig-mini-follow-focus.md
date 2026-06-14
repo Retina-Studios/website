@@ -1,6 +1,6 @@
 ---
 title: "SmallRig Mini Follow Focus"
-order: 76
+order: 86
 categories:
   - video
 images:

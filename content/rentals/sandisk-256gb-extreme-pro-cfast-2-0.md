@@ -4,7 +4,7 @@ order: 84
 categories:
   - media
 images:
-  - "/images/rentals/sandisk-124gb-extreme-pro-cfast-2-0.jpg"
+  - "/images/rentals/sandisk-256gb-extreme-pro-cfast-2-0.jpg"
 prices:
   1: 10
   3: 20

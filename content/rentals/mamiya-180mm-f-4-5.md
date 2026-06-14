@@ -3,6 +3,7 @@ title: "Mamiya 180mm f/4.5"
 order: 24
 categories:
   - lenses
+  - film
 images:
   - "/images/rentals/mamiya-180mm-f-4-5.webp"
 prices:

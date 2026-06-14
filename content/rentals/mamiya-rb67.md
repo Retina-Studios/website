@@ -3,6 +3,7 @@ title: "Mamiya RB67"
 order: 23
 categories:
   - cameras
+  - film
 images:
   - "/images/rentals/mamiya-rb67.webp"
 prices:

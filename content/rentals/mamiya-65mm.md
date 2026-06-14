@@ -3,6 +3,7 @@ title: "Mamiya 65mm"
 order: 25
 categories:
   - lenses
+  - film
 images:
   - "/images/rentals/mamiya-65mm.webp"
 prices:
