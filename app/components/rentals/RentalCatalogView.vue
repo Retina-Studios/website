@@ -225,7 +225,7 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                     class="filter-tag"
                     :class="{ 'is-active': !selectedCategory }"
                   >
-                    <span>Όλος ο εξοπλισμός</span>
+                    <span>All equipment</span>
                     <span>{{ allEquipmentCount }}</span>
                   </NuxtLink>
 
@@ -389,7 +389,7 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
             :class="{ 'is-active': !selectedCategory }"
             @click="closeCategoryDialog"
           >
-            <span>Όλος ο εξοπλισμός</span>
+            <span>All equipment</span>
             <span>{{ allEquipmentCount }}</span>
           </NuxtLink>
 
