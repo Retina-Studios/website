@@ -57,6 +57,14 @@ const catalogReturnLink = computed(() => {
   }
 })
 
+function getCategoryCatalogLink(category: EquipmentCategoryKey) {
+  return {
+    path: getEquipmentPagePath(1),
+    query: { category },
+    hash: '#catalog',
+  }
+}
+
 function getRelatedEquipmentLink(slug: string) {
   const { page, category } = catalogContext.value
 
@@ -121,17 +129,18 @@ useHead({
               </div>
 
               <div class="category-badges">
-                <span
+                <NuxtLink
                   v-for="categoryKey in item.categories"
                   :key="categoryKey"
                   class="category-badge"
+                  :to="getCategoryCatalogLink(categoryKey)"
                   :style="{
                     '--badge-accent': equipmentCategories[categoryKey].accent,
                     '--badge-surface': equipmentCategories[categoryKey].surface,
                   }"
                 >
                   {{ formatGreekUppercase(equipmentCategories[categoryKey].label) }}
-                </span>
+                </NuxtLink>
               </div>
 
               <h1>{{ item.name }}</h1>
@@ -363,11 +372,16 @@ useHead({
   padding: 10px 14px;
   background: var(--badge-surface);
   color: var(--badge-accent);
+  text-decoration: none;
   font-family: 'RetinaAvenirHeavy', 'Helvetica Neue', Arial, sans-serif;
   font-size: 13px;
   line-height: 1.2;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.category-badge:hover {
+  opacity: 0.82;
 }
 
 .product-panel h1 {

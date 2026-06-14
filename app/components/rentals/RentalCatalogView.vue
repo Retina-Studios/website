@@ -84,6 +84,10 @@ function getEquipmentLink(slug: string) {
   }
 }
 
+function getVisibleCategoryKey(item: EquipmentItem) {
+  return selectedCategory.value ?? getPrimaryEquipmentCategoryKey(item)
+}
+
 function scrollActiveCategoryIntoView() {
   const container = filterTags.value
   const activeTag = container?.querySelector<HTMLElement>('.filter-tag.is-active')
@@ -260,8 +264,8 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                   :key="item.slug"
                   class="catalog-card"
                   :style="{
-                    '--card-accent': equipmentCategories[getPrimaryEquipmentCategoryKey(item)].accent,
-                    '--card-surface': equipmentCategories[getPrimaryEquipmentCategoryKey(item)].surface,
+                    '--card-accent': equipmentCategories[getVisibleCategoryKey(item)].accent,
+                    '--card-surface': equipmentCategories[getVisibleCategoryKey(item)].surface,
                   }"
                 >
                   <NuxtLink :to="getEquipmentLink(item.slug)" class="card-link">
@@ -276,12 +280,12 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                         decoding="async"
                       />
                       <div class="card-categories">
-                        <span
-                          v-for="categoryKey in item.categories"
-                          :key="`${item.slug}-${categoryKey}`"
-                          class="card-category"
-                        >
-                          {{ formatGreekUppercase(equipmentCategories[categoryKey].label) }}
+                        <span class="card-category">
+                          {{
+                            formatGreekUppercase(
+                              equipmentCategories[getVisibleCategoryKey(item)].label,
+                            )
+                          }}
                         </span>
                       </div>
                     </div>
