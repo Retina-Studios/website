@@ -6,9 +6,10 @@ categories:
 summary: "15m extension reel for distributing power more cleanly across larger studio or location setups."
 images:
   - "/images/rentals/power-cord-reel.jpeg"
-price1Day: 3
-price3Days: 6
-price7Days: 11
+prices:
+  1: 3
+  3: 6
+  7: 11
 ---
 
 15m extension reel for distributing power more cleanly across larger studio or location setups.

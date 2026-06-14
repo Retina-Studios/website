@@ -6,9 +6,10 @@ categories:
 summary: "Telephoto medium-format lens for portraits, compression and refined subject isolation."
 images:
   - "/images/rentals/hasselblad-hc-150mm-f-3-2.jpg"
-price1Day: 25
-price3Days: 50
-price7Days: 88
+prices:
+  1: 25
+  3: 50
+  7: 88
 ---
 
 Telephoto medium-format lens for portraits, compression and refined subject isolation.

@@ -6,9 +6,10 @@ categories:
 summary: "Compact storytelling prime for documentary, interviews and everyday handheld work."
 images:
   - "/images/rentals/canon-ef-35mm-f-2-0.webp"
-price1Day: 15
-price3Days: 30
-price7Days: 53
+prices:
+  1: 15
+  3: 30
+  7: 53
 ---
 
 Compact storytelling prime for documentary, interviews and everyday handheld work.

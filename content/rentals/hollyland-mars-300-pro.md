@@ -7,9 +7,10 @@ categories:
 summary: "Wireless video system for untethered director monitoring and client viewing on set."
 images:
   - "/images/rentals/hollyland-mars-300-pro.webp"
-price1Day: 20
-price3Days: 40
-price7Days: 70
+prices:
+  1: 20
+  3: 40
+  7: 70
 ---
 
 Wireless video system for untethered director monitoring and client viewing on set.

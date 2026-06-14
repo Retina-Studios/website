@@ -6,9 +6,10 @@ categories:
 summary: "Wide-angle RF lens for interiors, environmental portraits and close-focus detail shots."
 images:
   - "/images/rentals/canon-rf-24mm-f-2-0.jpg"
-price1Day: 15
-price3Days: 30
-price7Days: 53
+prices:
+  1: 15
+  3: 30
+  7: 53
 ---
 
 Wide-angle RF lens for interiors, environmental portraits and close-focus detail shots.

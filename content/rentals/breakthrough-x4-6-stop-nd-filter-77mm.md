@@ -6,9 +6,10 @@ categories:
 summary: "77mm ND filter for reducing light and holding more cinematic shutter settings outdoors."
 images:
   - "/images/rentals/77mm-nd-filter.webp"
-price1Day: 4
-price3Days: 8
-price7Days: 14
+prices:
+  1: 4
+  3: 8
+  7: 14
 ---
 
 77mm ND filter for reducing light and holding more cinematic shutter settings outdoors.

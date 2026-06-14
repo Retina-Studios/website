@@ -6,9 +6,10 @@ categories:
 summary: "Compact TTL flash for Canon bodies, event coverage and quick bounce-flash setups."
 images:
   - "/images/rentals/godox-tt350c.jpeg"
-price1Day: 4
-price3Days: 8
-price7Days: 14
+prices:
+  1: 4
+  3: 8
+  7: 14
 ---
 
 Compact TTL flash for Canon bodies, event coverage and quick bounce-flash setups.

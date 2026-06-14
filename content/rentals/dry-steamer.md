@@ -6,9 +6,10 @@ categories:
 summary: "Garment steamer for wardrobe prep and fast touch-ups before talent goes on camera."
 images:
   - "/images/rentals/dry-steamer.jpeg"
-price1Day: 4
-price3Days: 8
-price7Days: 14
+prices:
+  1: 4
+  3: 8
+  7: 14
 ---
 
 Garment steamer for wardrobe prep and fast touch-ups before talent goes on camera.

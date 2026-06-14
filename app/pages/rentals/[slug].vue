@@ -3,6 +3,8 @@ import {
   equipmentCategories,
   formatGreekUppercase,
   formatEquipmentPrice,
+  getEquipmentPrice,
+  getEquipmentPriceEntries,
   getEquipmentPagePath,
   getPrimaryEquipmentImage,
   getPrimaryEquipmentCategoryKey,
@@ -150,17 +152,9 @@ useHead({
               <h2>Τιμοκατάλογος</h2>
 
               <dl class="product-prices">
-                <div>
-                  <dt>1 ημέρα</dt>
-                  <dd>{{ formatEquipmentPrice(item.price1Day) }}</dd>
-                </div>
-                <div>
-                  <dt>3 ημέρες</dt>
-                  <dd>{{ formatEquipmentPrice(item.price3Days) }}</dd>
-                </div>
-                <div>
-                  <dt>7 ημέρες</dt>
-                  <dd>{{ formatEquipmentPrice(item.price7Days) }}</dd>
+                <div v-for="priceEntry in getEquipmentPriceEntries(item)" :key="`${item.slug}-${priceEntry.duration}`">
+                  <dt>{{ priceEntry.duration }} {{ priceEntry.duration === 1 ? 'ημέρα' : 'ημέρες' }}</dt>
+                  <dd>{{ formatEquipmentPrice(priceEntry.price) }}</dd>
                 </div>
               </dl>
 
@@ -202,8 +196,8 @@ useHead({
                 </div>
                 <h3>{{ relatedItem.name }}</h3>
                 <div class="related-price">
-                  <span>{{ relatedItem.price1Day === null ? 'Τιμή' : 'Από' }}</span>
-                  <strong>{{ formatEquipmentPrice(relatedItem.price1Day) }}</strong>
+                  <span>{{ getEquipmentPrice(relatedItem, 1) === null ? 'Τιμή' : 'Από' }}</span>
+                  <strong>{{ formatEquipmentPrice(getEquipmentPrice(relatedItem, 1)) }}</strong>
                 </div>
               </NuxtLink>
             </article>

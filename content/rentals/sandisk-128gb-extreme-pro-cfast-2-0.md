@@ -6,9 +6,10 @@ categories:
 summary: "CFast card for internal recording in supported cinema cameras and recorders."
 images:
   - "/images/rentals/sandisk-256gb-extreme-pro-cfast-2-0.jpg"
-price1Day: 10
-price3Days: 20
-price7Days: 35
+prices:
+  1: 10
+  3: 20
+  7: 35
 ---
 
 CFast card for internal recording in supported cinema cameras and recorders.

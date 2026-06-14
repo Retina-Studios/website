@@ -6,9 +6,10 @@ categories:
 summary: "Daylight LED fixture for interviews, portraits and general studio use with Bowens-mount modifiers."
 images:
   - "/images/rentals/godox-litemons-150.webp"
-price1Day: 10
-price3Days: 20
-price7Days: 35
+prices:
+  1: 10
+  3: 20
+  7: 35
 ---
 
 Daylight LED fixture for interviews, portraits and general studio use with Bowens-mount modifiers.

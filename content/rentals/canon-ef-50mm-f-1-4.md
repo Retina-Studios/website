@@ -6,9 +6,10 @@ categories:
 summary: "Classic standard prime for portraits, products and natural-perspective coverage."
 images:
   - "/images/rentals/canon-ef-50mm-f-1-4.png"
-price1Day: 15
-price3Days: 30
-price7Days: 53
+prices:
+  1: 15
+  3: 30
+  7: 53
 ---
 
 Classic standard prime for portraits, products and natural-perspective coverage.

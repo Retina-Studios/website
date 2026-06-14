@@ -6,9 +6,10 @@ categories:
 summary: "Higher-output daylight LED fixture for larger sets, stronger key light and heavier diffusion setups."
 images:
   - "/images/rentals/godox-vl300.webp"
-price1Day: 20
-price3Days: 40
-price7Days: 70
+prices:
+  1: 20
+  3: 40
+  7: 70
 ---
 
 Higher-output daylight LED fixture for larger sets, stronger key light and heavier diffusion setups.

@@ -6,9 +6,10 @@ categories:
 summary: "Long medium-format lens for portraits, compression and isolated compositions on the RB67."
 images:
   - "/images/rentals/mamiya-180mm-f-4-5.webp"
-price1Day: 25
-price3Days: 50
-price7Days: 88
+prices:
+  1: 25
+  3: 50
+  7: 88
 ---
 
 Long medium-format lens for portraits, compression and isolated compositions on the RB67.

@@ -6,9 +6,10 @@ categories:
 summary: "Wide cine prime with geared rings for narrative work, interiors and controlled focus pulls."
 images:
   - "/images/rentals/rokinon-ff-24mm.webp"
-price1Day: 20
-price3Days: 40
-price7Days: 70
+prices:
+  1: 20
+  3: 40
+  7: 70
 ---
 
 Wide cine prime with geared rings for narrative work, interiors and controlled focus pulls.

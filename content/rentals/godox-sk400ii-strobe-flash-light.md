@@ -6,9 +6,10 @@ categories:
 summary: "400Ws studio strobe for portraits, products and controlled flash photography."
 images:
   - "/images/rentals/godox-sk400ii-strobe-flash-light-400ws-gn65-5600k-2-4g-studio-photo-strobe-monolight-light-for-studio-shooting-with-150w-modeling-lamp-bowens-mount.jpg"
-price1Day: 10
-price3Days: 20
-price7Days: 35
+prices:
+  1: 10
+  3: 20
+  7: 35
 ---
 
 400Ws studio strobe for portraits, products and controlled flash photography.

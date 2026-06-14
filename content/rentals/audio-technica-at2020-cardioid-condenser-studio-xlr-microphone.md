@@ -6,9 +6,10 @@ categories:
 summary: "Studio condenser microphone for podcasts, voiceovers, acoustic instruments and clean spoken-word recording."
 images:
   - "/images/rentals/audio-technica-at2020-mics.jpeg"
-price1Day: 5
-price3Days: 10
-price7Days: 18
+prices:
+  1: 5
+  3: 10
+  7: 18
 ---
 
 Studio condenser microphone for podcasts, voiceovers, acoustic instruments and clean spoken-word recording.

@@ -12,6 +12,12 @@ export {
   equipmentCategoryKeys,
 } from './equipmentCategories'
 
+export const rentalPriceDurations = [1, 3, 7] as const
+
+export type RentalPriceDuration = typeof rentalPriceDurations[number]
+export type RentalPriceKey = `${RentalPriceDuration}`
+export type EquipmentPrices = Partial<Record<RentalPriceKey, number | null>>
+
 export type EquipmentDocument = {
   path: string
   title: string
@@ -19,9 +25,7 @@ export type EquipmentDocument = {
   categories: EquipmentCategoryKey[]
   summary: string
   images: string[]
-  price1Day: number | null
-  price3Days: number | null
-  price7Days: number | null
+  prices: EquipmentPrices
   body?: unknown
 }
 
@@ -33,9 +37,7 @@ export type EquipmentItem = {
   categories: EquipmentCategoryKey[]
   summary: string
   images: string[]
-  price1Day: number | null
-  price3Days: number | null
-  price7Days: number | null
+  prices: EquipmentPrices
 }
 
 const priceFormatter = new Intl.NumberFormat('el-GR', {
@@ -67,9 +69,7 @@ export function normalizeEquipmentDocument(document: EquipmentDocument): Equipme
     categories: document.categories,
     summary: document.summary,
     images: document.images,
-    price1Day: document.price1Day,
-    price3Days: document.price3Days,
-    price7Days: document.price7Days,
+    prices: normalizeEquipmentPrices(document.prices),
   }
 }
 
@@ -85,6 +85,19 @@ export function getPrimaryEquipmentCategoryKey(item: Pick<EquipmentItem, 'catego
 
 export function getPrimaryEquipmentImage(item: Pick<EquipmentItem, 'images'>) {
   return item.images[0] ?? ''
+}
+
+export function normalizeEquipmentPrices(prices: EquipmentPrices) {
+  return rentalPriceDurations.reduce<EquipmentPrices>((acc, duration) => {
+    const key = String(duration) as RentalPriceKey
+    const price = prices[key]
+
+    if (price !== undefined) {
+      acc[key] = price
+    }
+
+    return acc
+  }, {})
 }
 
 export function formatGreekUppercase(value: string) {
@@ -121,6 +134,18 @@ export function getEquipmentFilteredPageCount(items: EquipmentItem[], selectedCa
 
 export function formatEquipmentPrice(price: number | null) {
   return price === null ? 'Κατόπιν συνεννόησης' : priceFormatter.format(price)
+}
+
+export function getEquipmentPrice(item: Pick<EquipmentItem, 'prices'>, duration: RentalPriceDuration) {
+  const key = String(duration) as RentalPriceKey
+  return item.prices[key] ?? null
+}
+
+export function getEquipmentPriceEntries(item: Pick<EquipmentItem, 'prices'>) {
+  return rentalPriceDurations.map((duration) => ({
+    duration,
+    price: getEquipmentPrice(item, duration),
+  }))
 }
 
 export function getEquipmentPagePath(page: number) {

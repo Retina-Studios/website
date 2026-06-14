@@ -6,9 +6,10 @@ categories:
 summary: "Wide zoom lens for interiors, architecture, gimbal work and dynamic handheld coverage."
 images:
   - "/images/rentals/canon-ef-16-35mm-f-2-8l.webp"
-price1Day: 20
-price3Days: 40
-price7Days: 70
+prices:
+  1: 20
+  3: 40
+  7: 70
 ---
 
 Wide zoom lens for interiors, architecture, gimbal work and dynamic handheld coverage.

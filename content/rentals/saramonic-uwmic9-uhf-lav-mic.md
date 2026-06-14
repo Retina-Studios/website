@@ -6,9 +6,10 @@ categories:
 summary: "Wireless lavalier system for interviews, presenter setups and discreet dialogue capture."
 images:
   - "/images/rentals/saramonic-uwmic9-uhf-lav-mic.webp"
-price1Day: 15
-price3Days: 30
-price7Days: 53
+prices:
+  1: 15
+  3: 30
+  7: 53
 ---
 
 Wireless lavalier system for interviews, presenter setups and discreet dialogue capture.

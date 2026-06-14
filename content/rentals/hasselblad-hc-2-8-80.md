@@ -6,9 +6,10 @@ categories:
 summary: "Standard medium-format lens for portraits, editorials and balanced everyday framing."
 images:
   - "/images/rentals/hasselblad-hc-80mm-f-2-8.jpg"
-price1Day: 25
-price3Days: 50
-price7Days: 88
+prices:
+  1: 25
+  3: 50
+  7: 88
 ---
 
 Standard medium-format lens for portraits, editorials and balanced everyday framing.

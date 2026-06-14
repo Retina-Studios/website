@@ -6,9 +6,10 @@ categories:
 summary: "Versatile zoom lens for run-and-gun video, travel shoots and flexible all-day coverage."
 images:
   - "/images/rentals/canon-ef-24-105mm-f-4l.webp"
-price1Day: 20
-price3Days: 40
-price7Days: 70
+prices:
+  1: 20
+  3: 40
+  7: 70
 ---
 
 Versatile zoom lens for run-and-gun video, travel shoots and flexible all-day coverage.

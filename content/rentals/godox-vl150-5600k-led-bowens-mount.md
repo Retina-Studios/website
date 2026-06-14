@@ -6,9 +6,10 @@ categories:
 summary: "Daylight LED key light for interviews, commercial sets and larger modifier-based lighting setups."
 images:
   - "/images/rentals/godox-vl150.jpeg"
-price1Day: 15
-price3Days: 30
-price7Days: 53
+prices:
+  1: 15
+  3: 30
+  7: 53
 ---
 
 Daylight LED key light for interviews, commercial sets and larger modifier-based lighting setups.

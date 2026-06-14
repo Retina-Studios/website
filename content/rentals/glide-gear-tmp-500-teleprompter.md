@@ -7,9 +7,10 @@ categories:
 summary: "Teleprompter for scripted presenter videos, interviews and talking-head productions."
 images:
   - "/images/rentals/glide-gear-tmp-500-teleprompter.webp"
-price1Day: 15
-price3Days: 30
-price7Days: 53
+prices:
+  1: 15
+  3: 30
+  7: 53
 ---
 
 Teleprompter for scripted presenter videos, interviews and talking-head productions.

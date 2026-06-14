@@ -6,9 +6,10 @@ categories:
 summary: "Medium-format digital body for premium commercial stills and high-detail studio photography."
 images:
   - "/images/rentals/hasselblad-h3dii-45mp.jpg"
-price1Day: 45
-price3Days: 90
-price7Days: 158
+prices:
+  1: 45
+  3: 90
+  7: 158
 ---
 
 Medium-format digital body for premium commercial stills and high-detail studio photography.

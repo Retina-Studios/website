@@ -6,9 +6,10 @@ categories:
 summary: "NP-F battery plate for powering cameras and accessories from Sony-style batteries."
 images:
   - "/images/rentals/neewer-np-f-battery-adapter-plate-for-dslr-and-mirrorless-cameras-with-led-power-indicators-12v-dc-5-5x2-5mm-male-and-7-4v-dc-5-5x2-1mm-male-outputs-compatible-with-sony-np-f-batteries-ps004e.jpg"
-price1Day: 4
-price3Days: 8
-price7Days: 14
+prices:
+  1: 4
+  3: 8
+  7: 14
 ---
 
 NP-F battery plate for powering cameras and accessories from Sony-style batteries.

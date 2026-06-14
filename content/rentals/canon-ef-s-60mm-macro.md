@@ -6,9 +6,10 @@ categories:
 summary: "Macro lens for product details, textures and close-focus tabletop work."
 images:
   - "/images/rentals/canon-ef-60mm-macro.jpg"
-price1Day: 15
-price3Days: 30
-price7Days: 53
+prices:
+  1: 15
+  3: 30
+  7: 53
 ---
 
 Macro lens for product details, textures and close-focus tabletop work.

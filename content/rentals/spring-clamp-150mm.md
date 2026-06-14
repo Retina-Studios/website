@@ -6,9 +6,10 @@ categories:
 summary: "Utility clamp for securing backdrops, diffusion, cords and lightweight set materials."
 images:
   - "/images/rentals/spring-clamp-150mm.webp"
-price1Day: 1
-price3Days: 2
-price7Days: 4
+prices:
+  1: 1
+  3: 2
+  7: 4
 ---
 
 Utility clamp for securing backdrops, diffusion, cords and lightweight set materials.

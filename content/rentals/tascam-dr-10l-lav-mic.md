@@ -6,9 +6,10 @@ categories:
 summary: "Clip-on recorder lav for simple dialogue capture without a separate mixer or camera feed."
 images:
   - "/images/rentals/tascam-dr-10l-lav-mic.jpg"
-price1Day: 10
-price3Days: 20
-price7Days: 35
+prices:
+  1: 10
+  3: 20
+  7: 35
 ---
 
 Clip-on recorder lav for simple dialogue capture without a separate mixer or camera feed.

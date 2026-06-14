@@ -7,9 +7,10 @@ categories:
 summary: "Monitor-recorder for brighter on-set viewing and higher-quality external recording workflows."
 images:
   - "/images/rentals/atomos-ninja-v-pro.webp"
-price1Day: 30
-price3Days: 60
-price7Days: 105
+prices:
+  1: 30
+  3: 60
+  7: 105
 ---
 
 Monitor-recorder for brighter on-set viewing and higher-quality external recording workflows.

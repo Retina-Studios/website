@@ -7,9 +7,10 @@ categories:
 summary: "Complete location-sound kit with RØDE NTG4 shotgun microphone, Tascam DR-60DMKII recorder, boom pole and boom pole holder at a discounted combined rate."
 images:
   - "/images/rentals/boom-bundle.png"
-price1Day: 20
-price3Days: 40
-price7Days: 70
+prices:
+  1: 20
+  3: 40
+  7: 70
 ---
 
 Complete location-sound kit with RØDE NTG4 shotgun microphone, Tascam DR-60DMKII recorder, boom pole and boom pole holder at a discounted combined rate.

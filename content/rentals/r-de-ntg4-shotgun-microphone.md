@@ -7,9 +7,10 @@ categories:
 summary: "Shotgun microphone for focused dialogue capture, interviews and boom-mounted recording."
 images:
   - "/images/rentals/rode-ntg4-shotgun-mic.webp"
-price1Day: 7
-price3Days: 14
-price7Days: 25
+prices:
+  1: 7
+  3: 14
+  7: 25
 ---
 
 Shotgun microphone for focused dialogue capture, interviews and boom-mounted recording.

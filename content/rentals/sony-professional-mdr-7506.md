@@ -6,9 +6,10 @@ categories:
 summary: ""
 images:
   - "/images/rentals/sony-mdr-7506.jpg"
-price1Day: 3
-price3Days: 6
-price7Days: 11
+prices:
+  1: 3
+  3: 6
+  7: 11
 ---
 
 

@@ -7,9 +7,10 @@ categories:
 summary: "Compact gimbal for stabilized movement in reels, walkthroughs and lightweight mirrorless setups."
 images:
   - "/images/rentals/dji-ronin-rs4-mini.jpg"
-price1Day: 20
-price3Days: 40
-price7Days: 70
+prices:
+  1: 20
+  3: 40
+  7: 70
 ---
 
 Compact gimbal for stabilized movement in reels, walkthroughs and lightweight mirrorless setups.

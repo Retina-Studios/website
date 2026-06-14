@@ -7,6 +7,8 @@ import {
   getEquipmentFilteredPageCount,
   getPrimaryEquipmentImage,
   getPrimaryEquipmentCategoryKey,
+  getEquipmentPrice,
+  getEquipmentPriceEntries,
   formatGreekUppercase,
   formatEquipmentPrice,
   parseEquipmentCategoryQuery,
@@ -38,7 +40,6 @@ const allEquipmentCount = computed(() => getAllEquipmentCount(props.items))
 const filteredPageCount = computed(() =>
   getEquipmentFilteredPageCount(props.items, selectedCategory.value),
 )
-
 const safeCurrentPage = computed(() => Math.min(Math.max(props.currentPage, 1), filteredPageCount.value))
 const pagedItems = computed(() => getEquipmentItemsForPage(props.items, safeCurrentPage.value, selectedCategory.value))
 
@@ -290,17 +291,9 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                       <p>{{ item.summary }}</p>
 
                       <dl class="price-list">
-                        <div>
-                          <dt>1 ημέρα</dt>
-                          <dd>{{ formatEquipmentPrice(item.price1Day) }}</dd>
-                        </div>
-                        <div>
-                          <dt>3 ημέρες</dt>
-                          <dd>{{ formatEquipmentPrice(item.price3Days) }}</dd>
-                        </div>
-                        <div>
-                          <dt>7 ημέρες</dt>
-                          <dd>{{ formatEquipmentPrice(item.price7Days) }}</dd>
+                        <div v-for="priceEntry in getEquipmentPriceEntries(item)" :key="`${item.slug}-${priceEntry.duration}`">
+                          <dt>{{ priceEntry.duration }} {{ priceEntry.duration === 1 ? 'ημέρα' : 'ημέρες' }}</dt>
+                          <dd>{{ formatEquipmentPrice(priceEntry.price) }}</dd>
                         </div>
                       </dl>
 

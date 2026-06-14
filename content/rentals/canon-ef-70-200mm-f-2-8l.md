@@ -6,9 +6,10 @@ categories:
 summary: "Telephoto zoom for portraits, stage coverage, compression and clean subject separation."
 images:
   - "/images/rentals/canon-ef-70-200mm-f-2-8l.jpg"
-price1Day: 20
-price3Days: 40
-price7Days: 70
+prices:
+  1: 20
+  3: 40
+  7: 70
 ---
 
 Telephoto zoom for portraits, stage coverage, compression and clean subject separation.

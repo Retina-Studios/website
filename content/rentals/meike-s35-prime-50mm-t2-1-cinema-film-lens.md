@@ -6,9 +6,10 @@ categories:
 summary: "Super 35 cine prime for natural-perspective coverage, portraits and interview setups."
 images:
   - "/images/rentals/meike-s35-50mm.webp"
-price1Day: 20
-price3Days: 40
-price7Days: 70
+prices:
+  1: 20
+  3: 40
+  7: 70
 ---
 
 Super 35 cine prime for natural-perspective coverage, portraits and interview setups.

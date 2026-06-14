@@ -7,9 +7,10 @@ categories:
 summary: "Camera slider for smooth product moves, subtle reveals and controlled motion shots."
 images:
   - "/images/rentals/edelkrone-slider.jpg"
-price1Day: 10
-price3Days: 20
-price7Days: 35
+prices:
+  1: 10
+  3: 20
+  7: 35
 ---
 
 Camera slider for smooth product moves, subtle reveals and controlled motion shots.

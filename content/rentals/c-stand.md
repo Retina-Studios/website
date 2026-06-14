@@ -6,9 +6,10 @@ categories:
 summary: "C-stand for flags, lights, scrims, booms and more secure grip setups on set."
 images:
   - "/images/rentals/c-stand.webp"
-price1Day: 6
-price3Days: 12
-price7Days: 21
+prices:
+  1: 6
+  3: 12
+  7: 21
 ---
 
 C-stand for flags, lights, scrims, booms and more secure grip setups on set.

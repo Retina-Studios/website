@@ -6,9 +6,10 @@ categories:
 summary: "Octabox modifier for soft portrait light, flattering wrap and clean catchlights."
 images:
   - "/images/rentals/godox-octabox.webp"
-price1Day: 3
-price3Days: 6
-price7Days: 11
+prices:
+  1: 3
+  3: 6
+  7: 11
 ---
 
 Octabox modifier for soft portrait light, flattering wrap and clean catchlights.

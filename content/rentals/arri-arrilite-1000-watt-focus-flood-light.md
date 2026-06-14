@@ -6,9 +6,10 @@ categories:
 summary: "Tungsten focus flood for harder directional light and classic warm set lighting."
 images:
   - "/images/rentals/arrilight-1000.jpg"
-price1Day: 10
-price3Days: 20
-price7Days: 35
+prices:
+  1: 10
+  3: 20
+  7: 35
 ---
 
 Tungsten focus flood for harder directional light and classic warm set lighting.

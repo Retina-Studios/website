@@ -6,9 +6,10 @@ categories:
 summary: "Short tele cine prime for portraits, interviews and tighter dramatic framing."
 images:
   - "/images/rentals/meike-s35-75mm.webp"
-price1Day: 20
-price3Days: 40
-price7Days: 70
+prices:
+  1: 20
+  3: 40
+  7: 70
 ---
 
 Short tele cine prime for portraits, interviews and tighter dramatic framing.

@@ -8,9 +8,10 @@ summary: "Cinema camera body for commercial shoots, interviews and controlled pr
 images:
   - "/images/rentals/canon-c300-mkii.jpg"
   - "/images/rentals/canon-c300-mkii-2.jpeg"
-price1Day: 60
-price3Days: 120
-price7Days: 210
+prices:
+  1: 60
+  3: 120
+  7: 210
 ---
 
 Cinema camera body for commercial shoots, interviews and controlled productions that need robust codecs and reliable ergonomics.

@@ -6,9 +6,10 @@ categories:
 summary: "Compact LED light for interviews, product setups and portable location lighting."
 images:
   - "/images/rentals/godox-ml60.jpg"
-price1Day: 10
-price3Days: 20
-price7Days: 35
+prices:
+  1: 10
+  3: 20
+  7: 35
 ---
 
 Compact LED light for interviews, product setups and portable location lighting.
