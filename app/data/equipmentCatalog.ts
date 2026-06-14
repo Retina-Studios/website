@@ -25,6 +25,7 @@ export type EquipmentDocument = {
   categories: EquipmentCategoryKey[]
   images: string[]
   prices: EquipmentPrices
+  description?: string
   body?: unknown
 }
 
@@ -86,62 +87,6 @@ export function getPrimaryEquipmentImage(item: Pick<EquipmentItem, 'images'>) {
   return item.images[0] ?? ''
 }
 
-function extractTextFromNode(node: unknown): string {
-  if (!node || typeof node !== 'object') {
-    return ''
-  }
-
-  const candidate = node as {
-    type?: string
-    tag?: string
-    value?: unknown
-    children?: unknown[]
-  }
-
-  const value = typeof candidate.value === 'string' ? candidate.value : ''
-  const childrenText = Array.isArray(candidate.children)
-    ? candidate.children.map(extractTextFromNode).join(' ')
-    : ''
-
-  return [value, childrenText]
-    .filter(Boolean)
-    .join(' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-}
-
-function extractParagraphsFromBody(body: unknown) {
-  const paragraphs: string[] = []
-
-  function visit(node: unknown) {
-    if (!node || typeof node !== 'object') {
-      return
-    }
-
-    const candidate = node as {
-      type?: string
-      tag?: string
-      children?: unknown[]
-    }
-
-    if (candidate.tag === 'p' || candidate.type === 'paragraph') {
-      const text = extractTextFromNode(candidate)
-
-      if (text) {
-        paragraphs.push(text)
-      }
-    }
-
-    if (Array.isArray(candidate.children)) {
-      candidate.children.forEach(visit)
-    }
-  }
-
-  visit(body)
-
-  return paragraphs
-}
-
 function extractFirstSentence(text: string) {
   const normalized = text.replace(/\s+/g, ' ').trim()
 
@@ -153,10 +98,8 @@ function extractFirstSentence(text: string) {
   return match ? match[0].trim() : normalized
 }
 
-export function getEquipmentSummary(document: Pick<EquipmentDocument, 'body' | 'title'>) {
-  const paragraphs = extractParagraphsFromBody(document.body)
-  const sourceText = paragraphs[0] ?? extractTextFromNode(document.body) ?? ''
-  const summary = extractFirstSentence(sourceText)
+export function getEquipmentSummary(document: Pick<EquipmentDocument, 'description' | 'title'>) {
+  const summary = extractFirstSentence(document.description ?? '')
 
   return summary || document.title
 }
