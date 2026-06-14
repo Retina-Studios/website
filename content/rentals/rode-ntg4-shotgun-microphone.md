@@ -3,7 +3,6 @@ title: "RØDE NTG4 Shotgun Microphone"
 order: 47
 categories:
   - audio
-  - video
 images:
   - "/images/rentals/rode-ntg4-shotgun-mic.webp"
 prices:

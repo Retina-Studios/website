@@ -1,8 +1,8 @@
 ---
-title: "SSD 256GB"
+title: "SSD 1TB"
 order: 88
 categories:
-  - mediaPower
+  - media
 images:
   - "/images/rentals/ssd-256gb.jpg"
 prices:

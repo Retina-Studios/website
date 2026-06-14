@@ -3,7 +3,6 @@ title: "Glide Gear TMP 500 Teleprompter"
 order: 60
 categories:
   - video
-  - gripSupport
 images:
   - "/images/rentals/glide-gear-tmp-500-teleprompter.webp"
 prices:

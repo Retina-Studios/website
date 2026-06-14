@@ -3,7 +3,6 @@ title: "Tascam DR-60DMKII recorder"
 order: 41
 categories:
   - audio
-  - video
 images:
   - "/images/rentals/tascam-dr-60dmkii-recorder.jpg"
 prices:

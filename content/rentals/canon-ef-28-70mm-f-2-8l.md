@@ -1,10 +1,10 @@
 ---
-title: "Canon EF 24-70mm f/2.8L"
+title: "Canon EF 28-70mm f/2.8L"
 order: 6
 categories:
   - lenses
 images:
-  - "/images/rentals/canon-ef-24-70mm-f-2-8l.jpeg"
+  - "/images/rentals/canon-ef-28-70mm-f-2-8l.webp"
 prices:
   1: 20
   3: 40

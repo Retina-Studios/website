@@ -3,7 +3,6 @@ title: "DJI RS 3 Mini"
 order: 26
 categories:
   - video
-  - gripSupport
 images:
   - "/images/rentals/dji-ronin-rs4-mini.jpg"
 prices:

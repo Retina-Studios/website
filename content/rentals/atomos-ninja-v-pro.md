@@ -3,7 +3,6 @@ title: "Atomos Ninja V Pro"
 order: 27
 categories:
   - video
-  - mediaPower
 images:
   - "/images/rentals/atomos-ninja-v-pro.webp"
 prices:

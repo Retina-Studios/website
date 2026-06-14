@@ -2,7 +2,7 @@
 title: "SanDisk 256GB Extreme PRO CFast 2.0"
 order: 84
 categories:
-  - mediaPower
+  - media
 images:
   - "/images/rentals/sandisk-124gb-extreme-pro-cfast-2-0.jpg"
 prices:

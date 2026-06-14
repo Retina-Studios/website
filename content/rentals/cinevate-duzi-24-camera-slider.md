@@ -3,7 +3,6 @@ title: "Cinevate Duzi 24” Camera Slider"
 order: 61
 categories:
   - video
-  - gripSupport
 images:
   - "/images/rentals/edelkrone-slider.jpg"
 prices:

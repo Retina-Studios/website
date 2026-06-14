@@ -1,6 +1,6 @@
 ---
 title: "Pixel G1s RGB LED Light"
-order: 79
+order: 37
 categories:
   - lighting
 images:

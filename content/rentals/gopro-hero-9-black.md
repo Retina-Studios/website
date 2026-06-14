@@ -1,6 +1,6 @@
 ---
 title: "GoPro Hero 9 Black"
-order: 17
+order: 19
 categories:
   - cameras
   - video

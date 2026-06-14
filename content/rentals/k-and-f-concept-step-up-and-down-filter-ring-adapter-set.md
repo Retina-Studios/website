@@ -2,7 +2,7 @@
 title: "K&F CONCEPT Step Up and Down Filter Ring Adapter Set"
 order: 80
 categories:
-  - lenses
+  - filters
 images:
   - "/images/rentals/k-and-f-concept-18-pieces-filter-ring-adapter-set-camera-lens-filter-metal-stepping-rings-kit-includes-9pcs-step-up-ring-set-plus-9pcs-step-down-ring-set-black.jpg"
 prices:

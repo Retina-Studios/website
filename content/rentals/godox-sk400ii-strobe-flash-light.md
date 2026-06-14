@@ -1,6 +1,6 @@
 ---
 title: "Godox SK400II Strobe Flash Light"
-order: 48
+order: 35
 categories:
   - lighting
 images:
