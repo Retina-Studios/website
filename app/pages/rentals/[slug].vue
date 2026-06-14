@@ -91,7 +91,10 @@ useHead({
     <main class="product-main">
       <section class="product-hero">
         <div class="product-shell hero-shell">
-          <NuxtLink class="back-link" :to="catalogReturnLink">Επιστροφή στον κατάλογο</NuxtLink>
+          <NuxtLink class="back-link" :to="catalogReturnLink">
+            <span class="back-link__arrow" aria-hidden="true">←</span>
+            <span>Επιστροφή στον κατάλογο</span>
+          </NuxtLink>
 
           <div class="product-stage">
             <div class="product-panel">
@@ -270,14 +273,28 @@ useHead({
 
 .back-link {
   display: inline-flex;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 24px;
+  padding: 10px 16px;
+  border: 1px solid #000;
   color: inherit;
   text-decoration: none;
   font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 15px;
   line-height: 1.3;
-  text-decoration: underline;
-  text-underline-offset: 0.16em;
+  background: #fff;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.back-link:hover {
+  background: #000;
+  color: #fff;
+}
+
+.back-link__arrow {
+  font-size: 18px;
+  line-height: 1;
 }
 
 .product-stage {
