@@ -5,7 +5,8 @@ categories:
   - cameras
   - video
 summary: "Action camera for POV shots, behind-the-scenes content and tight mounting positions."
-image: "/images/rentals/gopro-hero-8-plus-accessories.jpeg"
+images:
+  - "/images/rentals/gopro-hero-8-plus-accessories.jpeg"
 price1Day: 20
 price3Days: 40
 price7Days: 70

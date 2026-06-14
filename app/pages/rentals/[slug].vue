@@ -4,6 +4,7 @@ import {
   formatGreekUppercase,
   formatEquipmentPrice,
   getEquipmentPagePath,
+  getPrimaryEquipmentImage,
   getPrimaryEquipmentCategoryKey,
   getRelatedEquipmentItems,
   normalizeEquipmentDocument,
@@ -33,6 +34,8 @@ const allItems = computed(() => normalizeEquipmentDocuments(rentalDocuments.valu
 const primaryCategoryKey = computed(() => getPrimaryEquipmentCategoryKey(item.value))
 const category = computed(() => equipmentCategories[primaryCategoryKey.value])
 const relatedItems = computed(() => getRelatedEquipmentItems(allItems.value, item.value))
+const activeImageIndex = ref(0)
+const activeImage = computed(() => item.value.images[activeImageIndex.value] ?? getPrimaryEquipmentImage(item.value))
 
 const catalogContext = computed(() => {
   const requestedPage = Number(route.query.catalogPage)
@@ -64,6 +67,14 @@ function getRelatedEquipmentLink(slug: string) {
   }
 }
 
+watch(
+  () => item.value.slug,
+  () => {
+    activeImageIndex.value = 0
+  },
+  { immediate: true },
+)
+
 useHead({
   title: `${item.value.name} | Ενοικίαση Εξοπλισμού | Retina Studios`,
   meta: [
@@ -84,8 +95,24 @@ useHead({
 
           <div class="product-stage">
             <div class="product-panel">
-              <div v-if="item.image" class="product-image-frame">
-                <img :src="item.image" :alt="item.name" />
+              <div v-if="item.images.length" class="product-gallery">
+                <div class="product-image-frame">
+                  <img :src="activeImage" :alt="item.name" />
+                </div>
+
+                <div v-if="item.images.length > 1" class="product-thumbnails" aria-label="Εικόνες προϊόντος">
+                  <button
+                    v-for="(image, index) in item.images"
+                    :key="`${item.slug}-${image}`"
+                    type="button"
+                    class="product-thumbnail"
+                    :class="{ 'is-active': index === activeImageIndex }"
+                    :aria-label="`Εικόνα ${index + 1} για ${item.name}`"
+                    @click="activeImageIndex = index"
+                  >
+                    <img :src="image" :alt="`${item.name} thumbnail ${index + 1}`" />
+                  </button>
+                </div>
               </div>
 
               <div class="category-badges">
@@ -265,10 +292,13 @@ useHead({
   background: #fff;
 }
 
+.product-gallery {
+  margin-bottom: 26px;
+}
+
 .product-image-frame {
   width: 100%;
   aspect-ratio: 4 / 3;
-  margin-bottom: 26px;
   background: #fff;
   display: flex;
   align-items: center;
@@ -280,6 +310,34 @@ useHead({
   width: 100%;
   height: 100%;
   object-fit: contain;
+  display: block;
+}
+
+.product-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.product-thumbnail {
+  width: 88px;
+  height: 88px;
+  padding: 0;
+  border: 1px solid #d9d3cb;
+  background: #fff;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.product-thumbnail.is-active {
+  border-color: #000;
+}
+
+.product-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 
@@ -512,6 +570,15 @@ useHead({
   .product-panel,
   .price-panel {
     padding: 24px 20px;
+  }
+
+  .product-thumbnails {
+    gap: 10px;
+  }
+
+  .product-thumbnail {
+    width: 72px;
+    height: 72px;
   }
 
   .contact-actions a {

@@ -4,7 +4,8 @@ order: 68
 categories:
   - audio
 summary: "Wireless XLR adapter for sending a microphone signal without running a long cable."
-image: "/images/rentals/xlr-wireless-adapter.jpg"
+images:
+  - "/images/rentals/xlr-wireless-adapter.jpg"
 price1Day: 3
 price3Days: 6
 price7Days: 11

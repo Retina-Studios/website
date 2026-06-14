@@ -5,7 +5,8 @@ categories:
   - video
   - gripSupport
 summary: "Camera slider for smooth product moves, subtle reveals and controlled motion shots."
-image: "/images/rentals/edelkrone-slider.jpg"
+images:
+  - "/images/rentals/edelkrone-slider.jpg"
 price1Day: 10
 price3Days: 20
 price7Days: 35

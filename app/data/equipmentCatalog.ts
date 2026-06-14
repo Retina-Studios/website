@@ -1,24 +1,16 @@
-export const equipmentCategoryKeys = [
-  'bundles',
-  'cameras',
-  'lenses',
-  'lighting',
-  'audio',
-  'video',
-  'filters',
-  'mediaPower',
-  'gripSupport',
-  'stylingSet',
-] as const
+import {
+  equipmentCategories,
+  equipmentCategoryKeys,
+} from './equipmentCategories'
 
-export type EquipmentCategoryKey = typeof equipmentCategoryKeys[number]
-
-export type EquipmentCategoryMeta = {
-  label: string
-  description: string
-  accent: string
-  surface: string
-}
+export type {
+  EquipmentCategoryKey,
+  EquipmentCategoryMeta,
+} from './equipmentCategories'
+export {
+  equipmentCategories,
+  equipmentCategoryKeys,
+} from './equipmentCategories'
 
 export type EquipmentDocument = {
   path: string
@@ -26,7 +18,7 @@ export type EquipmentDocument = {
   order: number
   categories: EquipmentCategoryKey[]
   summary: string
-  image: string
+  images: string[]
   price1Day: number | null
   price3Days: number | null
   price7Days: number | null
@@ -40,7 +32,7 @@ export type EquipmentItem = {
   name: string
   categories: EquipmentCategoryKey[]
   summary: string
-  image: string
+  images: string[]
   price1Day: number | null
   price3Days: number | null
   price7Days: number | null
@@ -51,69 +43,6 @@ const priceFormatter = new Intl.NumberFormat('el-GR', {
   currency: 'EUR',
   maximumFractionDigits: 0,
 })
-
-export const equipmentCategories: Record<EquipmentCategoryKey, EquipmentCategoryMeta> = {
-  bundles: {
-    label: 'Πακέτα',
-    description: 'Έτοιμα πακέτα εξοπλισμού με συνδυαστική έκπτωση για ολοκληρωμένα production setups.',
-    accent: '#7c1f2b',
-    surface: '#f5d9dd',
-  },
-  cameras: {
-    label: 'Κάμερες',
-    description: 'Bodies για studio shoots, interviews, podcasts και παραγωγές πεδίου.',
-    accent: '#0f3d3e',
-    surface: '#d9f2f0',
-  },
-  lenses: {
-    label: 'Φακοί',
-    description: 'Zoom, prime και macro επιλογές για φωτογραφία, video και κινηματογραφική χρήση.',
-    accent: '#4d3522',
-    surface: '#f1dfd0',
-  },
-  lighting: {
-    label: 'Φωτισμός',
-    description: 'Continuous lights, flashes και modifiers για ελεγχόμενο φως σε κάθε setup.',
-    accent: '#7a4710',
-    surface: '#fbe3c5',
-  },
-  audio: {
-    label: 'Ήχος',
-    description: 'Μικρόφωνα και recorders για καθαρές συνεντεύξεις, podcasts και location sound.',
-    accent: '#1b2a5b',
-    surface: '#dbe2ff',
-  },
-  video: {
-    label: 'Video Assist',
-    description: 'Monitoring, wireless video, teleprompter και motion tools για πιο άνετο γύρισμα.',
-    accent: '#61214d',
-    surface: '#f4d7ea',
-  },
-  filters: {
-    label: 'Φίλτρα & Adapters',
-    description: 'ND, diffusion, polarizers και adapters για μεγαλύτερο έλεγχο στην εικόνα.',
-    accent: '#35512f',
-    surface: '#dcede0',
-  },
-  mediaPower: {
-    label: 'Media & Power',
-    description: 'Μπαταρίες, κάρτες και αποθηκευτικά μέσα για να μείνει το γύρισμα online.',
-    accent: '#303030',
-    surface: '#e6e6e6',
-  },
-  gripSupport: {
-    label: 'Grip & Support',
-    description: 'Stands, rigs, clamps και support gear για ασφαλές και λειτουργικό setup.',
-    accent: '#5a2d1b',
-    surface: '#f3d5c8',
-  },
-  stylingSet: {
-    label: 'Styling & Set',
-    description: 'Set support, styling εργαλεία και βοηθητικά αξεσουάρ για οργανωμένη παραγωγή.',
-    accent: '#5f5a18',
-    surface: '#f5efbf',
-  },
-}
 
 export const equipmentItemsPerPage = 12
 
@@ -137,7 +66,7 @@ export function normalizeEquipmentDocument(document: EquipmentDocument): Equipme
     name: document.title,
     categories: document.categories,
     summary: document.summary,
-    image: document.image,
+    images: document.images,
     price1Day: document.price1Day,
     price3Days: document.price3Days,
     price7Days: document.price7Days,
@@ -152,6 +81,10 @@ export function normalizeEquipmentDocuments(documents: EquipmentDocument[]) {
 
 export function getPrimaryEquipmentCategoryKey(item: Pick<EquipmentItem, 'categories'>) {
   return item.categories[0]
+}
+
+export function getPrimaryEquipmentImage(item: Pick<EquipmentItem, 'images'>) {
+  return item.images[0] ?? ''
 }
 
 export function formatGreekUppercase(value: string) {

@@ -4,7 +4,8 @@ order: 15
 categories:
   - lenses
 summary: "Super 35 cine prime for natural-perspective coverage, portraits and interview setups."
-image: "/images/rentals/meike-s35-50mm.webp"
+images:
+  - "/images/rentals/meike-s35-50mm.webp"
 price1Day: 20
 price3Days: 40
 price7Days: 70

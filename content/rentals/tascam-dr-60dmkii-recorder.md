@@ -5,7 +5,8 @@ categories:
   - audio
   - video
 summary: "Portable field recorder for dual-system sound, backup capture and interview audio."
-image: "/images/rentals/tascam-dr-60dmkii-recorder.jpg"
+images:
+  - "/images/rentals/tascam-dr-60dmkii-recorder.jpg"
 price1Day: 15
 price3Days: 30
 price7Days: 53

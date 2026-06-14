@@ -4,7 +4,8 @@ order: 20
 categories:
   - lenses
 summary: "Wide medium-format lens for interiors, landscapes and spacious commercial compositions."
-image: "/images/rentals/hasselblad-hc-35mm-f-3-5.jpg"
+images:
+  - "/images/rentals/hasselblad-hc-35mm-f-3-5.jpg"
 price1Day: 25
 price3Days: 50
 price7Days: 88

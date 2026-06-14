@@ -5,7 +5,8 @@ categories:
   - video
   - gripSupport
 summary: "Compact gimbal for stabilized movement in reels, walkthroughs and lightweight mirrorless setups."
-image: "/images/rentals/dji-ronin-rs4-mini.jpg"
+images:
+  - "/images/rentals/dji-ronin-rs4-mini.jpg"
 price1Day: 20
 price3Days: 40
 price7Days: 70

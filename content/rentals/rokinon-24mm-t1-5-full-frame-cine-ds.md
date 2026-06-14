@@ -4,7 +4,8 @@ order: 13
 categories:
   - lenses
 summary: "Wide cine prime with geared rings for narrative work, interiors and controlled focus pulls."
-image: "/images/rentals/rokinon-ff-24mm.webp"
+images:
+  - "/images/rentals/rokinon-ff-24mm.webp"
 price1Day: 20
 price3Days: 40
 price7Days: 70

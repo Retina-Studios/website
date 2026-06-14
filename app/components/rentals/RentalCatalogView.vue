@@ -5,6 +5,7 @@ import {
   getEquipmentCategoryCounts,
   getEquipmentItemsForPage,
   getEquipmentFilteredPageCount,
+  getPrimaryEquipmentImage,
   getPrimaryEquipmentCategoryKey,
   formatGreekUppercase,
   formatEquipmentPrice,
@@ -265,8 +266,8 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                   <NuxtLink :to="getEquipmentLink(item.slug)" class="card-link">
                     <div class="card-media">
                       <img
-                        v-if="item.image"
-                        :src="item.image"
+                        v-if="item.images.length"
+                        :src="getPrimaryEquipmentImage(item)"
                         :alt="item.name"
                         width="600"
                         height="600"

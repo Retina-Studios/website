@@ -4,7 +4,8 @@ order: 83
 categories:
   - gripSupport
 summary: "Baseplate and rod set for building out shoulder rigs, follow focus and matte box support."
-image: "/images/rentals/tilta-base-plate.jpg"
+images:
+  - "/images/rentals/tilta-base-plate.jpg"
 price1Day: 4
 price3Days: 8
 price7Days: 14
