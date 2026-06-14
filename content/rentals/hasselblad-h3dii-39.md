@@ -12,3 +12,7 @@ price7Days: 158
 ---
 
 Medium-format digital body for premium commercial stills and high-detail studio photography.
+
+::rental-notice
+Η οθόνη του σώματος έχει πρόβλημα και χρειάζεται tethering.
+::
