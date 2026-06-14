@@ -3,33 +3,41 @@ import {
   equipmentCategories,
   formatGreekUppercase,
   formatEquipmentPrice,
-  getEquipmentItemBySlug,
   getEquipmentPagePath,
+  getPrimaryEquipmentCategoryKey,
   getRelatedEquipmentItems,
+  normalizeEquipmentDocument,
+  normalizeEquipmentDocuments,
+  parseEquipmentCategoryQuery,
 } from '~/data/equipmentCatalog'
 import type { EquipmentCategoryKey } from '~/data/equipmentCatalog'
 
 const route = useRoute()
-const item = computed(() => getEquipmentItemBySlug(String(route.params.slug)))
+const slug = String(route.params.slug)
+const rentalPath = `/rentals/${slug}`
 
-if (!item.value) {
+const [{ data: rentalDocument }, { data: rentalDocuments }] = await Promise.all([
+  useAsyncData(`rental:${rentalPath}`, () => queryCollection('rentals').path(rentalPath).first()),
+  useAsyncData('rentals-catalog', () => queryCollection('rentals').all()),
+])
+
+if (!rentalDocument.value) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Equipment item not found',
   })
 }
 
-const category = computed(() => equipmentCategories[item.value!.categoryKey])
-const relatedItems = computed(() => getRelatedEquipmentItems(item.value!))
+const item = computed(() => normalizeEquipmentDocument(rentalDocument.value!))
+const allItems = computed(() => normalizeEquipmentDocuments(rentalDocuments.value ?? []))
+const primaryCategoryKey = computed(() => getPrimaryEquipmentCategoryKey(item.value))
+const category = computed(() => equipmentCategories[primaryCategoryKey.value])
+const relatedItems = computed(() => getRelatedEquipmentItems(allItems.value, item.value))
 
 const catalogContext = computed(() => {
   const requestedPage = Number(route.query.catalogPage)
   const page = Number.isInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1
-  const requestedCategory = route.query.catalogCategory
-  const category =
-    typeof requestedCategory === 'string' && requestedCategory in equipmentCategories
-      ? requestedCategory as EquipmentCategoryKey
-      : null
+  const category = parseEquipmentCategoryQuery(route.query.catalogCategory)
 
   return { page, category }
 })
@@ -61,7 +69,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: `${item.value.name} προς ενοικίαση από τη Retina Studios με τιμές 1, 3 και 7 ημερών.`,
+      content: item.value.summary,
     },
   ],
 })
@@ -80,18 +88,24 @@ useHead({
                 <img :src="item.image" :alt="item.name" />
               </div>
 
-              <span
-                class="category-badge"
-                :style="{
-                  '--badge-accent': category.accent,
-                  '--badge-surface': category.surface,
-                }"
-              >
-                {{ formatGreekUppercase(category.label) }}
-              </span>
+              <div class="category-badges">
+                <span
+                  v-for="categoryKey in item.categories"
+                  :key="categoryKey"
+                  class="category-badge"
+                  :style="{
+                    '--badge-accent': equipmentCategories[categoryKey].accent,
+                    '--badge-surface': equipmentCategories[categoryKey].surface,
+                  }"
+                >
+                  {{ formatGreekUppercase(equipmentCategories[categoryKey].label) }}
+                </span>
+              </div>
 
               <h1>{{ item.name }}</h1>
-              <p class="product-description">{{ item.description }}</p>
+              <div class="product-description">
+                <ContentRenderer :value="rentalDocument" />
+              </div>
 
               <div class="contact-callout">
                 <p>Για διαθεσιμότητα, επιβεβαίωση κράτησης και συνδυαστικές ενοικιάσεις, καλέστε μας.</p>
@@ -130,7 +144,7 @@ useHead({
         <div class="product-shell related-shell">
           <div class="related-heading">
             <h2>Σχετικός εξοπλισμός</h2>
-            <p>Περισσότερες επιλογές από την ίδια κατηγορία.</p>
+            <p>Περισσότερες επιλογές που ταιριάζουν με τις ίδιες ανάγκες παραγωγής.</p>
           </div>
 
           <div class="related-grid">
@@ -144,7 +158,18 @@ useHead({
               }"
             >
               <NuxtLink :to="getRelatedEquipmentLink(relatedItem.slug)" class="related-link">
-                <span class="related-category">{{ formatGreekUppercase(category.label) }}</span>
+                <div class="related-categories">
+                  <span
+                    v-for="categoryKey in relatedItem.categories"
+                    :key="`${relatedItem.slug}-${categoryKey}`"
+                    class="related-category"
+                    :style="{
+                      '--related-category-accent': equipmentCategories[categoryKey].accent,
+                    }"
+                  >
+                    {{ formatGreekUppercase(equipmentCategories[categoryKey].label) }}
+                  </span>
+                </div>
                 <h3>{{ relatedItem.name }}</h3>
                 <div class="related-price">
                   <span>{{ relatedItem.price1Day === null ? 'Τιμή' : 'Από' }}</span>
@@ -258,6 +283,12 @@ useHead({
   display: block;
 }
 
+.category-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .category-badge {
   display: inline-flex;
   padding: 10px 14px;
@@ -279,11 +310,21 @@ useHead({
 }
 
 .product-description {
-  margin: 0;
   max-width: 620px;
+}
+
+.product-description :deep(*) {
   font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
   font-size: 18px;
   line-height: 1.8;
+}
+
+.product-description :deep(:first-child) {
+  margin-top: 0;
+}
+
+.product-description :deep(:last-child) {
+  margin-bottom: 0;
 }
 
 .contact-callout {
@@ -410,10 +451,16 @@ useHead({
   text-decoration: none;
 }
 
+.related-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
 .related-category {
   display: inline-flex;
-  margin-bottom: 16px;
-  color: var(--related-accent);
+  color: var(--related-category-accent);
   font-family: 'RetinaAvenirHeavy', 'Helvetica Neue', Arial, sans-serif;
   font-size: 12px;
   line-height: 1.2;

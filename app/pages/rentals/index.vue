@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import RentalCatalogView from '~/components/rentals/RentalCatalogView.vue'
+import { normalizeEquipmentDocuments } from '~/data/equipmentCatalog'
+
+const { data: rentalDocuments } = await useAsyncData('rentals-catalog', () => queryCollection('rentals').all())
+const equipmentItems = computed(() => normalizeEquipmentDocuments(rentalDocuments.value ?? []))
 
 useHead({
   title: 'Ενοικίαση Εξοπλισμού | Retina Studios',
@@ -14,5 +18,5 @@ useHead({
 </script>
 
 <template>
-  <RentalCatalogView :current-page="1" />
+  <RentalCatalogView :items="equipmentItems" :current-page="1" />
 </template>

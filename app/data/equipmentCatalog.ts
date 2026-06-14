@@ -1,16 +1,17 @@
-import equipmentCatalogCsv from './Retina Studios - Equipment.csv?raw'
+export const equipmentCategoryKeys = [
+  'bundles',
+  'cameras',
+  'lenses',
+  'lighting',
+  'audio',
+  'video',
+  'filters',
+  'mediaPower',
+  'gripSupport',
+  'stylingSet',
+] as const
 
-export type EquipmentCategoryKey =
-  | 'bundles'
-  | 'cameras'
-  | 'lenses'
-  | 'lighting'
-  | 'audio'
-  | 'video'
-  | 'filters'
-  | 'mediaPower'
-  | 'gripSupport'
-  | 'stylingSet'
+export type EquipmentCategoryKey = typeof equipmentCategoryKeys[number]
 
 export type EquipmentCategoryMeta = {
   label: string
@@ -19,11 +20,26 @@ export type EquipmentCategoryMeta = {
   surface: string
 }
 
+export type EquipmentDocument = {
+  path: string
+  title: string
+  order: number
+  categories: EquipmentCategoryKey[]
+  summary: string
+  image: string
+  price1Day: number | null
+  price3Days: number | null
+  price7Days: number | null
+  body?: unknown
+}
+
 export type EquipmentItem = {
-  name: string
+  path: string
   slug: string
-  categoryKey: EquipmentCategoryKey
-  description: string
+  order: number
+  name: string
+  categories: EquipmentCategoryKey[]
+  summary: string
   image: string
   price1Day: number | null
   price3Days: number | null
@@ -101,46 +117,42 @@ export const equipmentCategories: Record<EquipmentCategoryKey, EquipmentCategory
 
 export const equipmentItemsPerPage = 12
 
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .trim()
-    .replace(/&/g, ' and ')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
+export function isEquipmentCategoryKey(value: string): value is EquipmentCategoryKey {
+  return equipmentCategoryKeys.includes(value as EquipmentCategoryKey)
 }
 
-function parsePrice(value: string) {
-  const trimmedValue = value.trim()
-  return trimmedValue ? Number(trimmedValue) : null
+export function parseEquipmentCategoryQuery(value: unknown): EquipmentCategoryKey | null {
+  return typeof value === 'string' && isEquipmentCategoryKey(value) ? value : null
 }
 
-function parseEquipmentCatalog() {
-  return equipmentCatalogCsv
-    .trim()
-    .split(/\r?\n/)
-    .slice(1)
-    .map((line) => line.split(';').map((value) => value.trim()))
-    .filter((parts) => parts.length === 7 && parts[0])
-    .map(([name, category, description, image, oneDay, threeDays, sevenDays]) => {
-      if (!(category in equipmentCategories)) {
-        throw new Error(`Unknown equipment category "${category}" for "${name}"`)
-      }
-
-      return {
-        name,
-        slug: slugify(name),
-        categoryKey: category as EquipmentCategoryKey,
-        description,
-        image,
-        price1Day: parsePrice(oneDay),
-        price3Days: parsePrice(threeDays),
-        price7Days: parsePrice(sevenDays),
-      }
-    })
+export function getEquipmentSlugFromPath(path: string) {
+  return path.split('/').filter(Boolean).pop() ?? ''
 }
 
-export const equipmentItems: EquipmentItem[] = parseEquipmentCatalog()
+export function normalizeEquipmentDocument(document: EquipmentDocument): EquipmentItem {
+  return {
+    path: document.path,
+    slug: getEquipmentSlugFromPath(document.path),
+    order: document.order,
+    name: document.title,
+    categories: document.categories,
+    summary: document.summary,
+    image: document.image,
+    price1Day: document.price1Day,
+    price3Days: document.price3Days,
+    price7Days: document.price7Days,
+  }
+}
+
+export function normalizeEquipmentDocuments(documents: EquipmentDocument[]) {
+  return documents
+    .map(normalizeEquipmentDocument)
+    .sort((left, right) => left.order - right.order || left.slug.localeCompare(right.slug))
+}
+
+export function getPrimaryEquipmentCategoryKey(item: Pick<EquipmentItem, 'categories'>) {
+  return item.categories[0]
+}
 
 export function formatGreekUppercase(value: string) {
   return value
@@ -150,32 +162,29 @@ export function formatGreekUppercase(value: string) {
     .normalize('NFC')
 }
 
-export const equipmentPageCount = Math.ceil(equipmentItems.length / equipmentItemsPerPage)
+export function getEquipmentCategoryCounts(items: EquipmentItem[]) {
+  return equipmentCategoryKeys.map((categoryKey) => ({
+    categoryKey,
+    count: items.filter((item) => item.categories.includes(categoryKey)).length,
+    ...equipmentCategories[categoryKey],
+  }))
+}
 
-export const equipmentCategoryCounts = Object.entries(
-  equipmentItems.reduce(
-    (counts, item) => {
-      counts[item.categoryKey] += 1
-      return counts
-    },
-    {
-      bundles: 0,
-      cameras: 0,
-      lenses: 0,
-      lighting: 0,
-      audio: 0,
-      video: 0,
-      filters: 0,
-      mediaPower: 0,
-      gripSupport: 0,
-      stylingSet: 0,
-    } as Record<EquipmentCategoryKey, number>,
-  ),
-).map(([categoryKey, count]) => ({
-  categoryKey: categoryKey as EquipmentCategoryKey,
-  count,
-  ...equipmentCategories[categoryKey as EquipmentCategoryKey],
-}))
+export function getAllEquipmentCount(items: EquipmentItem[]) {
+  return items.filter((item) => !item.categories.includes('bundles')).length
+}
+
+export function filterEquipmentItems(items: EquipmentItem[], selectedCategory: EquipmentCategoryKey | null) {
+  if (!selectedCategory) {
+    return items.filter((item) => !item.categories.includes('bundles'))
+  }
+
+  return items.filter((item) => item.categories.includes(selectedCategory))
+}
+
+export function getEquipmentFilteredPageCount(items: EquipmentItem[], selectedCategory: EquipmentCategoryKey | null) {
+  return Math.max(1, Math.ceil(filterEquipmentItems(items, selectedCategory).length / equipmentItemsPerPage))
+}
 
 export function formatEquipmentPrice(price: number | null) {
   return price === null ? 'Κατόπιν συνεννόησης' : priceFormatter.format(price)
@@ -185,17 +194,27 @@ export function getEquipmentPagePath(page: number) {
   return page <= 1 ? '/rentals' : `/rentals/page/${page}`
 }
 
-export function getEquipmentItemsForPage(page: number) {
+export function getEquipmentItemsForPage(
+  items: EquipmentItem[],
+  page: number,
+  selectedCategory: EquipmentCategoryKey | null,
+) {
+  const filteredItems = filterEquipmentItems(items, selectedCategory)
   const start = (page - 1) * equipmentItemsPerPage
-  return equipmentItems.slice(start, start + equipmentItemsPerPage)
+  return filteredItems.slice(start, start + equipmentItemsPerPage)
 }
 
-export function getEquipmentItemBySlug(slug: string) {
-  return equipmentItems.find((item) => item.slug === slug) ?? null
-}
+export function getRelatedEquipmentItems(items: EquipmentItem[], item: EquipmentItem, limit = 3) {
+  const itemCategories = new Set(item.categories)
 
-export function getRelatedEquipmentItems(item: EquipmentItem, limit = 3) {
-  return equipmentItems
-    .filter((entry) => entry.categoryKey === item.categoryKey && entry.slug !== item.slug)
+  return items
+    .filter((entry) => entry.slug !== item.slug)
+    .map((entry) => ({
+      entry,
+      overlap: entry.categories.filter((category) => itemCategories.has(category)).length,
+    }))
+    .filter(({ overlap }) => overlap > 0)
+    .sort((left, right) => right.overlap - left.overlap || left.entry.order - right.entry.order)
     .slice(0, limit)
+    .map(({ entry }) => entry)
 }

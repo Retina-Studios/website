@@ -1,11 +1,27 @@
 <script setup lang="ts">
 import RentalCatalogView from '~/components/rentals/RentalCatalogView.vue'
-import { equipmentPageCount } from '~/data/equipmentCatalog'
+import {
+  getEquipmentFilteredPageCount,
+  normalizeEquipmentDocuments,
+  parseEquipmentCategoryQuery,
+} from '~/data/equipmentCatalog'
 
 const route = useRoute()
-const currentPage = computed(() => Number(route.params.page))
+const currentPage = Number(route.params.page)
 
-if (!Number.isInteger(currentPage.value) || currentPage.value < 1 || currentPage.value > equipmentPageCount) {
+if (!Number.isInteger(currentPage) || currentPage < 1) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Catalog page not found',
+  })
+}
+
+const selectedCategory = parseEquipmentCategoryQuery(route.query.category)
+const { data: rentalDocuments } = await useAsyncData('rentals-catalog', () => queryCollection('rentals').all())
+const equipmentItems = computed(() => normalizeEquipmentDocuments(rentalDocuments.value ?? []))
+const equipmentPageCount = computed(() => getEquipmentFilteredPageCount(equipmentItems.value, selectedCategory))
+
+if (currentPage > equipmentPageCount.value) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Catalog page not found',
@@ -13,7 +29,7 @@ if (!Number.isInteger(currentPage.value) || currentPage.value < 1 || currentPage
 }
 
 useHead({
-  title: `Ενοικίαση Εξοπλισμού | Σελίδα ${currentPage.value} | Retina Studios`,
+  title: `Ενοικίαση Εξοπλισμού | Σελίδα ${currentPage} | Retina Studios`,
   meta: [
     {
       name: 'description',
@@ -25,5 +41,5 @@ useHead({
 </script>
 
 <template>
-  <RentalCatalogView :current-page="currentPage" />
+  <RentalCatalogView :items="equipmentItems" :current-page="currentPage" />
 </template>

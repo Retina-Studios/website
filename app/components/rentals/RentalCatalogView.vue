@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import {
   equipmentCategories,
-  equipmentCategoryCounts,
-  equipmentItems,
-  equipmentItemsPerPage,
+  getAllEquipmentCount,
+  getEquipmentCategoryCounts,
+  getEquipmentItemsForPage,
+  getEquipmentFilteredPageCount,
+  getPrimaryEquipmentCategoryKey,
   formatGreekUppercase,
   formatEquipmentPrice,
+  parseEquipmentCategoryQuery,
 } from '~/data/equipmentCatalog'
-import type { EquipmentCategoryKey } from '~/data/equipmentCatalog'
+import type { EquipmentCategoryKey, EquipmentItem } from '~/data/equipmentCatalog'
 
 const props = defineProps<{
+  items: EquipmentItem[]
   currentPage: number
 }>()
 
@@ -25,33 +29,17 @@ let isDraggingFilters = false
 let didDragFilters = false
 
 const selectedCategory = computed<EquipmentCategoryKey | null>(() => {
-  const category = route.query.category
-
-  if (typeof category !== 'string' || !(category in equipmentCategories)) {
-    return null
-  }
-
-  return category as EquipmentCategoryKey
+  return parseEquipmentCategoryQuery(route.query.category)
 })
 
-const filteredItems = computed(() => {
-  if (!selectedCategory.value) {
-    return equipmentItems.filter((item) => item.categoryKey !== 'bundles')
-  }
-
-  return equipmentItems.filter((item) => item.categoryKey === selectedCategory.value)
-})
-
+const categoryCounts = computed(() => getEquipmentCategoryCounts(props.items))
+const allEquipmentCount = computed(() => getAllEquipmentCount(props.items))
 const filteredPageCount = computed(() =>
-  Math.max(1, Math.ceil(filteredItems.value.length / equipmentItemsPerPage)),
+  getEquipmentFilteredPageCount(props.items, selectedCategory.value),
 )
 
 const safeCurrentPage = computed(() => Math.min(Math.max(props.currentPage, 1), filteredPageCount.value))
-
-const pagedItems = computed(() => {
-  const start = (safeCurrentPage.value - 1) * equipmentItemsPerPage
-  return filteredItems.value.slice(start, start + equipmentItemsPerPage)
-})
+const pagedItems = computed(() => getEquipmentItemsForPage(props.items, safeCurrentPage.value, selectedCategory.value))
 
 const paginationItems = computed(() => {
   const pages = new Set([
@@ -227,7 +215,7 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                     :class="{ 'is-active': selectedCategory === 'bundles' }"
                   >
                     <span>{{ equipmentCategories.bundles.label }}</span>
-                    <span>{{ equipmentCategoryCounts.find((category) => category.categoryKey === 'bundles')?.count }}</span>
+                    <span>{{ categoryCounts.find((category) => category.categoryKey === 'bundles')?.count }}</span>
                   </NuxtLink>
 
                   <NuxtLink
@@ -236,11 +224,11 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                     :class="{ 'is-active': !selectedCategory }"
                   >
                     <span>Όλος ο εξοπλισμός</span>
-                    <span>{{ equipmentItems.filter((item) => item.categoryKey !== 'bundles').length }}</span>
+                    <span>{{ allEquipmentCount }}</span>
                   </NuxtLink>
 
                   <NuxtLink
-                    v-for="category in equipmentCategoryCounts.filter((category) => category.categoryKey !== 'bundles')"
+                    v-for="category in categoryCounts.filter((category) => category.categoryKey !== 'bundles')"
                     :key="category.categoryKey"
                     :to="getCategoryLink(category.categoryKey)"
                     class="filter-tag"
@@ -270,8 +258,8 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                   :key="item.slug"
                   class="catalog-card"
                   :style="{
-                    '--card-accent': equipmentCategories[item.categoryKey].accent,
-                    '--card-surface': equipmentCategories[item.categoryKey].surface,
+                    '--card-accent': equipmentCategories[getPrimaryEquipmentCategoryKey(item)].accent,
+                    '--card-surface': equipmentCategories[getPrimaryEquipmentCategoryKey(item)].surface,
                   }"
                 >
                   <NuxtLink :to="getEquipmentLink(item.slug)" class="card-link">
@@ -285,14 +273,20 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                         loading="eager"
                         decoding="async"
                       />
-                      <span class="card-category">
-                        {{ formatGreekUppercase(equipmentCategories[item.categoryKey].label) }}
-                      </span>
+                      <div class="card-categories">
+                        <span
+                          v-for="categoryKey in item.categories"
+                          :key="`${item.slug}-${categoryKey}`"
+                          class="card-category"
+                        >
+                          {{ formatGreekUppercase(equipmentCategories[categoryKey].label) }}
+                        </span>
+                      </div>
                     </div>
 
                     <div class="card-body">
                       <h3>{{ item.name }}</h3>
-                      <p>{{ item.description }}</p>
+                      <p>{{ item.summary }}</p>
 
                       <dl class="price-list">
                         <div>
@@ -392,7 +386,7 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
             @click="closeCategoryDialog"
           >
             <span>{{ equipmentCategories.bundles.label }}</span>
-            <span>{{ equipmentCategoryCounts.find((category) => category.categoryKey === 'bundles')?.count }}</span>
+            <span>{{ categoryCounts.find((category) => category.categoryKey === 'bundles')?.count }}</span>
           </NuxtLink>
 
           <NuxtLink
@@ -402,11 +396,11 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
             @click="closeCategoryDialog"
           >
             <span>Όλος ο εξοπλισμός</span>
-            <span>{{ equipmentItems.filter((item) => item.categoryKey !== 'bundles').length }}</span>
+            <span>{{ allEquipmentCount }}</span>
           </NuxtLink>
 
           <NuxtLink
-            v-for="category in equipmentCategoryCounts.filter((category) => category.categoryKey !== 'bundles')"
+            v-for="category in categoryCounts.filter((category) => category.categoryKey !== 'bundles')"
             :key="category.categoryKey"
             :to="getCategoryLink(category.categoryKey)"
             class="category-sheet-link"
@@ -792,10 +786,17 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
   display: block;
 }
 
-.card-category {
+.card-categories {
   position: absolute;
   top: 18px;
   left: 18px;
+  right: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.card-category {
   display: inline-flex;
   padding: 9px 12px;
   background: rgb(255 255 255 / 88%);
