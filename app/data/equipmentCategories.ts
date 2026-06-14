@@ -42,6 +42,13 @@ export const equipmentCategoryDefinitions = [
     surface: '#f0ecf7',
   },
   {
+    key: 'film',
+    label: 'Film',
+    description: 'Φιλμ, διαφανή και ειδικά φίλτρα για έλεγχο φωτός και χαρακτήρα εικόνας.',
+    accent: '#6a5a3d',
+    surface: '#f4f0e7',
+  },
+  {
     key: 'filters',
     label: 'Filters',
     description: 'ND, diffusion και ειδικά φίλτρα για έλεγχο φωτός και χαρακτήρα εικόνας.',
