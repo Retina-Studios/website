@@ -1,6 +1,6 @@
 ---
 title: "Glide Gear TMP 500 Teleprompter"
-order: 60
+order: 50
 categories:
   - video
 images:

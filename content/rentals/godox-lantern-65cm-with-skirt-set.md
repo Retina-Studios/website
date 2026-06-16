@@ -1,6 +1,6 @@
 ---
 title: "Godox Lantern 65cm with Skirt set"
-order: 38
+order: 52
 categories:
   - lighting
 images:

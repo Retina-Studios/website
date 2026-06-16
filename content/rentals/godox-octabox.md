@@ -1,6 +1,6 @@
 ---
 title: "Godox Octabox"
-order: 39
+order: 52
 categories:
   - lighting
 images:

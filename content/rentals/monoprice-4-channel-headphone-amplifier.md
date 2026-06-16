@@ -1,6 +1,6 @@
 ---
 title: "Monoprice 4-Channel Headphone Amplifier"
-order: 55
+order: 56
 categories:
   - audio
 images:

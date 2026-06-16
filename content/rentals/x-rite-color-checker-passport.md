@@ -1,6 +1,6 @@
 ---
 title: "X-Rite ColorChecker Passport Photo 2"
-order: 37
+order: 60
 categories:
   - lighting
 images:
