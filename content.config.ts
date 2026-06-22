@@ -33,5 +33,15 @@ export default defineContentConfig({
         heroImage: z.string(),
       }),
     }),
+    pages: defineCollection({
+      type: 'page',
+      source: 'pages/**/*.md',
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        eyebrow: z.string().optional(),
+        lead: z.string().optional(),
+      }),
+    }),
   },
 })

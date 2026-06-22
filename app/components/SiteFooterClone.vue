@@ -38,7 +38,9 @@ import { siteSocialLinks } from '~/data/siteSocialLinks'
           </li>
         </ul>
 
-        <p>© 2026 Retina Studios</p>
+        <div class="footer-legal">
+          <p>© 2026 Retina Studios</p>
+        </div>
       </div>
     </div>
   </footer>
@@ -121,12 +123,30 @@ import { siteSocialLinks } from '~/data/siteSocialLinks'
 }
 
 .footer-bottom p {
-  grid-column: 3;
-  justify-self: end;
   margin: 0;
   font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
   font-size: 15px;
   line-height: 1;
+  color: #fff;
+}
+
+.footer-legal {
+  grid-column: 3;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-legal a {
+  color: #e7e7e7;
+  text-decoration: none;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.footer-legal a:hover {
   color: #fff;
 }
 
@@ -147,9 +167,15 @@ import { siteSocialLinks } from '~/data/siteSocialLinks'
   }
 
   .social-list,
-  .footer-bottom p {
+  .footer-legal {
     grid-column: 1;
     justify-self: start;
+  }
+
+  .footer-legal {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
   }
 }
 </style>

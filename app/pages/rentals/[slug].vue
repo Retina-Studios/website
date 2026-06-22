@@ -154,6 +154,9 @@ useHead({
                   <a href="tel:+302521032666">25210 32666</a>
                   <a href="mailto:info@retinastudios.gr?subject=Ενοικίαση%20εξοπλισμού">info@retinastudios.gr</a>
                 </div>
+                <NuxtLink to="/terms-of-rental" class="contact-terms-link">
+                  Όροι Μίσθωσης
+                </NuxtLink>
               </div>
             </div>
 
@@ -427,6 +430,23 @@ useHead({
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+.contact-terms-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: #000;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  text-decoration: underline;
+  text-decoration-color: #f9d342;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.16em;
+}
+
+.contact-terms-link:hover {
+  color: #000;
 }
 
 .contact-actions a {

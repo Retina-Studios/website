@@ -193,7 +193,9 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
                 τιμές 1, 3 και 7 ημερών. Για διαθεσιμότητα και κράτηση, επικοινωνείτε απευθείας
                 μαζί μας.
               </p>
-
+              <NuxtLink to="/terms-of-rental" class="hero-terms-link">
+                Όροι Μίσθωσης
+              </NuxtLink>
             </div>
           </div>
         </div>
@@ -542,6 +544,23 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
   font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   line-height: 1.8;
+}
+
+.hero-terms-link {
+  display: inline-block;
+  margin-top: 18px;
+  color: #000;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  text-decoration: underline;
+  text-decoration-color: #f9d342;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.16em;
+}
+
+.hero-terms-link:hover {
+  color: #000;
 }
 
 .catalog-listing {
