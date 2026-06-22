@@ -2,6 +2,7 @@ import {
   equipmentCategories,
   equipmentCategoryKeys,
 } from './equipmentCategories'
+import { getContentSummary } from './contentSummary'
 
 export type {
   EquipmentCategoryKey,
@@ -87,21 +88,8 @@ export function getPrimaryEquipmentImage(item: Pick<EquipmentItem, 'images'>) {
   return item.images[0] ?? ''
 }
 
-function extractFirstSentence(text: string) {
-  const normalized = text.replace(/\s+/g, ' ').trim()
-
-  if (!normalized) {
-    return ''
-  }
-
-  const match = normalized.match(/^.*?[.!?](?=\s|$)/)
-  return match ? match[0].trim() : normalized
-}
-
 export function getEquipmentSummary(document: Pick<EquipmentDocument, 'description' | 'title'>) {
-  const summary = extractFirstSentence(document.description ?? '')
-
-  return summary || document.title
+  return getContentSummary(document)
 }
 
 export function normalizeEquipmentPrices(prices: EquipmentPrices) {

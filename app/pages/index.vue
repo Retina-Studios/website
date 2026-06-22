@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { blogPostCards } from '~/data/blogPosts'
+import { getContentSummary } from '~/data/contentSummary'
 
 type SocialLink = {
   label: string
@@ -48,7 +48,26 @@ const clientLogos: ClientLogo[] = [
   { src: '/images/home/client-10.jpg', alt: '8.jpg' },
 ]
 
-const latestPosts = blogPostCards.slice(0, 3)
+const { data: blogDocuments } = await useAsyncData('homepage-blog-posts', () => queryCollection('blog').all())
+
+function getBlogRouteSlug(path: string) {
+  return path.split('/').filter(Boolean).pop() ?? ''
+}
+
+const latestPosts = computed(() =>
+  [...(blogDocuments.value ?? [])]
+    .sort((left, right) => right.publishedAt.localeCompare(left.publishedAt))
+    .slice(0, 3)
+    .map((post) => ({
+      title: post.title,
+      summary: getContentSummary(post),
+      image: post.cardImage,
+      alt: post.cardAlt,
+      dateLabel: post.dateLabel,
+      readTimeLabel: post.readTimeLabel,
+      to: `/post/${getBlogRouteSlug(post.path)}`,
+    })),
+)
 
 const testimonialSlides = [
   {
@@ -292,7 +311,7 @@ onBeforeUnmount(stopTestimonialAutoplay)
                 <NuxtLink :to="post.to" class="latest-news-title">
                   <h3>{{ post.title }}</h3>
                 </NuxtLink>
-                <p>{{ post.excerpt }}</p>
+                <p>{{ post.summary }}</p>
                 <div class="latest-news-meta">
                   <span>{{ post.dateLabel }}</span>
                   <span class="latest-news-dot" aria-hidden="true" />

@@ -1,9 +1,29 @@
 <script setup lang="ts">
-import { blogPostCards } from '~/data/blogPosts'
+import { getContentSummary } from '~/data/contentSummary'
 
 definePageMeta({
   path: '/news',
 })
+
+const { data: blogDocuments } = await useAsyncData('blog-posts', () => queryCollection('blog').all())
+
+function getBlogRouteSlug(path: string) {
+  return path.split('/').filter(Boolean).pop() ?? ''
+}
+
+const blogPostCards = computed(() =>
+  [...(blogDocuments.value ?? [])]
+    .sort((left, right) => right.publishedAt.localeCompare(left.publishedAt))
+    .map((post) => ({
+      title: post.title,
+      summary: getContentSummary(post),
+      image: post.cardImage,
+      alt: post.cardAlt,
+      dateLabel: post.dateLabel,
+      readTimeLabel: post.readTimeLabel,
+      to: `/post/${getBlogRouteSlug(post.path)}`,
+    })),
+)
 
 useHead({
   title: 'Νέα | Retina Studios',
@@ -37,7 +57,7 @@ useHead({
                   <NuxtLink :to="post.to" class="post-title-link">
                     <h2>{{ post.title }}</h2>
                   </NuxtLink>
-                  <p>{{ post.excerpt }}</p>
+                  <p>{{ post.summary }}</p>
                 </div>
 
                 <div class="post-meta">
@@ -55,6 +75,14 @@ useHead({
 </template>
 
 <style scoped>
+@font-face {
+  font-family: 'RetinaGeo';
+  src: url('/fonts/geologica-thin.woff2') format('woff2');
+  font-weight: 100 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: 'RetinaProxima';
   src: url('/fonts/proxima-reg.woff2') format('woff2');
@@ -86,7 +114,8 @@ useHead({
 }
 
 .wix-blog-page {
-  font-family: 'RetinaAvenirLight', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
+  font-synthesis: none;
   min-height: 100vh;
   background: #fff;
   -webkit-font-smoothing: antialiased;
@@ -120,7 +149,7 @@ useHead({
   font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 36px;
   line-height: 1.2;
-  font-weight: 400;
+  font-weight: 100;
 }
 
 .blog-feed {
@@ -174,18 +203,19 @@ useHead({
 
 .post-copy h2 {
   margin: 0 0 11px;
-  font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', serif;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 22px;
   line-height: 1.4;
-  font-weight: 700;
+  font-weight: 100;
   color: #000;
 }
 
 .post-copy p {
   margin: 0;
-  font-family: 'RetinaAvenirLight', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 14px;
   line-height: 1.4;
+  font-weight: 100;
   color: #000;
 }
 
@@ -194,9 +224,10 @@ useHead({
   display: flex;
   align-items: center;
   gap: 11px;
-  font-family: 'RetinaAvenirLight', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 12px;
   line-height: 1.4;
+  font-weight: 100;
   color: #000;
 }
 

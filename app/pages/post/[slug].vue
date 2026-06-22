@@ -1,37 +1,7 @@
 <script setup lang="ts">
-import { getBlogPostBySlug } from '~/data/blogPosts'
-
-type SocialLink = {
-  label: string
-  href: string
-  icon: string
-}
+import { getContentSummary } from '~/data/contentSummary'
 
 const route = useRoute()
-
-const socialLinks: SocialLink[] = [
-  {
-    label: 'Instagram',
-    href: 'https://www.instagram.com/retinastudios.gr/',
-    icon: '/images/social/instagram.png',
-  },
-  {
-    label: 'Facebook',
-    href: 'https://www.facebook.com/retinastudios.gr',
-    icon: '/images/social/facebook.png',
-  },
-  {
-    label: 'Youtube',
-    href: 'https://www.youtube.com/@retinastudiosgr',
-    icon: '/images/social/youtube.png',
-  },
-  {
-    label: 'TikTok',
-    href: 'https://www.tiktok.com/@retinastudiosgr',
-    icon: '/images/social/tiktok.png',
-  },
-]
-
 
 const slug = computed(() => {
   const value = Array.isArray(route.params.slug) ? route.params.slug[0] : route.params.slug
@@ -48,24 +18,32 @@ const slug = computed(() => {
   }
 })
 
-const post = computed(() => getBlogPostBySlug(slug.value))
+const postPath = computed(() => (slug.value ? `/blog/${slug.value}` : ''))
 
-const firstParagraph = computed(() => {
-  const paragraph = post.value?.blocks.find((block) => block.type === 'paragraph')
-  if (!paragraph || paragraph.type !== 'paragraph') {
-    return null
-  }
+const { data: postDocument } = await useAsyncData(
+  () => `blog-post:${postPath.value}`,
+  () => {
+    if (!postPath.value) {
+      return Promise.resolve(null)
+    }
 
-  return paragraph.text
-})
+    return queryCollection('blog').path(postPath.value).first()
+  },
+  {
+    watch: [postPath],
+  },
+)
+
+const post = computed(() => postDocument.value)
+const postSummary = computed(() => (post.value ? getContentSummary(post.value) : ''))
 
 useHead(() => ({
   title: post.value ? `${post.value.title} | Retina Studios` : 'Blog Post | Retina Studios',
-  meta: firstParagraph.value
+  meta: postSummary.value
     ? [
         {
           name: 'description',
-          content: firstParagraph.value,
+          content: postSummary.value,
         },
       ]
     : [],
@@ -74,12 +52,56 @@ useHead(() => ({
 
 <template>
   <div class="wix-blog-post-page">
-    <main class="post-main">
+    <main v-if="post" class="post-main">
+      <article class="post-shell">
+        <header class="post-title-block">
+          <NuxtLink to="/news" class="back-link">← Πίσω στα νέα</NuxtLink>
+
+          <h1>{{ post.title }}</h1>
+
+          <div class="post-meta" aria-label="Πληροφορίες άρθρου">
+            <span>{{ post.dateLabel }}</span>
+            <span class="post-meta-dot" aria-hidden="true" />
+            <span>{{ post.readTimeLabel }}</span>
+          </div>
+        </header>
+
+        <figure class="hero-image">
+          <img
+            :src="post.heroImage"
+            :alt="post.cardAlt"
+            width="940"
+            height="529"
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
+
+        <section class="post-content">
+          <ContentRenderer :value="post" />
+        </section>
+      </article>
+    </main>
+
+    <main v-else class="post-main">
+      <section class="missing-post">
+        <h1>Το άρθρο δεν βρέθηκε</h1>
+        <p>Δεν υπάρχει καταχωρημένο blog post για το URL που άνοιξες.</p>
+        <NuxtLink to="/news">Επιστροφή στα νέα</NuxtLink>
+      </section>
     </main>
   </div>
 </template>
 
 <style scoped>
+@font-face {
+  font-family: 'RetinaGeo';
+  src: url('/fonts/geologica-thin.woff2') format('woff2');
+  font-weight: 100 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: 'RetinaProxima';
   src: url('/fonts/proxima-reg.woff2') format('woff2');
@@ -111,7 +133,8 @@ useHead(() => ({
 }
 
 .wix-blog-post-page {
-  font-family: 'RetinaAvenirLight', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
+  font-synthesis: none;
   min-height: 100vh;
   background: #fff;
   -webkit-font-smoothing: antialiased;
@@ -244,9 +267,10 @@ useHead(() => ({
 .back-link {
   display: inline-block;
   margin-bottom: 14px;
-  font-family: 'RetinaAvenirLight', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 13px;
   line-height: 1.4;
+  font-weight: 200;
   color: #1d1d1d;
   text-decoration: none;
 }
@@ -257,10 +281,10 @@ useHead(() => ({
 
 .post-title-block h1 {
   margin: 0;
-  font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', serif;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: clamp(2rem, 4vw, 48px);
   line-height: 1.12;
-  font-weight: 700;
+  font-weight: 200;
   color: #000;
 }
 
@@ -270,9 +294,10 @@ useHead(() => ({
   display: flex;
   align-items: center;
   gap: 11px;
-  font-family: 'RetinaAvenirLight', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 12px;
   line-height: 1.4;
+  font-weight: 200;
   color: #000;
 }
 
@@ -302,66 +327,118 @@ useHead(() => ({
   margin: 0 auto;
 }
 
-.body-paragraph {
+.post-content :deep(:first-child) {
+  margin-top: 0;
+}
+
+.post-content :deep(:last-child) {
+  margin-bottom: 0;
+}
+
+.post-content :deep(p) {
   margin: 0 0 18px;
-  font-family: 'RetinaAvenirLight', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 20px;
   line-height: 1.55;
+  font-weight: 200;
   color: #1b1b1b;
 }
 
-.content-heading {
+.post-content :deep(h2),
+.post-content :deep(h3) {
   margin: 32px 0 16px;
-  font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', serif;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 30px;
   line-height: 1.2;
-  font-weight: 700;
+  font-weight: 200;
   color: #000;
 }
 
-.content-heading.small {
+.post-content :deep(h4),
+.post-content :deep(h5),
+.post-content :deep(h6) {
+  margin: 32px 0 16px;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 28px;
+  line-height: 1.2;
+  font-weight: 200;
+  color: #000;
 }
 
-.content-list {
+.post-content :deep(h2 a),
+.post-content :deep(h3 a),
+.post-content :deep(h4 a),
+.post-content :deep(h5 a),
+.post-content :deep(h6 a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.post-content :deep(p a),
+.post-content :deep(li a),
+.post-content :deep(blockquote a) {
+  color: #000;
+  text-decoration-line: underline;
+  text-decoration-color: #f9d342;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+  transition: background-color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.post-content :deep(p a:hover),
+.post-content :deep(li a:hover),
+.post-content :deep(blockquote a:hover) {
+  background: rgba(249, 211, 66, 0.22);
+  text-decoration-color: #000;
+}
+
+.post-content :deep(p a:focus-visible),
+.post-content :deep(li a:focus-visible),
+.post-content :deep(blockquote a:focus-visible) {
+  outline: 2px solid #f9d342;
+  outline-offset: 2px;
+}
+
+.post-content :deep(ul),
+.post-content :deep(ol) {
   margin: 0 0 20px;
   padding: 0 0 0 25px;
-  list-style: disc;
 }
 
-.content-list li {
+.post-content :deep(li) {
   margin: 0 0 10px;
-  font-family: 'RetinaAvenirLight', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 20px;
   line-height: 1.55;
+  font-weight: 200;
   color: #1b1b1b;
 }
 
-.inline-image {
+.post-content :deep(.inline-image) {
   margin: 26px 0;
 }
 
-.inline-image img {
+.post-content :deep(.inline-image img) {
   width: 100%;
   height: auto;
   display: block;
   object-fit: cover;
 }
 
-.post-gallery {
+.post-content :deep(.post-gallery) {
   margin: 10px 0 18px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 
-.gallery-item {
+.post-content :deep(.gallery-item) {
   margin: 0;
   aspect-ratio: 4 / 3;
   overflow: hidden;
 }
 
-.gallery-item img {
+.post-content :deep(.gallery-item img) {
   width: 100%;
   height: 100%;
   display: block;
@@ -378,14 +455,15 @@ useHead(() => ({
   margin: 0 0 0.8rem;
   font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 32px;
-  font-weight: 400;
+  font-weight: 200;
 }
 
 .missing-post p,
 .missing-post a {
-  font-family: 'RetinaAvenirLight', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  font-weight: 200;
   color: #000;
 }
 
