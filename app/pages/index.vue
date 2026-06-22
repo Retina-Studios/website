@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { formatBlogReadTimeLabel } from '~/data/blogReadTime'
 import { getContentSummary } from '~/data/contentSummary'
 
 type SocialLink = {
@@ -64,7 +65,7 @@ const latestPosts = computed(() =>
       image: post.cardImage,
       alt: post.cardAlt,
       dateLabel: post.dateLabel,
-      readTimeLabel: post.readTimeLabel,
+      readTimeLabel: formatBlogReadTimeLabel(post.readTimeLabel),
       to: `/post/${getBlogRouteSlug(post.path)}`,
     })),
 )

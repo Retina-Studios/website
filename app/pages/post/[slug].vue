@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { formatBlogReadTimeLabel } from '~/data/blogReadTime'
 import { getContentSummary } from '~/data/contentSummary'
 
 const route = useRoute()
@@ -36,6 +37,9 @@ const { data: postDocument } = await useAsyncData(
 
 const post = computed(() => postDocument.value)
 const postSummary = computed(() => (post.value ? getContentSummary(post.value) : ''))
+const postReadTimeLabel = computed(() => (
+  post.value ? formatBlogReadTimeLabel(post.value.readTimeLabel) : ''
+))
 
 useHead(() => ({
   title: post.value ? `${post.value.title} | Retina Studios` : 'Blog Post | Retina Studios',
@@ -62,7 +66,7 @@ useHead(() => ({
           <div class="post-meta" aria-label="Πληροφορίες άρθρου">
             <span>{{ post.dateLabel }}</span>
             <span class="post-meta-dot" aria-hidden="true" />
-            <span>{{ post.readTimeLabel }}</span>
+            <span>{{ postReadTimeLabel }}</span>
           </div>
         </header>
 

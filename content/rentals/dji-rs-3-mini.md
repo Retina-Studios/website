@@ -11,4 +11,4 @@ prices:
   7: 70
 ---
 
-Compact gimbal for stabilized movement in reels, walkthroughs and lightweight mirrorless setups.
+Compact gimbal for stabilized movement with lightweight mirrorless setups, designed for tested payloads from 0.4 to 2 kg.
