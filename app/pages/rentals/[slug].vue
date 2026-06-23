@@ -16,11 +16,20 @@ import {
 import type { EquipmentCategoryKey } from '~/data/equipmentCatalog'
 
 const route = useRoute()
-const slug = String(route.params.slug)
-const rentalPath = `/rentals/${slug}`
+const slug = computed(() => {
+  const value = Array.isArray(route.params.slug) ? route.params.slug[0] : route.params.slug
+  return String(value ?? '')
+})
+const rentalPath = computed(() => `/rentals/${slug.value}`)
 
 const [{ data: rentalDocument }, { data: rentalDocuments }] = await Promise.all([
-  useAsyncData(`rental:${rentalPath}`, () => queryCollection('rentals').path(rentalPath).first()),
+  useAsyncData(
+    () => `rental:${rentalPath.value}`,
+    () => queryCollection('rentals').path(rentalPath.value).first(),
+    {
+      watch: [rentalPath],
+    },
+  ),
   useAsyncData('rentals-catalog', () => queryCollection('rentals').all()),
 ])
 
@@ -85,7 +94,7 @@ watch(
   { immediate: true },
 )
 
-useHead({
+useHead(() => ({
   title: `${item.value.name} | Ενοικίαση Εξοπλισμού | Retina Studios`,
   meta: [
     {
@@ -93,7 +102,7 @@ useHead({
       content: item.value.summary,
     },
   ],
-})
+}))
 </script>
 
 <template>
