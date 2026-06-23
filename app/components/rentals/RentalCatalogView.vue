@@ -189,8 +189,7 @@ watch(selectedCategory, () => nextTick(scrollActiveCategoryIntoView))
               <p class="eyebrow">Studio R1</p>
               <h1>Ενοικίαση εξοπλισμού</h1>
               <p>
-                Κάμερες, φακοί, φώτα, ήχος και studio support διαθέσιμα για ενοικίαση με καθαρές
-                τιμές 1, 3 και 7 ημερών. Για διαθεσιμότητα και κράτηση, επικοινωνείτε απευθείας
+                Κάμερες, φακοί, φώτα, ήχος και studio support διαθέσιμα για ενοικίαση. Για διαθεσιμότητα και κράτηση, επικοινωνείτε απευθείας
                 μαζί μας.
               </p>
               <NuxtLink to="/terms-of-rental" class="hero-terms-link">
