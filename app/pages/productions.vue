@@ -406,6 +406,8 @@ useHead({
   width: 980px;
   max-width: calc(100% - 2rem);
   margin: 0 auto;
+  --content-frame-offset: 40px;
+  --content-frame-width: 900px;
 }
 
 .hero-section,
@@ -420,8 +422,9 @@ useHead({
 }
 
 .hero-media {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  width: 100%;
+  min-height: inherit;
 }
 
 .hero-media img {
@@ -432,17 +435,19 @@ useHead({
 }
 
 .hero-content {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 980px;
   max-width: calc(100% - 2rem);
   margin: 0 auto;
   min-height: 570px;
+  pointer-events: none;
 }
 
 .hero-content h1 {
-  margin: 205px 0 10px;
-  padding-left: 90px;
-  width: 800px;
+  margin: 118px 0 10px;
+  padding-left: var(--content-frame-offset);
+  width: var(--content-frame-width);
   font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
   font-size: 56px;
   line-height: 1.05;
@@ -462,8 +467,8 @@ useHead({
 
 .intro-text {
   margin: 58px 0 27px;
-  margin-left: 85px;
-  width: min(805px, 100%);
+  margin-left: var(--content-frame-offset);
+  width: min(805px, calc(100% - var(--content-frame-offset)));
   font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   line-height: 1.8;
@@ -476,22 +481,22 @@ useHead({
 }
 
 .services-strip {
-  width: min(980px, calc(100% - 80px));
-  margin: 0 auto 36px;
+  width: var(--content-frame-width);
+  max-width: calc(100% - var(--content-frame-offset));
+  margin: 0 0 36px var(--content-frame-offset);
   display: grid;
-  grid-template-columns: repeat(3, 300px);
-  justify-content: space-between;
-  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 21px;
 }
 
 .service-tile {
   margin: 0;
-  width: 300px;
+  width: 100%;
 }
 
 .service-image {
   margin: 0;
-  width: 286px;
+  width: 100%;
   height: 335px;
   overflow: hidden;
   background: #111;
@@ -506,7 +511,9 @@ useHead({
 }
 
 .service-caption {
-  width: 279px;
+  position: relative;
+  z-index: 1;
+  width: calc(100% - 21px);
   background: #fff;
   color: #000;
   margin-left: 21px;
@@ -806,11 +813,11 @@ useHead({
   }
 
   .hero-content {
-    min-height: auto;
+    min-height: 360px;
   }
 
   .hero-content h1 {
-    margin: 120px 0 40px;
+    margin: 72px 0 40px;
     padding-left: 0;
     width: auto;
     font-size: clamp(2.2rem, 8vw, 56px);
@@ -832,6 +839,8 @@ useHead({
   .services-strip {
     grid-template-columns: 1fr;
     width: 100%;
+    max-width: none;
+    margin-left: 0;
   }
 
   .service-tile,
@@ -846,7 +855,8 @@ useHead({
   }
 
   .service-caption {
-    margin-left: 0;
+    width: calc(100% - 16px);
+    margin-left: 16px;
   }
 
   .pulse-copy {
