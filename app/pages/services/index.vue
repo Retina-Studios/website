@@ -11,6 +11,13 @@ type ServiceCard = {
 
 const serviceCards: ServiceCard[] = [
   {
+    title: 'Παραγωγή Ταινιών',
+    description:
+      'Δημιουργούμε καλλιτεχνικές και αφηγηματικές ταινίες μικρού μήκους που αιχμαλωτίζουν συναισθήματα και διηγούνται ιστορίες.',
+    image: '/images/services/card-7.jpg',
+    alt: 'Παραγωγή ταινιών',
+  },
+  {
     title: 'Παραγωγή Διαφημιστικών Σποτ',
     description:
       'Δημιουργούμε δυναμικά και ελκυστικά διαφημιστικά σποτ που ξεχωρίζουν και ενισχύουν την ταυτότητα της επιχείρησής σας.',
@@ -18,11 +25,11 @@ const serviceCards: ServiceCard[] = [
     alt: 'Παραγωγή διαφημιστικών σποτ',
   },
   {
-    title: 'Εταιρική Παρουσίαση',
+    title: 'Υπηρεσίες Post-Production',
     description:
-      'Παρουσιάζουμε την κουλτούρα, τις αξίες και τις δραστηριότητες της εταιρείας σας μέσα από επαγγελματικά βίντεο που εμπνέουν εμπιστοσύνη.',
-    image: '/images/services/card-2.jpg',
-    alt: 'Εταιρική παρουσίαση',
+      'Αναλαμβάνουμε το μοντάζ, την χρωματική επεξεργασία και το sound design, εξασφαλίζοντας άρτιο τελικό αποτέλεσμα.',
+    image: '/images/services/card-8.jpg',
+    alt: 'Υπηρεσίες post-production',
   },
   {
     title: 'Κάλυψη Εκδηλώσεων',
@@ -39,13 +46,6 @@ const serviceCards: ServiceCard[] = [
     alt: 'Συνεντεύξεις και vodcasts',
   },
   {
-    title: 'Διαχείρηση Social Media',
-    description:
-      'Παραγωγή περιεχομένου για social media που διατηρεί το κοινό σας ενεργό και ενισχύει τη διαδικτυακή σας παρουσία.',
-    image: '/images/services/card-5.jpg',
-    alt: 'Διαχείρηση social media',
-  },
-  {
     title: 'E-commerce',
     description:
       'Δημιουργούμε packshots, styled λήψεις και εμπορικό περιεχόμενο για e-shop, marketplaces και social ads.',
@@ -60,20 +60,6 @@ const serviceCards: ServiceCard[] = [
     image: '/images/real-estate/web/real-estate-4-card.jpg',
     alt: 'Νυχτερινή real estate φωτογράφιση βίλας με πισίνα',
     to: '/services/real-estate',
-  },
-  {
-    title: 'Παραγωγή Ταινιών',
-    description:
-      'Δημιουργούμε καλλιτεχνικές και αφηγηματικές ταινίες μικρού μήκους που αιχμαλωτίζουν συναισθήματα και διηγούνται ιστορίες.',
-    image: '/images/services/card-7.jpg',
-    alt: 'Παραγωγή ταινιών',
-  },
-  {
-    title: 'Υπηρεσίες Post-Production',
-    description:
-      'Αναλαμβάνουμε το μοντάζ, την χρωματική επεξεργασία και το sound design, εξασφαλίζοντας άρτιο τελικό αποτέλεσμα.',
-    image: '/images/services/card-8.jpg',
-    alt: 'Υπηρεσίες post-production',
   },
 ]
 
