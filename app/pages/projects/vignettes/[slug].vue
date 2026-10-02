@@ -16,6 +16,12 @@ type TeamMember = {
   link?: string
 }
 
+function getOptimizedVignetteImage(src: string) {
+  return src
+    .replace('/images/projects/vignettes/', '/images/projects/vignettes/web/')
+    .replace(/\.(jpe?g|png)$/i, '.webp')
+}
+
 const socialLinks: SocialLink[] = [
   {
     label: 'Instagram',
@@ -401,31 +407,54 @@ useHead(() => ({
           <p>{{ introText }}</p>
 
           <div class="story-gallery">
-            <img
-              src="/images/projects/vignettes/peakyblinders/gallery-1.jpg"
-              alt=""
-              width="278"
-              height="373"
-              loading="lazy"
-              decoding="async"
-            />
-            <img
-              src="/images/projects/vignettes/peakyblinders/gallery-2.jpg"
-              alt=""
-              width="280"
-              height="373"
-              loading="lazy"
-              decoding="async"
-            />
-            <img
-              class="story-gallery-wide"
-              src="/images/projects/vignettes/peakyblinders/gallery-3.jpg"
-              alt=""
-              width="568"
-              height="757"
-              loading="lazy"
-              decoding="async"
-            />
+            <a
+              href="/images/projects/vignettes/peakyblinders/gallery-1.jpg"
+              target="_blank"
+              rel="noreferrer noopener"
+              class="story-gallery-link"
+              aria-label="View full-size Peaky Blinders photo 1"
+            >
+              <img
+                src="/images/projects/vignettes/web/peakyblinders/gallery-1.webp"
+                alt=""
+                width="278"
+                height="373"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <a
+              href="/images/projects/vignettes/peakyblinders/gallery-2.jpg"
+              target="_blank"
+              rel="noreferrer noopener"
+              class="story-gallery-link"
+              aria-label="View full-size Peaky Blinders photo 2"
+            >
+              <img
+                src="/images/projects/vignettes/web/peakyblinders/gallery-2.webp"
+                alt=""
+                width="280"
+                height="373"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <a
+              href="/images/projects/vignettes/peakyblinders/gallery-3.jpg"
+              target="_blank"
+              rel="noreferrer noopener"
+              class="story-gallery-link story-gallery-wide"
+              aria-label="View full-size Peaky Blinders photo 3"
+            >
+              <img
+                src="/images/projects/vignettes/web/peakyblinders/gallery-3.webp"
+                alt=""
+                width="568"
+                height="757"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
           </div>
         </div>
       </section>
@@ -456,7 +485,7 @@ useHead(() => ({
 
           <div class="cta-image-wrap">
             <img
-              src="/images/projects/vignettes/peakyblinders/cta-image.png"
+              src="/images/projects/vignettes/web/peakyblinders/cta-image.webp"
               alt=""
               width="490"
               height="668"
@@ -474,7 +503,7 @@ useHead(() => ({
           <div class="team-grid">
             <article v-for="member in teamMembers" :key="`${member.role}-${member.name}`" class="team-card">
               <img
-                :src="member.image"
+                :src="getOptimizedVignetteImage(member.image)"
                 :alt="member.name"
                 width="260"
                 height="240"
@@ -556,14 +585,22 @@ useHead(() => ({
                 '--h': `${item.height}px`,
               }"
             >
-              <img
-                :src="item.src"
-                alt=""
-                :width="item.width"
-                :height="item.height"
-                loading="lazy"
-                decoding="async"
-              />
+              <a
+                :href="item.src"
+                target="_blank"
+                rel="noreferrer noopener"
+                class="vignette-gallery-link"
+                aria-label="View full-size Sweet Pin-Up photo"
+              >
+                <img
+                  :src="getOptimizedVignetteImage(item.src)"
+                  alt=""
+                  :width="item.width"
+                  :height="item.height"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
             </div>
           </div>
         </div>
@@ -585,7 +622,7 @@ useHead(() => ({
 
           <div class="sweet-cta-image">
             <img
-              src="/images/projects/vignettes/sweet-pin-up/cta-image.png"
+              src="/images/projects/vignettes/web/sweet-pin-up/cta-image.webp"
               alt=""
               width="490"
               height="668"
@@ -667,14 +704,22 @@ useHead(() => ({
                 '--h': `${item.height}px`,
               }"
             >
-              <img
-                :src="item.src"
-                alt=""
-                :width="item.width"
-                :height="item.height"
-                loading="lazy"
-                decoding="async"
-              />
+              <a
+                :href="item.src"
+                target="_blank"
+                rel="noreferrer noopener"
+                class="vignette-gallery-link"
+                aria-label="View full-size Cowgirl photo"
+              >
+                <img
+                  :src="getOptimizedVignetteImage(item.src)"
+                  alt=""
+                  :width="item.width"
+                  :height="item.height"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
             </div>
           </div>
         </div>
@@ -750,14 +795,22 @@ useHead(() => ({
                 '--h': `${item.height}px`,
               }"
             >
-              <img
-                :src="item.src"
-                alt=""
-                :width="item.width"
-                :height="item.height"
-                loading="lazy"
-                decoding="async"
-              />
+              <a
+                :href="item.src"
+                target="_blank"
+                rel="noreferrer noopener"
+                class="vignette-gallery-link"
+                aria-label="View full-size Retro Retina photo"
+              >
+                <img
+                  :src="getOptimizedVignetteImage(item.src)"
+                  alt=""
+                  :width="item.width"
+                  :height="item.height"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
             </div>
           </div>
         </div>
@@ -989,7 +1042,7 @@ useHead(() => ({
 
 .hero-section {
   min-width: 980px;
-  background: #000 url('/images/projects/vignettes/peakyblinders/hero-bg.jpg') center / cover no-repeat;
+  background: #000 url('/images/projects/vignettes/web/peakyblinders/hero-bg.webp') center / cover no-repeat;
 }
 
 .hero-shell {
@@ -1037,6 +1090,10 @@ useHead(() => ({
   gap: 10px;
 }
 
+.story-gallery-link {
+  display: block;
+}
+
 .story-gallery img {
   display: block;
   width: 100%;
@@ -1046,7 +1103,10 @@ useHead(() => ({
 
 .story-gallery-wide {
   grid-column: 1 / -1;
-  height: 757px !important;
+}
+
+.story-gallery-wide img {
+  height: 757px;
 }
 
 .cta-section {
@@ -1109,7 +1169,7 @@ useHead(() => ({
 
 .sweet-hero-section {
   min-width: 980px;
-  background: #000 url('/images/projects/vignettes/sweet-pin-up/hero-bg.jpg') center / cover no-repeat;
+  background: #000 url('/images/projects/vignettes/web/sweet-pin-up/hero-bg.webp') center / cover no-repeat;
 }
 
 .sweet-hero-shell {
@@ -1173,6 +1233,12 @@ useHead(() => ({
   height: var(--h);
 }
 
+.vignette-gallery-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .sweet-gallery-item img {
   display: block;
   width: 100%;
@@ -1220,7 +1286,7 @@ useHead(() => ({
 
 .sweet-credits-section {
   min-width: 980px;
-  background: #0b2f5b url('/images/projects/vignettes/sweet-pin-up/credits-bg.jpg') center / cover no-repeat;
+  background: #0b2f5b url('/images/projects/vignettes/web/sweet-pin-up/credits-bg.webp') center / cover no-repeat;
   color: #0b2f5b;
 }
 
@@ -1282,7 +1348,7 @@ useHead(() => ({
 
 .retro-hero-section {
   min-width: 980px;
-  background: #000 url('/images/projects/vignettes/retro-retina/hero-bg.jpg') center / cover no-repeat;
+  background: #000 url('/images/projects/vignettes/web/retro-retina/hero-bg.webp') center / cover no-repeat;
 }
 
 .retro-hero-shell {
@@ -1352,7 +1418,7 @@ useHead(() => ({
 
 .retro-credits-section {
   min-width: 980px;
-  background: #0b2f5b url('/images/projects/vignettes/retro-retina/credits-bg.jpg') center / cover no-repeat;
+  background: #0b2f5b url('/images/projects/vignettes/web/retro-retina/credits-bg.webp') center / cover no-repeat;
   color: #fff;
 }
 
@@ -1409,7 +1475,7 @@ useHead(() => ({
 
 .cowgirl-hero-section {
   min-width: 980px;
-  background: #000 url('/images/projects/vignettes/cowgirl/hero-bg.jpg') center / cover no-repeat;
+  background: #000 url('/images/projects/vignettes/web/cowgirl/hero-bg.webp') center / cover no-repeat;
 }
 
 .cowgirl-hero-shell {
@@ -1482,7 +1548,7 @@ useHead(() => ({
 
 .cowgirl-credits-section {
   min-width: 980px;
-  background: #0b2f5b url('/images/projects/vignettes/cowgirl/credits-bg.jpg') center / cover no-repeat;
+  background: #0b2f5b url('/images/projects/vignettes/web/cowgirl/credits-bg.webp') center / cover no-repeat;
   color: #fff;
 }
 
@@ -1614,7 +1680,7 @@ useHead(() => ({
 
 .bottom-project-nav {
   min-width: 980px;
-  background: #000 url('/images/projects/vignettes/bottom-bg.jpg') center / cover no-repeat;
+  background: #000 url('/images/projects/vignettes/web/bottom-bg.webp') center / cover no-repeat;
 }
 
 .bottom-shell {
@@ -1871,10 +1937,13 @@ code {
     grid-template-columns: 1fr;
   }
 
-  .story-gallery img,
-  .story-gallery-wide {
+  .story-gallery img {
     height: auto !important;
     aspect-ratio: 568 / 373;
+  }
+
+  .story-gallery-wide img {
+    height: auto;
   }
 
   .cta-shell {
@@ -1935,6 +2004,10 @@ code {
     position: static;
     width: 100% !important;
     height: auto !important;
+  }
+
+  .vignette-gallery-link {
+    height: auto;
   }
 
   .sweet-gallery-item img {

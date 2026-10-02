@@ -80,6 +80,12 @@ const projects: VignetteProject[] = [
   },
 ]
 
+function getOptimizedVignetteImage(src: string) {
+  return src
+    .replace('/images/projects/vignettes/', '/images/projects/vignettes/web/')
+    .replace(/\.(jpe?g|png)$/i, '.webp')
+}
+
 useHead({
   title: 'Φωτογραφίσεις "Vignettes" | Retina Studios',
 })
@@ -104,7 +110,7 @@ useHead({
           >
             <div class="image-column">
               <img
-                :src="project.image"
+                :src="getOptimizedVignetteImage(project.image)"
                 :alt="project.imageAlt"
                 :style="{ objectPosition: project.imagePosition }"
                 loading="lazy"
