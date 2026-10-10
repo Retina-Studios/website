@@ -188,18 +188,20 @@ function getOptimizedVignetteImage(src: string) {
 
 <style scoped>
 .vignette-project { background: #fff; color: #111; }
-.hero { position: relative; min-height: var(--hero-min-height, 760px); display: grid; place-items: center; background-position: center; background-size: cover; color: #fff; text-align: center; }
-.hero h1 { margin: 0; padding: 2rem; font-family: 'RetinaGeo', Arial, sans-serif; font-size: clamp(3rem, 9vw, 7rem); line-height: .9; text-shadow: 0 2px 20px rgb(0 0 0 / .55); }
-.hero-title-image { width: min(600px, 80vw); height: auto; object-fit: contain; }
-.hero h1.sweet-pinup-title { position: absolute; left: 50%; top: 50%; width: min(781px, 90vw); margin: 0; padding: 0; transform: translate(-50%, -50%); font-family: 'Playfair Display', 'Times New Roman', serif; font-size: clamp(3.5rem, 8vw, 111px); font-weight: 400; line-height: .8; color: #fcd1f8; text-shadow: rgb(10 189 240 / .3) 3px 3px 0, rgb(254 1 1 / .3) -3px -3px 0; }
-.hero h1.retro-retina-title { position: absolute; left: 50%; top: 50%; width: min(781px, 90vw); margin: 0; padding: 0; transform: translate(-50%, -50%) rotate(345.777deg); font-family: 'Coca Cola II', 'Brush Script MT', 'Segoe Script', 'Playfair Display', serif; font-size: clamp(7rem, 18vw, 250px); font-weight: 400; line-height: .5; color: #fff; text-shadow: rgb(10 189 240 / .3) 3px 3px 0, rgb(254 1 1 / .3) -3px -3px 0; }
+.hero { --hero-title-offset: clamp(3.5rem, 10vh, 6.5rem); position: relative; min-height: var(--hero-min-height, 760px); background-position: center; background-size: cover; color: #fff; text-align: center; }
+.hero h1 { position: absolute; bottom: var(--hero-title-offset); left: 50%; width: min(90vw, 900px); margin: 0; padding: 0; transform: translateX(-50%); font-family: 'RetinaGeo', Arial, sans-serif; font-size: clamp(3rem, 9vw, 7rem); line-height: .9; text-shadow: 0 2px 20px rgb(0 0 0 / .55); }
+.hero-title-image { position: absolute; bottom: var(--hero-title-offset); left: 50%; width: min(600px, 80vw); height: auto; object-fit: contain; transform: translateX(-50%); }
+.hero h1.sweet-pinup-title { bottom: var(--hero-title-offset); left: 50%; width: min(781px, 90vw); margin: 0; padding: 0; transform: translateX(-50%); font-family: 'Playfair Display', 'Times New Roman', serif; font-size: clamp(3.5rem, 8vw, 111px); font-weight: 400; line-height: .8; color: #fcd1f8; text-shadow: rgb(10 189 240 / .3) 3px 3px 0, rgb(254 1 1 / .3) -3px -3px 0; }
+.hero h1.retro-retina-title { bottom: var(--hero-title-offset); left: 50%; width: min(781px, 90vw); margin: 0; padding: 0; transform: translateX(-50%) rotate(345.777deg); font-family: 'Coca Cola II', 'Brush Script MT', 'Segoe Script', 'Playfair Display', serif; font-size: clamp(7rem, 18vw, 250px); font-weight: 400; line-height: .5; color: #fff; text-shadow: rgb(10 189 240 / .3) 3px 3px 0, rgb(254 1 1 / .3) -3px -3px 0; }
 .retro-retina-title span { display: block; }
-.hero h1.cowgirl-title { position: absolute; left: 50%; top: 50%; width: min(781px, 90vw); margin: 0; padding: 0; transform: translate(-50%, -50%); font-family: 'Americana Vintage', 'Playfair Display', 'Times New Roman', serif; font-size: clamp(4rem, 8vw, 111px); font-weight: 400; line-height: .8; color: #fff; text-transform: lowercase; }
+.hero h1.cowgirl-title { bottom: var(--hero-title-offset); left: 50%; width: min(781px, 90vw); margin: 0; padding: 0; transform: translateX(-50%); font-family: 'Americana Vintage', 'Playfair Display', 'Times New Roman', serif; font-size: clamp(4rem, 8vw, 111px); font-weight: 400; line-height: .8; color: #fff; text-transform: lowercase; }
 .credits, .project-nav { width: min(980px, calc(100% - 2rem)); margin: 0 auto; }
 .story { width: 100%; padding: 72px 0; box-sizing: border-box; }
 .story--sweet { background: rgb(252 209 248); }
 .story--peaky { background: #000; color: #fff; }
 .story--retro { background: #f9d342; }
+.story--regal { background: #101924; }
+.story--cowgirl { background: #e8d7a1; }
 .story > p { max-width: 720px; margin: 0 auto 48px; font-family: 'RetinaProxima', Arial, sans-serif; font-size: 18px; line-height: 1.8; }
 .gallery { width: min(980px, calc(100% - 2rem)); margin: 0 auto; columns: 3 240px; column-gap: 12px; }
 .gallery button { display: block; width: 100%; margin: 0 0 12px; padding: 0; border: 0; background: none; cursor: zoom-in; break-inside: avoid; }

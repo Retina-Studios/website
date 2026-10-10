@@ -16,7 +16,8 @@ useHead({ title: 'Cowgirl | Retina Studios' })
   <VignetteProjectPage
     title="Cowgirl"
     hero-image="/images/projects/vignettes/cowgirl/hero-bg.jpg"
-    hero-title-class="cowgirl-title"
+    hero-title-image="/images/projects/vignettes/cowgirl/cowgirl-title.png"
+    story-variant="cowgirl"
     intro="Και τώρα κάτι διαφορετικό — ένα vignette στην άγρια δύση της Δράμας, στο Ranjo Costa, με ατμόσφαιρα περιπέτειας και western αισθητική. Cowgirl power!"
     :gallery="gallery"
     :credits="credits"

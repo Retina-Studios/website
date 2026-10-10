@@ -17,6 +17,8 @@ useHead({ title: 'Regal | Retina Studios' })
   <VignetteProjectPage
     title="Regal"
     hero-image="/images/projects/vignettes/regal/Artemis_0073-v2-edited-Edit.jpg"
+    hero-title-image="/images/projects/vignettes/regal/regal-title.png"
+    story-variant="regal"
     :gallery="gallery"
     gallery-layout="regal"
     :previous="{ label: 'Cowgirl', to: '/projects/vignettes/cowgirl' }"
