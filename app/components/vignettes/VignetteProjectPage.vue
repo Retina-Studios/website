@@ -244,7 +244,7 @@ function getOptimizedVignetteImage(src: string) {
 .credits--retro dd { margin: 0 0 12px; font-size: 20px; line-height: 1.1; }
 .credits--retro dd:last-child { margin-bottom: 0; }
 .credits--retro a { color: #fff; }
-.credits--cowgirl { width: 100%; box-sizing: border-box; min-height: 457px; padding: 54px max(calc((100% - 395px) / 2), 1rem); background: #0b2f5b url('/images/projects/vignettes/web/cowgirl/credits-bg.webp') center / cover no-repeat; color: #fff; text-align: center; }
+.credits--cowgirl { width: 100%; box-sizing: border-box; min-height: 457px; padding: 54px max(calc((100% - 395px) / 2), 1rem); background: linear-gradient(rgb(156 34 2 / .78), rgb(156 34 2 / .78)), url('/images/projects/vignettes/web/cowgirl/credits-bg.webp') center / cover no-repeat; color: #fff; text-align: center; }
 .credits--cowgirl h2 { display: none; }
 .credits--cowgirl dl { display: block; margin: 0; font-family: 'Playfair Display', 'Times New Roman', serif; }
 .credits--cowgirl dt { margin: 0 0 8px; font-size: 22px; font-weight: 900; line-height: 1.1; }
