@@ -214,6 +214,7 @@ useHead({
 
 .projects-strip-section {
   background: #fff;
+  padding-bottom: 60px;
 }
 
 .projects-shell {
@@ -226,12 +227,13 @@ useHead({
   width: 980px;
   max-width: 100%;
   display: grid;
-  grid-template-columns: 327px 326px 327px;
+  grid-template-columns: 1fr;
+  gap: 24px;
 }
 
 .project-column {
   position: relative;
-  min-height: 524px;
+  min-height: 380px;
   overflow: visible;
 }
 
@@ -249,22 +251,23 @@ useHead({
 
 .films-card {
   position: absolute;
-  left: 2px;
-  top: 160px;
-  width: 326px;
+  left: 50%;
+  top: 50%;
+  width: min(326px, calc(100% - 2rem));
   text-decoration: none;
+  transform: translate(-50%, -50%);
   transform-origin: center;
   transition: transform 0.4s ease-in-out;
 }
 
 .films-card:hover {
-  transform: scale(1.1);
+  transform: translate(-50%, -50%) scale(1.1);
   z-index: 2;
 }
 
 .films-card h1 {
-  width: 304px;
-  margin: 52px 0 70px 22px;
+  width: 100%;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 0.38rem;
@@ -285,19 +288,20 @@ useHead({
 
 .vignettes-card {
   position: absolute;
-  left: 0;
-  top: 138px;
-  width: 326px;
-  min-height: 247px;
+  left: 50%;
+  top: 50%;
+  width: min(326px, calc(100% - 2rem));
+  min-height: auto;
   display: block;
   text-decoration: none;
+  transform: translate(-50%, -50%);
 }
 
 .vignettes-card img {
-  width: 326px;
-  height: 83px;
+  width: 100%;
+  height: auto;
   display: block;
-  margin-top: 74px;
+  margin-top: 0;
   object-fit: cover;
   transition: transform 0.4s ease-in-out;
   transform-origin: center;
@@ -309,26 +313,27 @@ useHead({
 
 .sessions-card {
   position: absolute;
-  left: -1px;
-  top: 115px;
-  width: 326px;
+  left: 50%;
+  top: 50%;
+  width: min(326px, calc(100% - 2rem));
   display: block;
   text-decoration: none;
+  transform: translate(-50%, -50%);
   transform-origin: center;
   transition: transform 0.4s ease-in-out;
 }
 
 .sessions-card:hover {
-  transform: scale(1.1);
+  transform: translate(-50%, -50%) scale(1.1);
   z-index: 2;
 }
 
 .sessions-card img {
-  width: 326px;
-  height: 184px;
+  width: 100%;
+  height: auto;
   display: block;
-  margin-top: 43px;
-  margin-bottom: 51px;
+  margin-top: 0;
+  margin-bottom: 0;
   object-fit: cover;
 }
 

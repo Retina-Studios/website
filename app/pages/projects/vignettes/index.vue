@@ -10,9 +10,8 @@ type VignetteProject = {
   to: string
   image: string
   imageAlt: string
-  imageSide: 'left' | 'right'
-  headingTop: number
   imagePosition: string
+  tileHeight: number
 }
 
 const socialLinks: SocialLink[] = [
@@ -47,36 +46,40 @@ const projects: VignetteProject[] = [
     to: '/projects/vignettes/peakyblinders',
     image: '/images/projects/vignettes/peaky-blinders.jpg',
     imageAlt: 'Peaky Blinders vignette',
-    imageSide: 'right',
-    headingTop: 283,
     imagePosition: '50% 0%',
+    tileHeight: 430,
   },
   {
     title: 'Sweet Pin-up',
     to: '/projects/vignettes/sweet-pin-up',
     image: '/images/projects/vignettes/sweet-pin-up.jpg',
     imageAlt: 'Sweet Pin-up vignette',
-    imageSide: 'left',
-    headingTop: 265,
     imagePosition: '50% 0%',
+    tileHeight: 570,
   },
   {
     title: 'Retro Retina',
     to: '/projects/vignettes/retro-retina',
     image: '/images/projects/vignettes/retro-retina.jpg',
     imageAlt: 'Retro Retina vignette',
-    imageSide: 'right',
-    headingTop: 265,
     imagePosition: '50% 50%',
+    tileHeight: 465,
   },
   {
     title: 'Cowgirl',
     to: '/projects/vignettes/cowgirl',
     image: '/images/projects/vignettes/cowgirl.jpg',
     imageAlt: 'Cowgirl vignette',
-    imageSide: 'left',
-    headingTop: 265,
     imagePosition: '50% 0%',
+    tileHeight: 540,
+  },
+  {
+    title: 'Regal',
+    to: '/projects/vignettes/regal',
+    image: '/images/projects/vignettes/regal/Artemis_0260-edited.jpg',
+    imageAlt: 'Regal vignette',
+    imagePosition: '50% 50%',
+    tileHeight: 500,
   },
 ]
 
@@ -106,27 +109,21 @@ useHead({
           <article
             v-for="project in projects"
             :key="project.title"
-            :class="['vignette-row', project.imageSide === 'right' ? 'image-right' : 'image-left']"
+            class="vignette-row"
+            :style="{ '--tile-height': `${project.tileHeight}px` }"
           >
-            <div class="image-column">
+            <NuxtLink
+              class="image-column"
+              :to="project.to"
+              :aria-label="`Δείτε το project ${project.title}`"
+            >
               <img
                 :src="getOptimizedVignetteImage(project.image)"
                 :alt="project.imageAlt"
                 :style="{ objectPosition: project.imagePosition }"
                 loading="lazy"
               />
-            </div>
-            <div class="content-column">
-              <div class="content-inner">
-                <h2 :style="{ marginTop: `${project.headingTop}px` }">{{ project.title }}</h2>
-                <NuxtLink class="project-button" :to="project.to">
-                  Δείτε το project
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M14 5l7 7-7 7-1.4-1.4L17.2 13H3v-2h14.2l-4.6-4.6L14 5z" />
-                  </svg>
-                </NuxtLink>
-              </div>
-            </div>
+            </NuxtLink>
           </article>
         </div>
       </section>
@@ -313,32 +310,27 @@ useHead({
 
 .projects-section {
   background: #fff;
+  padding-bottom: 60px;
 }
 
 .projects-shell {
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  columns: 3 280px;
+  column-gap: 12px;
 }
 
 .vignette-row {
   width: 100%;
-  min-height: 660px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.vignette-row.image-right .image-column {
-  order: 2;
-}
-
-.vignette-row.image-right .content-column {
-  order: 1;
+  break-inside: avoid;
+  margin-bottom: 12px;
 }
 
 .image-column {
+  display: block;
   width: 100%;
-  min-height: 660px;
+  height: var(--tile-height);
   margin: 0;
 }
 
@@ -346,63 +338,12 @@ useHead({
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 660px;
   object-fit: cover;
 }
 
-.content-column {
-  width: 100%;
-  min-height: 660px;
-}
-
-.content-inner {
-  width: 100%;
-  min-height: 660px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.content-inner h2 {
-  width: 100%;
-  margin: 0 0 10px;
-  text-align: center;
-  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
-  font-size: 56px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.project-button {
-  margin-bottom: 10px;
-  width: 158px;
-  height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-sizing: border-box;
-  border: 1px solid #282626;
-  background: #282626;
-  color: #fff;
-  text-decoration: none;
-  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
-  font-size: 15px;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  transition: all 0.2s ease;
-}
-
-.project-button svg {
-  width: 14px;
-  height: 14px;
-  fill: currentColor;
-}
-
-.project-button:hover {
-  border-color: #000;
-  background: #fff;
-  color: #000;
+.image-column:focus-visible {
+  outline: 3px solid #000;
+  outline-offset: -3px;
 }
 
 .site-footer-clone {
@@ -526,7 +467,6 @@ useHead({
   }
 
   .intro-shell,
-  .projects-shell,
   .footer-inner {
     width: auto;
     max-width: calc(100% - 2rem);
@@ -545,45 +485,18 @@ useHead({
     margin-right: 0;
   }
 
+  .projects-shell {
+    width: min(760px, calc(100% - 2rem));
+    max-width: none;
+    columns: 2 240px;
+  }
+
   .vignette-row {
-    width: 100%;
-    min-height: 0;
-    grid-template-columns: 1fr;
-  }
-
-  .vignette-row.image-right .image-column,
-  .vignette-row.image-right .content-column {
-    order: initial;
-  }
-
-  .image-column,
-  .content-column,
-  .content-inner {
-    width: 100%;
-    min-height: 0;
+    margin-bottom: 12px;
   }
 
   .image-column {
-    aspect-ratio: 491 / 660;
-  }
-
-  .image-column img {
-    min-height: 0;
-  }
-
-  .content-inner {
-    padding: 2rem 0 5rem;
-  }
-
-  .content-inner h2 {
     width: 100%;
-    font-size: clamp(2rem, 8vw, 3rem);
-    margin-top: 0 !important;
-    margin-bottom: 1.4rem;
-  }
-
-  .project-button {
-    margin: 0 auto;
   }
 
   .footer-columns {
@@ -610,6 +523,12 @@ useHead({
   .footer-bottom p {
     grid-column: auto;
     justify-self: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .projects-shell {
+    columns: 1;
   }
 }
 .nav-toggle {
