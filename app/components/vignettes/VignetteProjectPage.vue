@@ -200,9 +200,9 @@ function getOptimizedVignetteImage(src: string) {
 .story--sweet { background: rgb(252 209 248); }
 .story--peaky { background: #000; color: #fff; }
 .story--retro { background: #f9d342; }
-.story--regal { background: #101924; }
+.story--regal { background: #101924; color: #e0a476; }
 .story--cowgirl { background: #e8d7a1; }
-.story > p { max-width: 720px; margin: 0 auto 48px; font-family: 'RetinaProxima', Arial, sans-serif; font-size: 18px; line-height: 1.8; }
+.story > p { max-width: 720px; margin: 0 auto 48px; font-family: 'Playfair Display', 'Times New Roman', serif; font-size: 18px; line-height: 1.8; }
 .gallery { width: min(980px, calc(100% - 2rem)); margin: 0 auto; columns: 3 240px; column-gap: 12px; }
 .gallery button { display: block; width: 100%; margin: 0 0 12px; padding: 0; border: 0; background: none; cursor: zoom-in; break-inside: avoid; }
 .gallery img { width: 100%; display: block; }
@@ -227,6 +227,10 @@ function getOptimizedVignetteImage(src: string) {
 .credits dt { font-weight: 700; }
 .credits dd { margin: 0; }
 .credits a { color: inherit; }
+.credits--regal { width: 100%; box-sizing: border-box; min-height: 400px; padding: 72px max(calc((100% - 720px) / 2), 1rem); background: linear-gradient(rgb(16 25 36 / .78), rgb(16 25 36 / .78)), url('/images/projects/vignettes/web/regal/Artemis_0154-edited.webp') center / cover no-repeat; color: #e0a476; text-align: center; }
+.credits--regal dl { display: block; font-family: 'Playfair Display', 'Times New Roman', serif; }
+.credits--regal dt { margin: 0 0 8px; font-size: 22px; line-height: 1.1; }
+.credits--regal dd { margin: 0 0 16px; font-size: 20px; line-height: 1.1; }
 .credits--sweet { width: 100%; box-sizing: border-box; min-height: 683px; padding: 54px max(calc((100% - 395px) / 2), 1rem); background: #0b2f5b url('/images/projects/vignettes/web/sweet-pin-up/credits-bg.webp') center / cover no-repeat; color: #0b2f5b; text-align: center; }
 .credits--sweet h2 { display: none; }
 .credits--sweet dl { display: block; margin: 0; font-family: 'Playfair Display', 'Times New Roman', serif; }
