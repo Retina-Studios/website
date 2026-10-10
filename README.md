@@ -15,7 +15,6 @@ Open `http://localhost:3000`.
 ## Routes prepared
 
 - `/` (standard page template)
-- `/services` (standard page template)
 - `/post/[slug]` (blog-post template)
 
 Each route currently includes a snapshot viewer that points to saved Wix exports under `public/wix-snapshots/`.

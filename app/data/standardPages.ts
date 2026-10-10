@@ -23,64 +23,7 @@ export type StandardPageContent = {
   }
 }
 
-export const standardPages: Record<'services' | 'aboutus', StandardPageContent> = {
-  services: {
-    seoTitle: 'Υπηρεσίες | Retina Studios',
-    eyebrow: 'What We Do',
-    title: 'Υπηρεσίες παραγωγής για brands και creators',
-    lead: 'Αναλαμβάνουμε πλήρη δημιουργική παραγωγή, από ιδέα και pre-production μέχρι γύρισμα, μοντάζ και τελικό παραδοτέο για web, social και events.',
-    sections: [
-      {
-        heading: 'Κύριες υπηρεσίες',
-        cards: [
-          {
-            title: 'Video Production',
-            description: 'Commercials, branded content, social videos, event coverage και behind-the-scenes με cinematic προσέγγιση.',
-          },
-          {
-            title: 'Photography',
-            description: 'Product, portrait, lifestyle και campaign φωτογράφιση με καλλιτεχνική επιμέλεια και έμφαση στην ταυτότητα του brand.',
-          },
-          {
-            title: 'Post-Production',
-            description: 'Editing, color grading, sound design και optimization για κάθε κανάλι διανομής.',
-          },
-          {
-            title: 'Creative Direction',
-            description: 'Σχεδιασμός concept, moodboards και visual storytelling για συνεπή και ισχυρή επικοινωνία.',
-          },
-        ],
-      },
-      {
-        heading: 'Πώς δουλεύουμε',
-        intro: 'Στόχος μας είναι ξεκάθαρα milestones, ταχύτητα και ποιοτικό τελικό αποτέλεσμα.',
-        cards: [
-          {
-            title: '1. Discovery',
-            description: 'Κατανοούμε στόχους, κοινό και πλαίσιο καμπάνιας πριν ξεκινήσει η παραγωγή.',
-          },
-          {
-            title: '2. Planning',
-            description: 'Ορίζουμε δημιουργικό πλάνο, παραγωγικό χρονοδιάγραμμα και budget.',
-          },
-          {
-            title: '3. Production',
-            description: 'Εκτέλεση γυρίσματος/φωτογράφισης με έλεγχο ποιότητας σε πραγματικό χρόνο.',
-          },
-          {
-            title: '4. Delivery',
-            description: 'Παράδοση τελικών assets σε formats κατάλληλα για website, social και paid media.',
-          },
-        ],
-      },
-    ],
-    cta: {
-      title: 'Θέλεις πρόταση παραγωγής για το επόμενο project σου;',
-      text: 'Στείλε μας σύντομο brief και θα σου απαντήσουμε με ρεαλιστικό πλάνο υλοποίησης.',
-      actionLabel: 'Επικοινωνία',
-      actionTo: '/contact',
-    },
-  },
+export const standardPages: Record<'aboutus', StandardPageContent> = {
   aboutus: {
     seoTitle: 'Ποιοι είμαστε | Retina Studios',
     eyebrow: 'About Retina',

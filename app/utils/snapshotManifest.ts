@@ -12,12 +12,6 @@ export const snapshotManifest: Record<string, SnapshotEntry> = {
     snapshotPath: '/wix-snapshots/index.html',
     template: 'standard',
   },
-  '/services': {
-    path: '/services',
-    title: 'Retina Studios | Services',
-    snapshotPath: '/wix-snapshots/services.html',
-    template: 'standard',
-  },
   '/aboutus': {
     path: '/aboutus',
     title: 'Ποιοι είμαστε | Retina Studios',
@@ -64,12 +58,6 @@ export const snapshotManifest: Record<string, SnapshotEntry> = {
     path: '/news',
     title: 'Νέα | Retina Studios',
     snapshotPath: '/wix-snapshots/blog.html',
-    template: 'standard',
-  },
-  '/services/e-commerce': {
-    path: '/services/e-commerce',
-    title: 'E-commerce | Retina Studios',
-    snapshotPath: '/wix-snapshots/product-photography.html',
     template: 'standard',
   },
   '/film-productions': {
