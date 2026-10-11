@@ -58,20 +58,20 @@ const projects: VignetteProject[] = [
     tileHeight: 570,
   },
   {
-    title: 'Retro Retina',
-    to: '/projects/vignettes/retro-retina',
-    image: '/images/projects/vignettes/retro-retina.jpg',
-    imageAlt: 'Retro Retina vignette',
-    imagePosition: '50% 50%',
-    tileHeight: 465,
-  },
-  {
     title: 'Cowgirl',
     to: '/projects/vignettes/cowgirl',
     image: '/images/projects/vignettes/cowgirl.jpg',
     imageAlt: 'Cowgirl vignette',
     imagePosition: '50% 0%',
     tileHeight: 540,
+  },
+  {
+    title: 'Retro Retina',
+    to: '/projects/vignettes/retro-retina',
+    image: '/images/projects/vignettes/retro-retina.jpg',
+    imageAlt: 'Retro Retina vignette',
+    imagePosition: '50% 50%',
+    tileHeight: 465,
   },
   {
     title: 'Regal',
@@ -89,6 +89,12 @@ const projects: VignetteProject[] = [
     imagePosition: '50% 50%',
     tileHeight: 560,
   },
+]
+
+const projectColumns = [
+  projects.slice(0, 2),
+  projects.slice(2, 4),
+  projects.slice(4, 6),
 ]
 
 function getOptimizedVignetteImage(src: string) {
@@ -121,25 +127,27 @@ useHead({
 
       <section class="projects-section">
         <div class="projects-shell">
-          <article
-            v-for="project in projects"
-            :key="project.title"
-            class="vignette-row"
-            :style="{ '--tile-height': `${project.tileHeight}px` }"
-          >
-            <NuxtLink
-              class="image-column"
-              :to="project.to"
-              :aria-label="`Δείτε το project ${project.title}`"
+          <div v-for="(column, columnIndex) in projectColumns" :key="columnIndex" class="masonry-column">
+            <article
+              v-for="project in column"
+              :key="project.title"
+              class="vignette-row"
+              :style="{ '--tile-height': `${project.tileHeight}px` }"
             >
-              <img
-                :src="getOptimizedVignetteImage(project.image)"
-                :alt="project.imageAlt"
-                :style="{ objectPosition: project.imagePosition }"
-                loading="lazy"
-              />
-            </NuxtLink>
-          </article>
+              <NuxtLink
+                class="image-column"
+                :to="project.to"
+                :aria-label="`Δείτε το project ${project.title}`"
+              >
+                <img
+                  :src="getOptimizedVignetteImage(project.image)"
+                  :alt="project.imageAlt"
+                  :style="{ objectPosition: project.imagePosition }"
+                  loading="lazy"
+                />
+              </NuxtLink>
+            </article>
+          </div>
         </div>
       </section>
     </main>
@@ -331,15 +339,21 @@ useHead({
 .projects-shell {
   width: min(1180px, calc(100% - 2rem));
   margin: 0 auto;
-  columns: 3 280px;
-  column-gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.masonry-column {
+  display: grid;
+  align-content: start;
+  gap: 12px;
 }
 
 .vignette-row {
   width: 100%;
   display: grid;
-  break-inside: avoid;
-  margin-bottom: 12px;
+  margin: 0;
 }
 
 .image-column {
@@ -503,11 +517,7 @@ useHead({
   .projects-shell {
     width: min(760px, calc(100% - 2rem));
     max-width: none;
-    columns: 2 240px;
-  }
-
-  .vignette-row {
-    margin-bottom: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .image-column {
@@ -543,7 +553,7 @@ useHead({
 
 @media (max-width: 640px) {
   .projects-shell {
-    columns: 1;
+    grid-template-columns: 1fr;
   }
 }
 .nav-toggle {
