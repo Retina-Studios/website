@@ -262,6 +262,12 @@ function getOptimizedVignetteImage(src: string) {
 .credits--regal dl { display: block; font-family: 'Playfair Display', 'Times New Roman', serif; }
 .credits--regal dt { margin: 0 0 8px; font-size: 22px; line-height: 1.1; }
 .credits--regal dd { margin: 0 0 16px; font-size: 20px; line-height: 1.1; }
+.credits--peaky { width: 100%; box-sizing: border-box; min-height: 520px; padding: 72px max(calc((100% - 720px) / 2), 1rem); background: #000; color: #fff; text-align: center; }
+.credits--peaky h2 { display: none; }
+.credits--peaky dl { display: block; font-family: 'Playfair Display', 'Times New Roman', serif; }
+.credits--peaky dt { margin: 0 0 8px; font-size: 22px; font-weight: 900; line-height: 1.1; }
+.credits--peaky dd { margin: 0 0 16px; font-size: 20px; line-height: 1.1; }
+.credits--peaky a { color: #fff; }
 .credits--sweet { width: 100%; box-sizing: border-box; min-height: 683px; padding: 54px max(calc((100% - 395px) / 2), 1rem); background: #0b2f5b url('/images/projects/vignettes/web/sweet-pin-up/credits-bg.webp') center / cover no-repeat; color: #0b2f5b; text-align: center; }
 .credits--sweet h2 { display: none; }
 .credits--sweet dl { display: block; margin: 0; font-family: 'Playfair Display', 'Times New Roman', serif; }

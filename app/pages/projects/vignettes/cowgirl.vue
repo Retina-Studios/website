@@ -9,7 +9,14 @@ const credits = [
   { role: 'Μαλλιά', name: 'Ιπποκράτης Δαμιανίδης' },
   { role: 'Υποδήματα', name: 'Negozio Shoes', href: 'https://www.instagram.com/negozioshoes/' },
 ]
-useHead({ title: 'Cowgirl | Retina Studios' })
+useHead({
+  title: 'Cowgirl | Retina Studios',
+  meta: [
+    { property: 'og:image', content: 'https://retinastudios.gr/images/projects/vignettes/vignettes-social.png' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:image', content: 'https://retinastudios.gr/images/projects/vignettes/vignettes-social.png' },
+  ],
+})
 </script>
 
 <template>

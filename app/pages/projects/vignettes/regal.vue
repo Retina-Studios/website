@@ -17,7 +17,14 @@ const credits = [
   { role: 'Jewelry', name: '@fetish__official', href: 'https://www.instagram.com/fetish__official/' },
 ]
 
-useHead({ title: 'Regal | Retina Studios' })
+useHead({
+  title: 'Regal | Retina Studios',
+  meta: [
+    { property: 'og:image', content: 'https://retinastudios.gr/images/projects/vignettes/vignettes-social.png' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:image', content: 'https://retinastudios.gr/images/projects/vignettes/vignettes-social.png' },
+  ],
+})
 </script>
 
 <template>

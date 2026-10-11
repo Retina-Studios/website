@@ -8,7 +8,14 @@ const credits = [
   { role: 'Μακιγιάζ', name: 'Βασιλεία Καναρά', href: 'https://www.instagram.com/vasileiakanara/' },
   { role: 'Νύχια', name: 'Somfis', href: 'https://www.instagram.com/somfis_professional/' },
 ]
-useHead({ title: 'Retro Retina | Retina Studios' })
+useHead({
+  title: 'Retro Retina | Retina Studios',
+  meta: [
+    { property: 'og:image', content: 'https://retinastudios.gr/images/projects/vignettes/vignettes-social.png' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:image', content: 'https://retinastudios.gr/images/projects/vignettes/vignettes-social.png' },
+  ],
+})
 </script>
 
 <template>
