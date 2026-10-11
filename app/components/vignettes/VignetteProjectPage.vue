@@ -2,12 +2,15 @@
 type GalleryImage = {
   src: string
   alt?: string
+  video?: boolean
+  poster?: string
 }
 
 type Credit = {
   role: string
   name: string
   href?: string
+  links?: Array<{ name: string; href: string }>
 }
 
 type TeamMember = {
@@ -47,8 +50,9 @@ const props = defineProps<{
 const activeImageIndex = ref<number | null>(null)
 const isLightboxImageLoading = ref(false)
 const lightboxImageFailed = ref(false)
+const lightboxImages = computed(() => props.gallery.filter(image => !image.video))
 const activeImage = computed(() => (
-  activeImageIndex.value === null ? null : props.gallery[activeImageIndex.value]
+  activeImageIndex.value === null ? null : lightboxImages.value[activeImageIndex.value]
 ))
 
 function selectImage(index: number) {
@@ -57,8 +61,9 @@ function selectImage(index: number) {
   activeImageIndex.value = index
 }
 
-function openImage(index: number) {
-  selectImage(index)
+function openImage(image: GalleryImage) {
+  const index = lightboxImages.value.indexOf(image)
+  if (index !== -1) selectImage(index)
 }
 
 function closeLightbox() {
@@ -69,12 +74,12 @@ function closeLightbox() {
 
 function showPreviousImage() {
   if (activeImageIndex.value === null) return
-  selectImage((activeImageIndex.value - 1 + props.gallery.length) % props.gallery.length)
+  selectImage((activeImageIndex.value - 1 + lightboxImages.value.length) % lightboxImages.value.length)
 }
 
 function showNextImage() {
   if (activeImageIndex.value === null) return
-  selectImage((activeImageIndex.value + 1) % props.gallery.length)
+  selectImage((activeImageIndex.value + 1) % lightboxImages.value.length)
 }
 
 function handleLightboxImageLoad() {
@@ -115,23 +120,31 @@ function getOptimizedVignetteImage(src: string) {
       </h1>
     </section>
 
+    <slot name="project-description" />
+
     <section v-if="intro || gallery.length" class="story" :class="storyVariant ? `story--${storyVariant}` : ''">
       <p v-if="intro">{{ intro }}</p>
       <div class="gallery" :class="galleryLayout ? `gallery--${galleryLayout}` : ''">
-        <button
-          v-for="(image, index) in gallery"
-          :key="image.src"
-          type="button"
-          :aria-label="`Προβολή φωτογραφίας ${index + 1} σε πλήρη ανάλυση`"
-          @click="openImage(index)"
-        >
+        <template v-for="(image, index) in gallery" :key="image.src">
+          <div v-if="image.video" class="gallery-video">
+            <video controls playsinline preload="metadata" :poster="image.poster">
+              <source :src="image.src" type="video/mp4">
+            </video>
+          </div>
+          <button
+            v-else
+            type="button"
+            :aria-label="`Προβολή φωτογραφίας ${index + 1} σε πλήρη ανάλυση`"
+            @click="openImage(image)"
+          >
           <img
             :src="getOptimizedVignetteImage(image.src)"
             :alt="image.alt ?? ''"
             loading="lazy"
             decoding="async"
           />
-        </button>
+          </button>
+        </template>
       </div>
     </section>
 
@@ -174,7 +187,14 @@ function getOptimizedVignetteImage(src: string) {
         <template v-for="credit in credits" :key="`${credit.role}-${credit.name}`">
           <dt>{{ credit.role }}</dt>
           <dd>
-            <a v-if="credit.href" :href="credit.href" target="_blank" rel="noreferrer noopener">{{ credit.name }}</a>
+            <template v-if="credit.links?.length">
+              <template v-for="(link, index) in credit.links" :key="link.href">
+                <a :href="link.href" target="_blank" rel="noreferrer noopener">{{ link.name }}</a>
+                <br v-if="index === 2">
+                <template v-else-if="index < credit.links.length - 1"> · </template>
+              </template>
+            </template>
+            <a v-else-if="credit.href" :href="credit.href" target="_blank" rel="noreferrer noopener">{{ credit.name }}</a>
             <span v-else>{{ credit.name }}</span>
           </dd>
         </template>
@@ -233,10 +253,19 @@ function getOptimizedVignetteImage(src: string) {
 .story--retro { background: #f9d342; }
 .story--regal { background: #101924; color: #e0a476; }
 .story--cowgirl { background: #e8d7a1; }
+.story--all-eyes-on-her { background: #000; color: #fff; }
 .story > p { max-width: 720px; margin: 0 auto 48px; font-family: 'Playfair Display', 'Times New Roman', serif; font-size: 18px; line-height: 1.8; }
 .gallery { width: min(980px, calc(100% - 2rem)); margin: 0 auto; columns: 3 240px; column-gap: 12px; }
 .gallery button { display: block; width: 100%; margin: 0 0 12px; padding: 0; border: 0; background: none; cursor: zoom-in; break-inside: avoid; }
 .gallery img { width: 100%; display: block; }
+.gallery-video { width: 100%; margin: 0 0 12px; break-inside: avoid; }
+.gallery-video video { display: block; width: 100%; height: auto; }
+.gallery--two-columns { columns: unset; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.gallery--two-columns button, .gallery--two-columns .gallery-video { margin: 0; }
+.gallery--two-columns > :first-child { grid-column: 1 / -1; }
+.gallery--two-columns > :nth-child(2) { grid-column: 1 / -1; }
+.gallery--two-columns > :last-child { grid-column: 1 / -1; }
+.gallery--two-columns button:nth-child(6) { grid-row: span 2; }
 .gallery--regal { columns: unset; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .gallery--regal button { margin: 0; }
 .gallery--regal button:first-child,
@@ -268,6 +297,14 @@ function getOptimizedVignetteImage(src: string) {
 .credits--peaky dt { margin: 0 0 8px; font-size: 22px; font-weight: 900; line-height: 1.1; }
 .credits--peaky dd { margin: 0 0 16px; font-size: 20px; line-height: 1.1; }
 .credits--peaky a { color: #fff; }
+.credits--all-eyes-on-her { position: relative; width: 100%; box-sizing: border-box; min-height: 460px; padding: 72px max(calc((100% - 720px) / 2), 1rem); color: #fff; overflow: hidden; text-align: center; }
+.credits--all-eyes-on-her::before { position: absolute; inset: 0; z-index: 0; content: ''; background: linear-gradient(rgb(119 119 119 / .78), rgb(119 119 119 / .78)), url('/images/projects/vignettes/web/all-eyes-on-her/A86A9543.webp') center / cover no-repeat; filter: grayscale(100%); }
+.credits--all-eyes-on-her > * { position: relative; z-index: 1; }
+.credits--all-eyes-on-her h2 { display: none; }
+.credits--all-eyes-on-her dl { display: block; font-family: 'Playfair Display', 'Times New Roman', serif; }
+.credits--all-eyes-on-her dt { margin: 0 0 8px; font-size: 22px; font-weight: 900; line-height: 1.1; }
+.credits--all-eyes-on-her dd { margin: 0 0 16px; font-size: 20px; line-height: 1.1; }
+.credits--all-eyes-on-her a { color: #fff; }
 .credits--sweet { width: 100%; box-sizing: border-box; min-height: 683px; padding: 54px max(calc((100% - 395px) / 2), 1rem); background: #0b2f5b url('/images/projects/vignettes/web/sweet-pin-up/credits-bg.webp') center / cover no-repeat; color: #0b2f5b; text-align: center; }
 .credits--sweet h2 { display: none; }
 .credits--sweet dl { display: block; margin: 0; font-family: 'Playfair Display', 'Times New Roman', serif; }
@@ -317,5 +354,5 @@ function getOptimizedVignetteImage(src: string) {
 .lightbox-arrow--previous { left: 1rem; }
 .lightbox-arrow--next { right: 1rem; }
 @media (max-width: 640px) { .lightbox { padding: 1rem 3.5rem; } .lightbox-image { max-width: calc(100vw - 7rem); max-height: calc(100vh - 2rem); } .lightbox-arrow { padding: .4rem; font-size: 3rem; } .lightbox-arrow--previous { left: .25rem; } .lightbox-arrow--next { right: .25rem; } }
-@media (max-width: 640px) { .hero { min-height: 460px; } .story { padding: 48px 0; } .story > p { font-size: 16px; } .gallery { columns: 1; } .gallery--regal { display: grid; grid-template-columns: 1fr; } .gallery--regal button:first-child, .gallery--regal button:last-child { grid-column: auto; } .credits dl { grid-template-columns: 1fr; gap: 4px; } .credits dd { margin-bottom: 16px; } .team-section { min-width: 0; } .team-shell { padding: 48px 1rem; } .team-shell h2 { font-size: 38px; } .team-grid { grid-template-columns: 1fr; } .team-card { grid-template-columns: 120px 1fr; min-height: 0; } .team-card img { width: 120px; height: 120px; } .action-section, .bottom-project-nav { min-width: 0; } .action-shell { width: 100%; min-height: 0; margin: 0; grid-template-columns: 1fr; } .action-copy { padding: 48px 1rem; align-items: center; } .action-preview img { width: 100%; height: auto; } .bottom-shell { width: 100%; min-height: 180px; } .bottom-logo { width: min(220px, 60vw); height: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); } .bottom-logo img { width: 100%; height: auto; } .bottom-arrow { top: 50%; transform: translateY(-50%); } .bottom-arrow.left { left: 1rem; transform: translateY(-50%) rotate(180deg); } .bottom-arrow.right { right: 1rem; left: auto; } }
+@media (max-width: 640px) { .hero { min-height: 460px; } .story { padding: 48px 0; } .story > p { font-size: 16px; } .gallery { columns: 1; } .gallery--two-columns, .gallery--regal { display: grid; grid-template-columns: 1fr; } .gallery--two-columns > :first-child, .gallery--two-columns > :nth-child(2), .gallery--two-columns > :last-child { grid-column: auto; } .gallery--two-columns button:nth-child(6) { grid-row: auto; } .gallery--regal button:first-child, .gallery--regal button:last-child { grid-column: auto; } .credits dl { grid-template-columns: 1fr; gap: 4px; } .credits dd { margin-bottom: 16px; } .team-section { min-width: 0; } .team-shell { padding: 48px 1rem; } .team-shell h2 { font-size: 38px; } .team-grid { grid-template-columns: 1fr; } .team-card { grid-template-columns: 120px 1fr; min-height: 0; } .team-card img { width: 120px; height: 120px; } .action-section, .bottom-project-nav { min-width: 0; } .action-shell { width: 100%; min-height: 0; margin: 0; grid-template-columns: 1fr; } .action-copy { padding: 48px 1rem; align-items: center; } .action-preview img { width: 100%; height: auto; } .bottom-shell { width: 100%; min-height: 180px; } .bottom-logo { width: min(220px, 60vw); height: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); } .bottom-logo img { width: 100%; height: auto; } .bottom-arrow { top: 50%; transform: translateY(-50%); } .bottom-arrow.left { left: 1rem; transform: translateY(-50%) rotate(180deg); } .bottom-arrow.right { right: 1rem; left: auto; } }
 </style>

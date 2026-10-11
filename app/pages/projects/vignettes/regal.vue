@@ -39,11 +39,11 @@ useHead({
     credits-variant="regal"
     gallery-layout="regal"
     :previous="{ label: 'Cowgirl', to: '/projects/vignettes/cowgirl' }"
-    :next="{ label: 'Peaky Blinders', to: '/projects/vignettes/peakyblinders' }"
+    :next="{ label: 'All Eyes on Her', to: '/projects/vignettes/all-eyes-on-her' }"
     :project-browser="{
       image: '/images/projects/vignettes/peakyblinders/bottom-logo.png',
       previous: { label: 'Cowgirl', to: '/projects/vignettes/cowgirl' },
-      next: { label: 'Peaky Blinders', to: '/projects/vignettes/peakyblinders' },
+      next: { label: 'All Eyes on Her', to: '/projects/vignettes/all-eyes-on-her' },
     }"
   />
 </template>

@@ -47,10 +47,10 @@ useHead({
     action-preview="/images/projects/vignettes/peakyblinders/cta-image.png"
     :project-browser="{
       image: '/images/projects/vignettes/peakyblinders/bottom-logo.png',
-      previous: { label: 'Cowgirl', to: '/projects/vignettes/cowgirl' },
+      previous: { label: 'All Eyes on Her', to: '/projects/vignettes/all-eyes-on-her' },
       next: { label: 'Sweet Pin-up', to: '/projects/vignettes/sweet-pin-up' },
     }"
-    :previous="{ label: 'Cowgirl', to: '/projects/vignettes/cowgirl' }"
+    :previous="{ label: 'All Eyes on Her', to: '/projects/vignettes/all-eyes-on-her' }"
     :next="{ label: 'Sweet Pin-up', to: '/projects/vignettes/sweet-pin-up' }"
   />
 </template>

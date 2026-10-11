@@ -81,6 +81,14 @@ const projects: VignetteProject[] = [
     imagePosition: '50% 50%',
     tileHeight: 500,
   },
+  {
+    title: 'All Eyes on Her',
+    to: '/projects/vignettes/all-eyes-on-her',
+    image: '/images/projects/vignettes/all-eyes-on-her/A86A9439.jpg',
+    imageAlt: 'All Eyes on Her vignette',
+    imagePosition: '50% 50%',
+    tileHeight: 560,
+  },
 ]
 
 function getOptimizedVignetteImage(src: string) {
