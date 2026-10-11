@@ -45,26 +45,45 @@ const props = defineProps<{
 }>()
 
 const activeImageIndex = ref<number | null>(null)
+const isLightboxImageLoading = ref(false)
+const lightboxImageFailed = ref(false)
 const activeImage = computed(() => (
   activeImageIndex.value === null ? null : props.gallery[activeImageIndex.value]
 ))
 
-function openImage(index: number) {
+function selectImage(index: number) {
+  isLightboxImageLoading.value = true
+  lightboxImageFailed.value = false
   activeImageIndex.value = index
+}
+
+function openImage(index: number) {
+  selectImage(index)
 }
 
 function closeLightbox() {
   activeImageIndex.value = null
+  isLightboxImageLoading.value = false
+  lightboxImageFailed.value = false
 }
 
 function showPreviousImage() {
   if (activeImageIndex.value === null) return
-  activeImageIndex.value = (activeImageIndex.value - 1 + props.gallery.length) % props.gallery.length
+  selectImage((activeImageIndex.value - 1 + props.gallery.length) % props.gallery.length)
 }
 
 function showNextImage() {
   if (activeImageIndex.value === null) return
-  activeImageIndex.value = (activeImageIndex.value + 1) % props.gallery.length
+  selectImage((activeImageIndex.value + 1) % props.gallery.length)
+}
+
+function handleLightboxImageLoad() {
+  isLightboxImageLoading.value = false
+}
+
+function handleLightboxImageError() {
+  isLightboxImageLoading.value = false
+  lightboxImageFailed.value = true
 }
 
 function handleKeydown(event: KeyboardEvent) {
@@ -170,7 +189,9 @@ function getOptimizedVignetteImage(src: string) {
     <section v-if="projectBrowser" class="bottom-project-nav">
       <div class="bottom-shell">
         <NuxtLink :to="projectBrowser.previous.to" class="bottom-arrow left" :aria-label="projectBrowser.previous.label">❯</NuxtLink>
-        <img :src="getOptimizedVignetteImage(projectBrowser.image)" alt="" loading="lazy" decoding="async" />
+        <NuxtLink to="/projects/vignettes" class="bottom-logo" aria-label="Vignettes">
+          <img :src="getOptimizedVignetteImage(projectBrowser.image)" alt="" loading="lazy" decoding="async" />
+        </NuxtLink>
         <NuxtLink :to="projectBrowser.next.to" class="bottom-arrow right" :aria-label="projectBrowser.next.label">❯</NuxtLink>
       </div>
     </section>
@@ -179,7 +200,17 @@ function getOptimizedVignetteImage(src: string) {
       <div v-if="activeImage" class="lightbox" role="dialog" aria-modal="true" aria-label="Προβολή φωτογραφίας" @click.self="closeLightbox">
         <button class="lightbox-close" type="button" aria-label="Κλείσιμο" @click="closeLightbox">×</button>
         <button class="lightbox-arrow lightbox-arrow--previous" type="button" aria-label="Προηγούμενη φωτογραφία" @click="showPreviousImage">‹</button>
-        <img :src="activeImage.src" :alt="activeImage.alt ?? ''" />
+        <div v-if="isLightboxImageLoading" class="lightbox-status" role="status">Φόρτωση φωτογραφίας…</div>
+        <div v-else-if="lightboxImageFailed" class="lightbox-status" role="alert">Η φωτογραφία δεν ήταν δυνατό να φορτωθεί.</div>
+        <img
+          :key="activeImage.src"
+          class="lightbox-image"
+          :class="{ 'lightbox-image--loading': isLightboxImageLoading }"
+          :src="activeImage.src"
+          :alt="activeImage.alt ?? ''"
+          @load="handleLightboxImageLoad"
+          @error="handleLightboxImageError"
+        />
         <button class="lightbox-arrow lightbox-arrow--next" type="button" aria-label="Επόμενη φωτογραφία" @click="showNextImage">›</button>
       </div>
     </Teleport>
@@ -265,17 +296,20 @@ function getOptimizedVignetteImage(src: string) {
 .project-nav a { color: inherit; text-decoration: none; font-family: 'RetinaGeo', Arial, sans-serif; }
 .bottom-project-nav { min-width: 980px; background: #000 url('/images/projects/vignettes/web/bottom-bg.webp') center / cover no-repeat; }
 .bottom-shell { width: 980px; min-height: 296px; margin: 0 auto; position: relative; }
-.bottom-shell img { position: absolute; left: 285px; top: 93px; width: 410px; height: 109px; object-fit: cover; }
+.bottom-logo { position: absolute; left: 285px; top: 93px; display: block; width: 410px; height: 109px; }
+.bottom-shell img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .bottom-arrow { position: absolute; top: 131px; width: 33px; height: 100px; display: inline-flex; align-items: center; justify-content: center; color: #ab1c52; font-size: 56px; line-height: 1; text-decoration: none; }
 .bottom-arrow.left { left: 126px; transform: rotate(180deg); }
 .bottom-arrow.right { left: 821px; }
-.lightbox { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 5rem; background: rgb(0 0 0 / .9); }
-.lightbox img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+.lightbox { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 5rem; background: rgb(0 0 0 / .9); }
+.lightbox-image { display: block; max-width: calc(100vw - 10rem); max-height: calc(100vh - 10rem); object-fit: contain; }
+.lightbox-image--loading { visibility: hidden; }
+.lightbox-status { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: #fff; font-family: 'RetinaProxima', Arial, sans-serif; font-size: 1rem; }
 .lightbox-close, .lightbox-arrow { position: absolute; border: 0; background: transparent; color: #fff; cursor: pointer; line-height: 1; }
 .lightbox-close { top: 1.5rem; right: 1.5rem; font-size: 3rem; }
 .lightbox-arrow { top: 50%; transform: translateY(-50%); padding: 1rem; font-size: 4rem; }
 .lightbox-arrow--previous { left: 1rem; }
 .lightbox-arrow--next { right: 1rem; }
-@media (max-width: 640px) { .lightbox { padding: 1rem 3.5rem; } .lightbox-arrow { padding: .4rem; font-size: 3rem; } .lightbox-arrow--previous { left: .25rem; } .lightbox-arrow--next { right: .25rem; } }
-@media (max-width: 640px) { .hero { min-height: 460px; } .story { padding: 48px 0; } .story > p { font-size: 16px; } .gallery { columns: 1; } .gallery--regal { display: grid; grid-template-columns: 1fr; } .gallery--regal button:first-child, .gallery--regal button:last-child { grid-column: auto; } .credits dl { grid-template-columns: 1fr; gap: 4px; } .credits dd { margin-bottom: 16px; } .team-section { min-width: 0; } .team-shell { padding: 48px 1rem; } .team-shell h2 { font-size: 38px; } .team-grid { grid-template-columns: 1fr; } .team-card { grid-template-columns: 120px 1fr; min-height: 0; } .team-card img { width: 120px; height: 120px; } .action-section, .bottom-project-nav { min-width: 0; } .action-shell { width: 100%; min-height: 0; margin: 0; grid-template-columns: 1fr; } .action-copy { padding: 48px 1rem; align-items: center; } .action-preview img { width: 100%; height: auto; } .bottom-shell { width: 100%; min-height: 180px; } .bottom-shell img { width: min(220px, 60vw); height: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); } .bottom-arrow { top: 50%; transform: translateY(-50%); } .bottom-arrow.left { left: 1rem; transform: translateY(-50%) rotate(180deg); } .bottom-arrow.right { right: 1rem; left: auto; } }
+@media (max-width: 640px) { .lightbox { padding: 1rem 3.5rem; } .lightbox-image { max-width: calc(100vw - 7rem); max-height: calc(100vh - 2rem); } .lightbox-arrow { padding: .4rem; font-size: 3rem; } .lightbox-arrow--previous { left: .25rem; } .lightbox-arrow--next { right: .25rem; } }
+@media (max-width: 640px) { .hero { min-height: 460px; } .story { padding: 48px 0; } .story > p { font-size: 16px; } .gallery { columns: 1; } .gallery--regal { display: grid; grid-template-columns: 1fr; } .gallery--regal button:first-child, .gallery--regal button:last-child { grid-column: auto; } .credits dl { grid-template-columns: 1fr; gap: 4px; } .credits dd { margin-bottom: 16px; } .team-section { min-width: 0; } .team-shell { padding: 48px 1rem; } .team-shell h2 { font-size: 38px; } .team-grid { grid-template-columns: 1fr; } .team-card { grid-template-columns: 120px 1fr; min-height: 0; } .team-card img { width: 120px; height: 120px; } .action-section, .bottom-project-nav { min-width: 0; } .action-shell { width: 100%; min-height: 0; margin: 0; grid-template-columns: 1fr; } .action-copy { padding: 48px 1rem; align-items: center; } .action-preview img { width: 100%; height: auto; } .bottom-shell { width: 100%; min-height: 180px; } .bottom-logo { width: min(220px, 60vw); height: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); } .bottom-logo img { width: 100%; height: auto; } .bottom-arrow { top: 50%; transform: translateY(-50%); } .bottom-arrow.left { left: 1rem; transform: translateY(-50%) rotate(180deg); } .bottom-arrow.right { right: 1rem; left: auto; } }
 </style>
