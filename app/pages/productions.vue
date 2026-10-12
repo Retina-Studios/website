@@ -44,7 +44,7 @@ const trailers: TrailerCard[] = [
   {
     title: 'ΜΙΑ ΑΝΑΣΑ (2025) | Trailer',
     duration: '00:30',
-    image: '/images/productions/optimized/trailer-1.jpg',
+    image: '/images/productions/optimized/anasa-23-chania.webp',
     href: 'https://player.vimeo.com/video/1113288004',
   },
   {
@@ -60,6 +60,9 @@ const trailers: TrailerCard[] = [
     href: 'https://player.vimeo.com/video/1113287728',
   },
 ]
+
+const featuredTrailer = trailers[0]
+const remainingTrailers = trailers.slice(1)
 
 const socialLinks: SocialLink[] = [
   {
@@ -214,9 +217,32 @@ useHead({
             .
           </p>
 
-          <div class="trailers-grid">
+          <div v-if="featuredTrailer" class="lab-feature">
+            <figure class="featured-poster">
+              <img
+                :src="featuredTrailer.image"
+                :alt="featuredTrailer.title"
+                width="275"
+                height="154"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+            <div class="lab-feature-copy">
+              <img class="lab-feature-logo" src="/images/productions/cff-14kotinos-white.png" alt="CFF 14 Kotinos" />
+              <p class="lab-feature-announcement">
+                We’re thrilled that one of the films we produced during the 2025 Drama Film Lab, <em>Μια Ανάσα</em>, has received an Official Selection at Chania Film Festival 2026.
+              </p>
+              <blockquote>
+                Haris cares for her elderly mother, who lives with dementia, as responsibility and unspoken dependence constrict her world. An unexpected opportunity forces Haris to confront her longing for room to breathe. The film traces the fragile balance between devotion and personal freedom, and the quiet changes that can transform a life.
+              </blockquote>
+              <a class="lab-feature-button" href="https://www.youtube.com/watch?v=RkgcXUX_ffQ" target="_blank" rel="noreferrer noopener">Watch movie <span aria-hidden="true">&gt;</span></a>
+            </div>
+          </div>
+
+          <div class="trailers-grid trailers-grid--remaining">
             <a
-              v-for="trailer in trailers"
+              v-for="trailer in remainingTrailers"
               :key="trailer.title"
               class="trailer-card"
               :href="trailer.href"
@@ -328,7 +354,7 @@ useHead({
   left: 308px;
   top: 32px;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   gap: 0.1rem;
 }
@@ -626,12 +652,84 @@ useHead({
 }
 
 .trailers-grid {
-  margin-top: 0;
+  margin-top: 36px;
   margin-bottom: 37px;
   display: grid;
-  grid-template-columns: repeat(3, 300px);
-  justify-content: space-between;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
+}
+
+.lab-feature {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 20px;
+}
+
+.lab-feature-copy {
+  font-family: 'RetinaProxima', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.lab-feature-copy blockquote {
+  width: auto;
+  margin: 0;
+  padding-left: 22px;
+  border-left: 2px solid #fff;
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-size: 22px;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.lab-feature-button {
+  display: inline-flex;
+  gap: 1.4rem;
+  align-items: center;
+  margin: 24px 0 0 24px;
+  padding: .85rem 1.15rem;
+  border: 1px solid #fff;
+  color: #fff;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
+  font-size: 15px;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color .25s ease, color .25s ease;
+}
+
+.lab-feature-button:hover {
+  background: #fff;
+  color: #111;
+}
+
+.featured-poster {
+  margin: 0;
+  justify-self: start;
+}
+
+.featured-poster img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 540px;
+  object-fit: cover;
+}
+
+.lab-feature-logo {
+  display: block;
+  width: min(180px, 100%);
+  height: auto;
+  margin: 0 0 24px;
+}
+
+.lab-feature-copy .lab-feature-announcement {
+  width: auto;
+  margin: 0 0 24px 24px;
+  font-family: 'RetinaGeo', 'Arial Narrow', sans-serif;
+  font-size: 18px;
+  line-height: 1.45;
+  text-align: left;
 }
 
 .trailer-card {
@@ -879,6 +977,17 @@ useHead({
   .trailers-grid {
     grid-template-columns: 1fr;
     justify-content: stretch;
+  }
+
+  .lab-feature {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .featured-poster img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
   }
 
   .trailer-card h3 {
