@@ -107,8 +107,8 @@ useHead({
   title: 'Φωτογραφίσεις "Vignettes" | Retina Studios',
   meta: [
     { property: 'og:image', content: 'https://retinastudios.gr/images/projects/vignettes/vignettes-social.png' },
-    { property: 'og:image:width', content: '1200' },
-    { property: 'og:image:height', content: '630' },
+    { property: 'og:image:width', content: '711' },
+    { property: 'og:image:height', content: '372' },
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:image', content: 'https://retinastudios.gr/images/projects/vignettes/vignettes-social.png' },
   ],
