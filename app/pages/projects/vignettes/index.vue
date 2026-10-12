@@ -145,6 +145,7 @@ useHead({
                   :style="{ objectPosition: project.imagePosition }"
                   loading="lazy"
                 />
+                <span class="image-cta">Δείτε το project <span aria-hidden="true">→</span></span>
               </NuxtLink>
             </article>
           </div>
@@ -357,10 +358,12 @@ useHead({
 }
 
 .image-column {
+  position: relative;
   display: block;
   width: 100%;
   height: var(--tile-height);
   margin: 0;
+  overflow: hidden;
 }
 
 .image-column img {
@@ -368,6 +371,33 @@ useHead({
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform .35s ease;
+}
+
+.image-cta {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  display: inline-flex;
+  gap: 1.2rem;
+  align-items: center;
+  padding: .85rem 1.15rem;
+  background: #fff;
+  color: #111;
+  font-family: 'RetinaGeo', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color .25s ease, color .25s ease;
+}
+
+.image-column:hover img {
+  transform: scale(1.025);
+}
+
+.image-column:hover .image-cta {
+  background: #111;
+  color: #fff;
 }
 
 .image-column:focus-visible {
