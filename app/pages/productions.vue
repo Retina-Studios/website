@@ -64,6 +64,14 @@ const trailers: TrailerCard[] = [
 const featuredTrailer = trailers[0]
 const remainingTrailers = trailers.slice(1)
 
+const filmLab2026Posters = [
+  { image: '/images/productions/film-lab-2026/poster-1.webp', alt: 'Για Μια Στιγμή' },
+  { image: '/images/productions/film-lab-2026/poster-2.webp', alt: 'Η Μετάθεση' },
+  { image: '/images/productions/film-lab-2026/poster-3.webp', alt: 'Λεβάντα' },
+  { image: '/images/productions/film-lab-2026/poster-4.webp', alt: 'Το Σακάκι' },
+  { image: '/images/productions/film-lab-2026/poster-5.webp', alt: 'Το Ταξί' },
+]
+
 const socialLinks: SocialLink[] = [
   {
     label: 'Instagram',
@@ -157,9 +165,9 @@ useHead({
           <div class="pulse-copy">
             <h2>THE PULSE WITHIN US (2020)</h2>
             <p>
-              The Pulse Within Us is a short film that explores the human condition through the
+              The Pulse Within Us is a short film by Maria Michael that explores the human condition through the
               lens of a young woman's journey of self-discovery. Set against the backdrop of a
-              bustling city, the film delves into themes of identity, connection, and the search for
+              bustling city, New York, the film delves into themes of identity, connection, and the search for
               meaning in modern life.
             </p>
             <p>
@@ -168,25 +176,8 @@ useHead({
               meditation on the human spirit and the resilience that lies within each of us.
             </p>
             <p>
-              The film's director, Maria Michael, won the Best New Film Director Award in Athens
-              Marathon International Film Festival in 2021.
+              The film won numerous accolades in 2021 including Best New Film Director Award in Athens Marathon International Film Festival, Finalist in Sunset Film Festival Los Angeles, Semi - Finalist in TiSFF * Thess International Shorts, Honorable Mention in Athens International Monthly Art Film Festival, and a number of Official Selections in festivals all around the world.
             </p>
-            <p class="inline-link">
-              Read more about the film
-              <a href="https://thepulsewithinusshort.com/" target="_blank" rel="noreferrer noopener">here</a>.
-            </p>
-          </div>
-
-          <div class="pulse-video" aria-label="The Pulse Within Us">
-            <img
-              src="/images/productions/optimized/pulse-video-cover.jpg"
-              alt="The Pulse Within Us"
-              width="668"
-              height="376"
-              loading="lazy"
-              decoding="async"
-            />
-            <span class="pulse-play" aria-hidden="true"></span>
           </div>
         </div>
       </section>
@@ -199,11 +190,11 @@ useHead({
           </h2>
           <p>
             Retina Studios participated in Drama Film Lab 2025, organized by the 48th
-            International Short Film Festival of Drama. The workshop lasted 4 months, from
+            International Short Film Festival of Drama. The workshop lasted 5 months, from
             February to June, with screenwriter and professor of the Aristotle University of
             Thessaloniki Panagiotis Iosifelis and director Vasilis Loules as lecturers. The
             participants were divided into groups by project and submitted nine short films. Retina
-            Studios produced three of them: <em>One Breath, Don't Be Afraid, The Bird and the Cage</em>.
+            Studios produced three of them: <em>A Breath, Don't Be Afraid, The Bird and the Cage</em>.
           </p>
           <p class="inline-link">
             Read more about the workshop
@@ -262,6 +253,26 @@ useHead({
               </figure>
               <h3>{{ trailer.title }}</h3>
             </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="lab-section lab-section--2026">
+        <div class="productions-shell">
+          <h2>Drama Film Lab 2026</h2>
+          <p class="lab-2026-copy">
+            In the 2026 Drama Film Lab, while Retina Studios did not produce a film, it offered production management services to most films and also helped in many areas as a crew.
+          </p>
+          <div class="lab-2026-posters">
+            <img
+              v-for="poster in filmLab2026Posters"
+              :key="poster.image"
+              :src="poster.image"
+              :alt="poster.alt"
+              height="240"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
         </div>
       </section>
@@ -591,64 +602,39 @@ useHead({
   text-decoration: underline;
 }
 
-.pulse-video {
-  width: 668px;
-  height: 376px;
-  margin-left: 156px;
-  margin-bottom: 51px;
-  border: 0;
-  background: #000;
-  overflow: hidden;
-  position: relative;
-}
-
-.pulse-video img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-}
-
-.pulse-video::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.25);
-}
-
-.pulse-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 50px;
-  height: 50px;
-  border: 2px solid #fff;
-  border-radius: 999px;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  display: grid;
-  place-items: center;
-}
-
-.pulse-play::before {
-  content: '';
-  width: 0;
-  height: 0;
-  border-top: 7px solid transparent;
-  border-bottom: 7px solid transparent;
-  border-left: 11px solid #fff;
-  margin-left: 4px;
-}
-
 .lab-section {
   background: #111;
   padding: 86px 0 56px;
+}
+
+.lab-section--2026 {
+  padding-top: 0;
 }
 
 .lab-section h2,
 .lab-section p {
   margin-left: 106px;
   width: min(805px, 100%);
+}
+
+.lab-2026-copy {
+  margin-bottom: 36px !important;
+}
+
+.lab-2026-posters {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.lab-2026-posters img {
+  display: block;
+  width: auto;
+  height: 240px;
+  flex: 0 0 auto;
 }
 
 .trailers-grid {
@@ -962,16 +948,13 @@ useHead({
     width: auto;
   }
 
-  .pulse-video {
-    width: 100%;
-    height: auto;
-    margin-left: 0;
-    aspect-ratio: 668 / 376;
-  }
-
   .lab-section h2,
   .lab-section p {
     margin-left: 0;
+  }
+
+  .lab-2026-posters img {
+    height: 200px;
   }
 
   .trailers-grid {
