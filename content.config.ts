@@ -3,6 +3,17 @@ import { z } from 'zod'
 
 import { equipmentCategoryKeys } from './app/data/equipmentCategories'
 
+const blogSchema = z.object({
+  title: z.string(),
+  draft: z.boolean().default(false),
+  publishedAt: z.string(),
+  dateLabel: z.string(),
+  readTimeLabel: z.string(),
+  cardImage: z.string(),
+  cardAlt: z.string(),
+  heroImage: z.string(),
+})
+
 export default defineContentConfig({
   collections: {
     rentals: defineCollection({
@@ -23,15 +34,7 @@ export default defineContentConfig({
     blog: defineCollection({
       type: 'page',
       source: 'blog/**/*.md',
-      schema: z.object({
-        title: z.string(),
-        publishedAt: z.string(),
-        dateLabel: z.string(),
-        readTimeLabel: z.string(),
-        cardImage: z.string(),
-        cardAlt: z.string(),
-        heroImage: z.string(),
-      }),
+      schema: blogSchema,
     }),
     pages: defineCollection({
       type: 'page',

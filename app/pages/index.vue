@@ -57,6 +57,7 @@ function getBlogRouteSlug(path: string) {
 
 const latestPosts = computed(() =>
   [...(blogDocuments.value ?? [])]
+    .filter((post) => !post.draft)
     .sort((left, right) => right.publishedAt.localeCompare(left.publishedAt))
     .slice(0, 3)
     .map((post) => ({

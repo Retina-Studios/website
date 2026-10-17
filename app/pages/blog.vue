@@ -14,6 +14,7 @@ function getBlogRouteSlug(path: string) {
 
 const blogPostCards = computed(() =>
   [...(blogDocuments.value ?? [])]
+    .filter((post) => !post.draft)
     .sort((left, right) => right.publishedAt.localeCompare(left.publishedAt))
     .map((post) => ({
       title: post.title,
@@ -126,6 +127,7 @@ useHead({
 .blog-main {
   background: #fff;
 }
+
 
 .blog-feed-section {
   width: 980px;
